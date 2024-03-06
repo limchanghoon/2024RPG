@@ -10,6 +10,11 @@ public class AddressableManager : MonoSingleton<AddressableManager>
     //public Dictionary<string, Sprite> spiteCache = new Dictionary<string, Sprite>();
     //public Dictionary<string, string> itemDescriptionCache = new Dictionary<string, string>();
 
+    private void Start()
+    {
+        LoadItemDescription("1");
+    }
+
     public void LoadSprite(string address_str, Image targetImage)
     {
         /*

@@ -29,7 +29,7 @@ public class InventoryUI : MonoBehaviour
         InventoryReDrawAll();
         EquipmentWindowReDrawAll();
         GoldTextUpdate();
-        btn_Close.onClick.AddListener(GameManager.Instance.inputManager.ToggleInventory);
+        btn_Close.onClick.AddListener(FindAnyObjectByType<InputManager>().ToggleInventory);
     }
 
 

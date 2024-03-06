@@ -31,10 +31,14 @@ public class TargetRay : MonoBehaviour
     bool isLeft;
     Vector3 screenCenter;
 
+    // custom
+    InputManager inputManager;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
         thirdPersonController = GetComponent<ThirdPersonController>();
+        inputManager = FindAnyObjectByType<InputManager>();
 
         if (_mainCamera == null)
         {
@@ -50,7 +54,7 @@ public class TargetRay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.Instance.canControl())
+        if(inputManager.canControl())
             UpdeteForInput();
 
         if (thirdPersonController.stop)

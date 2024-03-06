@@ -18,6 +18,8 @@ public class InputManager : MonoBehaviour
     }
 
     int depth = 0;
+
+
     public bool canControl()
     {
         if (depth > 0) return false;

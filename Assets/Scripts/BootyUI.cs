@@ -7,7 +7,13 @@ using UnityEngine.UI;
 public class BootyUI : MonoBehaviour
 {
     Booty m_booty;
+    [SerializeField] Canvas bootyUICanvas;
     [SerializeField] GameObject bootyItemPanel;
+
+    private void Awake()
+    {
+        GameManager.Instance.bootyUI = this;
+    }
 
     public void SetUI(Booty newBooty)
     {
@@ -40,7 +46,7 @@ public class BootyUI : MonoBehaviour
 
     public void SetActive(bool _active) 
     {
-        gameObject.SetActive(_active);
+        bootyUICanvas.enabled = _active;
     }
 
     public void RemoveTopBooty()
@@ -56,7 +62,7 @@ public class BootyUI : MonoBehaviour
         {
             Destroy(m_booty.gameObject);
             m_booty = null;
-            gameObject.SetActive(false);
+            bootyUICanvas.enabled = false;
         }
     }
 }

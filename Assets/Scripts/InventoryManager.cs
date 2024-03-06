@@ -32,6 +32,13 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        GameManager.Instance.inventoryManager = this;
+        MyJsonManager.LoadInventory();
+    }
+
+
     public void EarnGold(int newGold)
     {
         gold.gold += newGold;
