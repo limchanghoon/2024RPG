@@ -10,9 +10,6 @@ public class TargetRay : MonoBehaviour
     //public Transform target_tr;
     public Transform player_tr;
 
-    //public Transform checkTr;
-    public RectTransform worldCanvasRectTransform;
-
     public GameObject redEnergyExplosion;
 
     Animator animator;
@@ -63,14 +60,9 @@ public class TargetRay : MonoBehaviour
             float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                 RotationSmoothTime);
 
-            // rotate to face input direction relative to camera position
+            // 타겟을 보도록 회전
             transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
         }
-    }
-
-    private void LateUpdate()
-    {
-        worldCanvasRectTransform.forward = _mainCamera.transform.forward;
     }
 
     private void UpdeteForInput()

@@ -8,11 +8,12 @@ public class ScriptableEquipmentItemData : ScriptableItemData
     [Header("Equipment Fields")]
     public int attackPower = 0;
     public int plusMaxHP = 0;
+    public float criticalPer;
     public EquipmentType equipmentType;
 
     public override string GetString()
     {
-        return $"ID : {id}\nType : {itemType}\nAttack Power : {attackPower}\n+MaxHP : {plusMaxHP}";
+        return $"ID : {id}\nType : {itemType}\nAttack Power : {attackPower}\n+MaxHP : {plusMaxHP}\n+Critical Percentage : {criticalPer}";
     }
 
     public override ItemData ToItemData()

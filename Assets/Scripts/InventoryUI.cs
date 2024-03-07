@@ -21,6 +21,7 @@ public class InventoryUI : MonoBehaviour
     public GameObject expandedWindow;
     public TextMeshProUGUI attackPowerText;
     public TextMeshProUGUI maxHPText;
+    public TextMeshProUGUI criPerText;
 
     private void Awake()
     {
@@ -118,10 +119,11 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateStatWindow()
     {
-        var tempStat = GameManager.Instance.inventoryManager.GetEquipmentwindowTotalStat();
+        var tempStat = GameManager.Instance.playerStatManager.GetPlayerStat();
 
         attackPowerText.text = "Attack Power : " + tempStat.attackPower.ToString();
         maxHPText.text = "MaxHP : " + tempStat.plusMaxHP.ToString();
+        criPerText.text = "Critical Percentage : " + tempStat.criticalPer.ToString();
     }
 
     public void ToggleExpandedWindow(Toggle toggle)

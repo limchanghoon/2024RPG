@@ -33968,8 +33968,10 @@ MonoBehaviour:
     type: 3}
   ball: {fileID: 3669341410986120671}
   trailDistortion: {fileID: 9107436556905040457}
+  powerCoefficient: 1
   speed: 30
   radius: 0.2
+  m_attackAttribute: 1
 --- !u!114 &5963207182375489237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33982,6 +33984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17377304cc5bc84aba4fd45b627dc9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!1 &9100983771218083487
 GameObject:
   m_ObjectHideFlags: 0

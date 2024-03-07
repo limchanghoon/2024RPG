@@ -119,9 +119,9 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public PlayerStat GetEquipmentwindowTotalStat()
+    public PlayerStatData GetEquipmentwindowTotalStat()
     {
-        var totalStat = new PlayerStat();
+        var totalStat = new PlayerStatData();
         for (int i = 0; i < equipmentWindowSize; ++i)
         {
             totalStat.Add(equipmentWindowItems[i]);
@@ -130,13 +130,5 @@ public class InventoryManager : MonoBehaviour
     }
 
     [ContextMenu("Save")]
-    public void SaveData()
-    {
-        MyJsonManager.SaveInventory();
-    }
-
-    public void ReLoadScene(int num)
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(num);
-    }
+    public void SaveData() => MyJsonManager.SaveInventory();
 }

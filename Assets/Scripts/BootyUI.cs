@@ -53,7 +53,10 @@ public class BootyUI : MonoBehaviour
     {
         int lastIndex = m_booty.curIndex + bootyItemPanel.transform.childCount - 1;
         if (lastIndex < m_booty.itemDatas.Length)
-            bootyItemPanel.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "ID : " + m_booty.itemDatas[m_booty.curIndex + bootyItemPanel.transform.childCount - 1].id;
+        {
+            AddressableManager.Instance.LoadSprite(m_booty.itemDatas[lastIndex].id.ToString(), bootyItemPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>());
+            bootyItemPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = m_booty.itemDatas[lastIndex].GetName();
+        }
         else
             bootyItemPanel.transform.GetChild(0).gameObject.SetActive(false);
         bootyItemPanel.transform.GetChild(0).SetAsLastSibling();

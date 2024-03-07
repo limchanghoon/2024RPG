@@ -18,4 +18,5 @@ MonoBehaviour:
   itemDescription: It is a sacred staff used by priests.
   attackPower: 10
   plusMaxHP: 0
+  criticalPer: 0.5
   equipmentType: 0

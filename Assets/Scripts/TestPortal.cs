@@ -9,6 +9,7 @@ public class TestPortal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag != "Player") return;
         //юс╫ц
         MyJsonManager.SaveInventory();
         SceneManager.LoadScene(targetSceneID);

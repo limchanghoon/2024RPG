@@ -18,4 +18,5 @@ MonoBehaviour:
   itemDescription: It is a magician's staff with tremendous mana.
   attackPower: 20
   plusMaxHP: 0
+  criticalPer: 0.5
   equipmentType: 0

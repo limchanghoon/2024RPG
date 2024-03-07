@@ -3,37 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HPController : MonoBehaviour
+public class HPController_Player : MonoBehaviour, IHit
 {
     [SerializeField] int maxHP;
     [SerializeField] int currentHP;
 
-    [SerializeField] GameObject booty;
-    [SerializeField] ObjectPoolManager objectPoolManager;
-    GameObject obj;
-    Slider hpBar;
+    [SerializeField] Slider hpBar;
 
     private void Start()
     {
         currentHP = maxHP;
-        obj = objectPoolManager.GetObject(ObjectPoolType.HPBar);
-        obj.GetComponent<FollowTarget>().SetTarget(transform.GetChild(0));
-        hpBar = obj.GetComponent<Slider>();
         hpBar.value = (float)currentHP / maxHP;
     }
 
-    public void Hit(int dmg)
+    public void Hit(int dmg, AttackAttribute attackAttribute, bool isCri)
     {
         if (currentHP <= 0) return;
+        GameManager.Instance.objectPoolManager.GetObject(ObjectPoolType.DamageText).GetComponent<DamageText>().SetAndActive(dmg, transform.position, attackAttribute, isCri);
         //Debug.Log($"{gameObject.name} : Hit {dmg.ToString()}!");
         currentHP = currentHP < dmg ? 0 : currentHP - dmg;
         hpBar.value = (float)currentHP / maxHP;
         if (currentHP <= 0)
         {
-            obj.GetComponent<PoolingObject>().DestroyObject();
             //Debug.Log($"{gameObject.name} : Die");
-            Instantiate(booty, transform.position + Vector3.up, Quaternion.identity);
-            Destroy(gameObject);
         }
     }
 }

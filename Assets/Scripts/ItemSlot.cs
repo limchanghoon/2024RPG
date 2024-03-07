@@ -8,7 +8,7 @@ public abstract class ItemSlot : MonoBehaviour, IDropHandler
     [SerializeField] protected int slotIndex;
     public ItemType itemType;
 
-    private void Awake()
+    public void SetSlotIndex()
     {
         slotIndex = transform.GetSiblingIndex();
     }

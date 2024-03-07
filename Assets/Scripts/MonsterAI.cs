@@ -15,10 +15,13 @@ public class MonsterAI : MonoBehaviour
     [SerializeField] float search_radius;
     [SerializeField] float sqrAttackRange;
 
+    [SerializeField] int attackPower;
     [SerializeField] Vector3 attackCenter;
     [SerializeField] Vector3 attackSize;
 
-    [SerializeField] MonsterState monsterState = MonsterState.StartIdle;
+    [SerializeField] AttackAttribute m_attackAttribute;
+
+    MonsterState monsterState = MonsterState.StartIdle;
 
     private void Awake()
     {
@@ -110,7 +113,7 @@ public class MonsterAI : MonoBehaviour
         {
             if (colliders[i].tag == "Player")
             {
-                //Debug.Log("Hit");
+                colliders[i].GetComponent<IHit>().Hit(attackPower, m_attackAttribute, false);
             }
         }
     }

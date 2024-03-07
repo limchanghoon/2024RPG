@@ -8,7 +8,8 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void Awake()
     {
-        for(int i = 0; i < transform.childCount; i++)
+        GameManager.Instance.objectPoolManager = this;
+        for (int i = 0; i < transform.childCount; i++)
         {
             var myObjPool = transform.GetChild(i).GetComponent<MyObjectPool>();
             objectPoolDic.Add(myObjPool.objectPoolType, transform.GetChild(i).GetComponent<MyObjectPool>());
@@ -24,5 +25,5 @@ public class ObjectPoolManager : MonoBehaviour
 
 public enum ObjectPoolType
 {
-    HPBar
+    DamageText
 }

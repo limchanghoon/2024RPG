@@ -15,6 +15,7 @@ public class AreaAttack : MonoBehaviour
     float buffValueInv;
     [SerializeField] Color clr;
     Color invClr;
+    [SerializeField] AttackAttribute m_attackAttribute;
 
     private void Awake()
     {
@@ -30,7 +31,10 @@ public class AreaAttack : MonoBehaviour
             var cols = Physics.OverlapCapsule(transform.position - halfHeight * Vector3.up, transform.position + halfHeight * Vector3.up, radius, 1 << LayerMask.NameToLayer("Monster"));
             for (int i = 0; i < cols.Length; i++)
             {
-                cols[i].GetComponent<HPController>()?.Hit(damage);
+                bool isCri;
+                int _damage = damage;
+                MyMathf.IsCritical(GameManager.Instance.playerStatManager.GetPlayerStat().criticalPer, ref _damage, out isCri);
+                cols[i].GetComponent<IHit>()?.Hit(_damage, m_attackAttribute, isCri);
             }
             yield return new WaitForSeconds(interval);
         }

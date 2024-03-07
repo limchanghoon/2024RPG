@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 public class MyObjectPool : MonoBehaviour
 {
     public ObjectPoolType objectPoolType;
-    [SerializeField, Min(1)] int myMaxSize = 1;
+    [SerializeField, Min(1)] int myMaxSize;
     [SerializeField] Transform objectParent;
     [SerializeField] GameObject objectPrefab;
     IObjectPool<GameObject> pool;
@@ -14,6 +14,17 @@ public class MyObjectPool : MonoBehaviour
     protected virtual void Awake()
     {
         pool = new ObjectPool<GameObject>(OnCreateObject, OnGetObject, OnReleaseObject, OnDestoryObject, maxSize: myMaxSize);
+
+        GameObject[] poolingObjects = new GameObject[myMaxSize];
+        for (int i = 0; i < myMaxSize; i++)
+        {
+            poolingObjects[i] = CreateOjbect();
+        }
+
+        for (int i = 0; i < myMaxSize; i++)
+        {
+            poolingObjects[i].GetComponent<PoolingObject>().DestroyObject();
+        }
     }
 
     public GameObject CreateOjbect()

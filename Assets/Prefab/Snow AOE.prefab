@@ -9849,6 +9849,7 @@ MonoBehaviour:
   halfHeight: 3
   buffValue: 0.5
   clr: {r: 0.21176471, g: 0.29803923, b: 1, a: 0}
+  m_attackAttribute: 1
 --- !u!1 &3340405831355010171
 GameObject:
   m_ObjectHideFlags: 0
