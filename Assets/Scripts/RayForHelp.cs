@@ -17,15 +17,16 @@ public class RayForHelp : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.Instance.rayForHelp = this;
         if (_mainCamera == null)
         {
-            _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            _mainCamera = Camera.main;
         }
     }
 
     private void Start()
     {
-        layerMask = (-1) - (1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Magic"));
+        layerMask = (-1) - (1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Magic") | LayerMask.NameToLayer("Ignore Raycast"));
         screenCenter = new Vector2(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
     }
 
@@ -51,9 +52,9 @@ public class RayForHelp : MonoBehaviour
     {
         Ray ray = _mainCamera.ScreenPointToRay(screenCenter);
         RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, range, layerMask))
-        {
+        float _range = range;
+        if (Physics.Raycast(ray, out hit, _range, layerMask))
+        {       
             HelpForRay temp = hit.transform.GetComponent<HelpForRay>();
             if (temp == null)
             {
@@ -74,5 +75,21 @@ public class RayForHelp : MonoBehaviour
             _help.CloseHelp();
             _help = null;
         }
+    }
+
+    public void TurnOff()
+    {
+        if (_help != null)
+            _help.CloseHelp();
+        _help = null;
+        this.enabled = false;
+    }
+
+    public void TurnOn()
+    {
+        if (_help != null)
+            _help.CloseHelp();
+        _help = null;
+        this.enabled = true;
     }
 }

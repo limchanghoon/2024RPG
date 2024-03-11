@@ -4,34 +4,17 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    GameObject _inventory;
-    GameObject inventory
-    {
-        get
-        {
-            if (_inventory == null)
-            {
-                _inventory = GameManager.Instance.inventoryManager.inventoryUI.gameObject;
-            }
-            return _inventory;
-        }
-    }
-
     int depth = 0;
 
+    private void Awake()
+    {
+        GameManager.Instance.inputManager = this;
+    }
 
     public bool canControl()
     {
         if (depth > 0) return false;
         return true;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ToggleInventory();
-        }
     }
 
     private void Start()
@@ -55,10 +38,21 @@ public class InputManager : MonoBehaviour
 
 
 
+    public void CloseAll()
+    {
+        GameManager.Instance.inventoryManager.inventoryUI.gameObject.SetActive(false);
+
+        depth = 0;
+        UpdateCursor();
+    }
+
+
+
     public void ToggleInventory()
     {
-        inventory.SetActive(!inventory.activeSelf);
-        if (inventory.activeSelf) depth++;
+        GameObject obj = GameManager.Instance.inventoryManager.inventoryUI.gameObject;
+        obj.SetActive(!obj.activeSelf);
+        if (obj.activeSelf) depth++;
         else depth--;
         UpdateCursor();
     }

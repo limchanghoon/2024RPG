@@ -119,7 +119,7 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateStatWindow()
     {
-        var tempStat = GameManager.Instance.playerStatManager.GetPlayerStat();
+        var tempStat = GameManager.Instance.playerInfoManager.GetPlayerStat();
 
         attackPowerText.text = "Attack Power : " + tempStat.attackPower.ToString();
         maxHPText.text = "MaxHP : " + tempStat.plusMaxHP.ToString();

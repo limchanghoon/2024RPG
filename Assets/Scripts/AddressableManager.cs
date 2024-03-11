@@ -62,4 +62,13 @@ public class AddressableManager : MonoSingleton<AddressableManager>
         Addressables.Release(op);
         return output;
     }
+
+    public IList<ScriptableQuestData> LoadAllQuestData()
+    {
+        var op = Addressables.LoadAssetsAsync<ScriptableQuestData>("QuestData", null);
+        var _data = op.WaitForCompletion();
+       
+        Addressables.Release(op);
+        return _data;
+    }
 }

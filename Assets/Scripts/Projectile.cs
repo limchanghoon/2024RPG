@@ -42,12 +42,12 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isActive || other.tag == "Player" || other.tag == "Magic") return;
+        if (!isActive || other.tag == "Player" || other.tag == "Magic" || other.tag == "NPC") return;
 
 
-        int damage = (int)(powerCoefficient * GameManager.Instance.playerStatManager.GetPlayerStat().attackPower);
+        int damage = (int)(powerCoefficient * GameManager.Instance.playerInfoManager.GetPlayerStat().attackPower);
         bool isCri;
-        MyMathf.IsCritical(GameManager.Instance.playerStatManager.GetPlayerStat().criticalPer, ref damage, out isCri);
+        MyMathf.IsCritical(GameManager.Instance.playerInfoManager.GetPlayerStat().criticalPer, ref damage, out isCri);
 
         other.GetComponent<IHit>()?.Hit(damage, m_attackAttribute, isCri);
 

@@ -127,6 +127,7 @@ namespace StarterAssets
 
         private void Awake()
         {
+            GameManager.Instance.thirdPersonController = this;
             // get a reference to our main camera
             if (_mainCamera == null)
             {

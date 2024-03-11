@@ -25,7 +25,7 @@ public class AreaAttack : MonoBehaviour
     private IEnumerator Start()
     {
         buffValueInv = 1 / buffValue;
-        yield return new WaitForSeconds(startDelay);
+        yield return MyYieldCache.WaitForSeconds(startDelay);
         for (int n = 0; n < number; n++)
         {
             var cols = Physics.OverlapCapsule(transform.position - halfHeight * Vector3.up, transform.position + halfHeight * Vector3.up, radius, 1 << LayerMask.NameToLayer("Monster"));
@@ -33,10 +33,10 @@ public class AreaAttack : MonoBehaviour
             {
                 bool isCri;
                 int _damage = damage;
-                MyMathf.IsCritical(GameManager.Instance.playerStatManager.GetPlayerStat().criticalPer, ref _damage, out isCri);
+                MyMathf.IsCritical(GameManager.Instance.playerInfoManager.GetPlayerStat().criticalPer, ref _damage, out isCri);
                 cols[i].GetComponent<IHit>()?.Hit(_damage, m_attackAttribute, isCri);
             }
-            yield return new WaitForSeconds(interval);
+            yield return MyYieldCache.WaitForSeconds(interval);
         }
     }
 
@@ -61,7 +61,7 @@ public class AreaAttack : MonoBehaviour
     private IEnumerator OnParticleSystemStopped()
     {
         transform.position = new Vector3(-99999, -99999, -99999);
-        yield return new WaitForSeconds(2f);
+        yield return MyYieldCache.WaitForSeconds(2f);
         Destroy(gameObject);
     }
 }

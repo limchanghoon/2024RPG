@@ -23,11 +23,24 @@ public class MonsterAI : MonoBehaviour
 
     MonsterState monsterState = MonsterState.StartIdle;
 
+
+    // animation IDs
+    private int _animIDIdle;
+    private int _animIDChase;
+    private int _animIDJAttack;
+    private int _animIDJSpeedRatio;
+
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(SearchTargetCoroutine());
+    }
+
+    private void Start()
+    {
+        AssignAnimationIDs();
     }
 
     // Update is called once per frame
@@ -38,7 +51,7 @@ public class MonsterAI : MonoBehaviour
             case MonsterState.StartIdle:
                 agent.isStopped = true;
                 monsterState = MonsterState.Idle;
-                animator.SetTrigger("Idle");
+                animator.SetTrigger(_animIDIdle);
                 break;
 
             case MonsterState.Idle:
@@ -48,7 +61,7 @@ public class MonsterAI : MonoBehaviour
                 agent.isStopped = false;
                 agent.destination = target.position;
                 monsterState = MonsterState.Chase;
-                animator.SetTrigger("Chase");
+                animator.SetTrigger(_animIDChase);
                 break;
 
             case MonsterState.Chase:
@@ -62,7 +75,7 @@ public class MonsterAI : MonoBehaviour
             case MonsterState.StartAttack:
                 agent.isStopped = true;
                 monsterState = MonsterState.Attack;
-                animator.SetTrigger("Attack");
+                animator.SetTrigger(_animIDJAttack);
                 StopAllCoroutines();
                 break;
 
@@ -74,16 +87,24 @@ public class MonsterAI : MonoBehaviour
         }
     }
 
+    private void AssignAnimationIDs()
+    {
+        _animIDIdle = Animator.StringToHash("Idle");
+        _animIDChase = Animator.StringToHash("Chase");
+        _animIDJAttack = Animator.StringToHash("Attack");
+        _animIDJSpeedRatio = Animator.StringToHash("SpeedRatio");
+    }
+
     public void SpeedBuff(float value)
     {
         speedRatio *= value;
         agent.speed = originSpeed * speedRatio;
-        animator.SetFloat("SpeedRatio", speedRatio);
+        animator.SetFloat(_animIDJSpeedRatio, speedRatio);
     }
 
     IEnumerator SearchTargetCoroutine()
     {
-        yield return new WaitForSeconds(search_delay);
+        yield return MyYieldCache.WaitForSeconds(search_delay);
         SearchTarget();
         StartCoroutine(SearchTargetCoroutine());
     }

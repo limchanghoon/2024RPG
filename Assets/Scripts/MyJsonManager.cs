@@ -156,4 +156,34 @@ public class MyJsonManager
             GameManager.Instance.inventoryManager.gold = new Gold();
         }
     }
+
+    public static void SavePlayerInfo()
+    {
+        string dirPath = Path.Combine(Application.persistentDataPath, "PlayerInfoDatas");
+        if (!Directory.Exists(dirPath))
+            Directory.CreateDirectory(dirPath);
+        // PlayerInfoDatas
+        string path = Path.Combine(dirPath, "PlayerInfoData.json");
+        string json = JsonUtility.ToJson(GameManager.Instance.playerInfoManager.playerInfoData, true);
+        File.WriteAllText(path, json);
+    }
+
+    public static void LoadPlayerInfo()
+    {
+        string dirPath = Path.Combine(Application.persistentDataPath, "PlayerInfoDatas");
+        if (!Directory.Exists(dirPath))
+            Directory.CreateDirectory(dirPath);
+        // PlayerInfoDatas
+        string path = Path.Combine(dirPath, "PlayerInfoData.json");
+        if (File.Exists(path))
+        {
+            string loadedJson = File.ReadAllText(path);
+            var loadedData = JsonUtility.FromJson<PlayerInfoData>(loadedJson);
+            GameManager.Instance.playerInfoManager.playerInfoData = loadedData;
+        }
+        else
+        {
+            GameManager.Instance.playerInfoManager.playerInfoData = new PlayerInfoData();
+        }
+    }
 }

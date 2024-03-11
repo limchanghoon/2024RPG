@@ -28,14 +28,18 @@ public class TargetRay : MonoBehaviour
     bool isLeft;
     Vector3 screenCenter;
 
-    // custom
-    InputManager inputManager;
+
+    // animation IDs
+    private int _animIDIsLeft;
+    private int _animID1HMagicShoot;
+    private int _animIDJMagicShoot;
+
 
     private void Awake()
     {
+        GameManager.Instance.targetRay = this;
         animator = GetComponent<Animator>();
         thirdPersonController = GetComponent<ThirdPersonController>();
-        inputManager = FindAnyObjectByType<InputManager>();
 
         if (_mainCamera == null)
         {
@@ -46,12 +50,14 @@ public class TargetRay : MonoBehaviour
     private void Start()
     {
         screenCenter = new Vector2(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
+
+        AssignAnimationIDs();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(inputManager.canControl())
+        if(GameManager.Instance.inputManager.canControl())
             UpdeteForInput();
 
         if (thirdPersonController.stop)
@@ -65,20 +71,27 @@ public class TargetRay : MonoBehaviour
         }
     }
 
+    private void AssignAnimationIDs()
+    {
+        _animIDIsLeft = Animator.StringToHash("IsLeft");
+        _animID1HMagicShoot = Animator.StringToHash("1HMagicShoot");
+        _animIDJMagicShoot = Animator.StringToHash("MagicShoot");
+    }
+
     private void UpdeteForInput()
     {
         if (Input.GetMouseButtonDown(0) && thirdPersonController.Grounded && !thirdPersonController.stop)
         {
-            thirdPersonController.stop = !thirdPersonController.stop;
+            thirdPersonController.stop = true;
             // ÁÂ¿ì ·£´ýÇÏ°Ô
             isLeft = Random.Range(0, 2) == 0 ? true : false;
             isLeft = false;
-            animator.SetBool("IsLeft", isLeft);
+            animator.SetBool(_animIDIsLeft, isLeft);
             // ±âº» °ø°Ý
             Ray ray = _mainCamera.ScreenPointToRay(screenCenter);
             _input = ray.origin + ray.direction * 10000;
 
-            animator.SetTrigger("1HMagicShoot");
+            animator.SetTrigger(_animID1HMagicShoot);
             if (isLeft)
             {
                 magicBall = Instantiate(magicBowPrefab, lHandTr.position, Quaternion.identity);
@@ -101,7 +114,7 @@ public class TargetRay : MonoBehaviour
             {
                 if((transform.position - hit.point).sqrMagnitude <= 100f && hit.normal.y >= 0.9)
                 {
-                    animator.SetTrigger("MagicShoot");
+                    animator.SetTrigger(_animIDJMagicShoot);
                     thirdPersonController.stop = true;
                     Instantiate(redEnergyExplosion, hit.point, Quaternion.identity);
                     _input = hit.point;

@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class InventoryManager : MonoBehaviour
@@ -19,23 +17,14 @@ public class InventoryManager : MonoBehaviour
     public EquipmentItemData[] equipmentWindowItems;
     public Gold gold;
 
-    InventoryUI _inventoryUI;
-    public InventoryUI inventoryUI 
-    { 
-        get 
-        { 
-            if(_inventoryUI == null)
-            {
-                _inventoryUI = Instantiate(inventoryUIPrefab).GetComponent<InventoryUI>();
-            }
-            return _inventoryUI;
-        }
-    }
+    public InventoryUI inventoryUI;
+
 
     private void Awake()
     {
         GameManager.Instance.inventoryManager = this;
         MyJsonManager.LoadInventory();
+        inventoryUI = Instantiate(inventoryUIPrefab).GetComponent<InventoryUI>();
     }
 
 
@@ -130,5 +119,9 @@ public class InventoryManager : MonoBehaviour
     }
 
     [ContextMenu("Save")]
-    public void SaveData() => MyJsonManager.SaveInventory();
+    public void SaveData()
+    {
+        MyJsonManager.SaveInventory();
+        MyJsonManager.SavePlayerInfo();
+    }
 }
