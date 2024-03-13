@@ -17,7 +17,6 @@ public class RayForHelp : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.rayForHelp = this;
         if (_mainCamera == null)
         {
             _mainCamera = Camera.main;

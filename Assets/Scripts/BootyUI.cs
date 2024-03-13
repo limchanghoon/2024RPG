@@ -10,11 +10,6 @@ public class BootyUI : MonoBehaviour
     [SerializeField] Canvas bootyUICanvas;
     [SerializeField] GameObject bootyItemPanel;
 
-    private void Awake()
-    {
-        GameManager.Instance.bootyUI = this;
-    }
-
     public void SetUI(Booty newBooty)
     {
         if(m_booty == newBooty)

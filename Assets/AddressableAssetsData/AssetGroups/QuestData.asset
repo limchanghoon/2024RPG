@@ -29,6 +29,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - QuestData
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55ef184acceb3fc41bffbd034693ada5
+    m_Address: Assets/Datas/Quest Datas/Quest3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - QuestData
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2479621718766174cb7a9a7a25a8ea8c, type: 2}
   m_SchemaSet:

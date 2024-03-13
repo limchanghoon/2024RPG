@@ -55,6 +55,11 @@ namespace StarterAssets
         {
 			GameManager.Instance.inputManager.ToggleInventory();
         }
+
+        public void OnToggleQuestWindow(InputValue value)
+        {
+            GameManager.Instance.inputManager.ToggleQuestWindow();
+        }
 #endif
 
 
