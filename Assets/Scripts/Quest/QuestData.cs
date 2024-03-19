@@ -11,8 +11,9 @@ public class QuestData
     // 퀘스트 줄거리???? 나중에 추가하자
     public ScriptableQuestData[] prerequisiteQuest;
     public QuestContent[] questContents;
-    public ScriptableItemData[] rewards;
-
+    public ScriptableItemData[] rewardItems;
+    public Gold rewardGold;
+    public int rewardExp;
     public QuestProgressState questProgressState;
 
     public QuestData() { }
@@ -35,8 +36,10 @@ public class QuestData
                 questContents[i] = new QuestContent();
             questContents[i].DeepCopy(input.questContents[i]);
         }
-        rewards = input.rewards;
-
+        if (input.rewardItems != null) rewardItems = input.rewardItems;
+        else rewardItems = new ScriptableItemData[0];
+        rewardGold = input.rewardGold;
+        rewardExp = input.rewardExp;
 
         questProgressState = QuestProgressState.NotStartable;
         /*
@@ -49,7 +52,6 @@ public class QuestData
     public void StartQuest()
     {
         GameEventsManager.Instance.killEvents.onKill += Proceed;
-        Debug.Log("Proceed 추가 ");
 
         if(Check_AbleToComplete())
             questProgressState = QuestProgressState.AbleToComplete;
@@ -58,7 +60,6 @@ public class QuestData
     public void FinishQuest()
     {
         GameEventsManager.Instance.killEvents.onKill -= Proceed;
-        Debug.Log("Proceed 제거");
     }
 
     // kill.. Collect.. 등등 타입에 따라 이벤트 변경?

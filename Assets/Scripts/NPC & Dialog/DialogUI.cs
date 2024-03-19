@@ -17,7 +17,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] Canvas canvas;
     [SerializeField] TextMeshProUGUI dialogText;
     [SerializeField] GameObject button_accept;
-    //[SerializeField] GameObject button_reject;
+    [SerializeField] GameObject button_reject;
     [SerializeField] GameObject button_complete;
 
     [SerializeField] GameObject questBlockPrefab;
@@ -160,6 +160,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         dialogText.text = string.Empty;
         button_accept.SetActive(false);
         button_complete.SetActive(false);
+        button_reject.SetActive(true);
 
         foreach (Transform child in questBlockParent)
         {
@@ -184,6 +185,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
     {
         button_accept.SetActive(false);
         button_complete.SetActive(false);
+        button_reject.SetActive(false);
 
         // ∆‰¿ÃµÂ æ∆øÙ
         yield return GameManager.Instance.fadeManager.Fade(true);

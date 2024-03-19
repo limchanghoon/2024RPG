@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 2147708687142235656}
   - component: {fileID: 8179349472642732539}
   m_Layer: 5
-  m_Name: Quest Block
+  m_Name: Quest Block(Dialog)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

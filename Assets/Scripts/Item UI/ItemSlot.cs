@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public abstract class ItemSlot : MonoBehaviour, IDropHandler
 {
     [SerializeField] protected int slotIndex;
     public ItemType itemType;
+    public Image img;
 
     public void SetSlotIndex()
     {
@@ -27,34 +29,29 @@ public abstract class ItemSlot : MonoBehaviour, IDropHandler
 
     protected void SwitchSlot(ItemSlot preSlot)
     {
-        ItemData temp = GetItem();
-        SetSlot(preSlot.GetItem());
-        UpdateSlot();
+        ItemData temp = this.GetItem();
+        this.SetSlot(preSlot.GetItem());
         preSlot.SetSlot(temp);
-        preSlot.UpdateSlot();
         if (preSlot is EquipmentWindowSlot || this is EquipmentWindowSlot)
         {
-            GameManager.Instance.inventoryManager.inventoryUI.UpdateStatWindow();
+            GameEventsManager.Instance.playerEvents.ChangeStat();
         }
     }
 
-    protected void UpdateSlot(ItemSlotType slotType)
+    public virtual void UpdateSlot()
     {
-        ItemData curItems = GetItem();
-        var img = GameManager.Instance.inventoryManager.inventoryUI.GetItemImage(slotIndex, slotType);
-        if (curItems.Empty())
+        ItemData curItem = GetItem();
+        if (curItem.Empty())
         {
             img.gameObject.SetActive(false);
             img.GetComponent<DragItem>().OnEndDrag(null);
         }
         else
         {
-            AddressableManager.Instance.LoadSprite(curItems.id.ToString(), img);
+            AddressableManager.Instance.LoadSprite(curItem.id.ToString(), img);
             img.gameObject.SetActive(true);
         }
     }
-
-    public abstract void UpdateSlot();
 
     public abstract ItemData GetItem();
 

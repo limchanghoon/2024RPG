@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isActive || other.tag == "Player" || other.tag == "Magic" || other.tag == "NPC") return;
+        if (!isActive || other.CompareTag("Player") || other.CompareTag("Magic") || other.CompareTag("NPC")) return;
 
 
         int damage = (int)(powerCoefficient * GameManager.Instance.playerInfoManager.GetPlayerStat().attackPower);

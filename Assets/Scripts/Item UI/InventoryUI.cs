@@ -12,10 +12,9 @@ public class InventoryUI : MonoBehaviour
 
     public Transform[] inventorySlotTrs;
     [HideInInspector] public ItemSlot[] inventorySlots;
-    [HideInInspector] public Image[] inventoryImages;
-
     public EquipmentWindowSlot[] equipmentWindowSlots;
-    Image[] equipmentWindowImages;
+
+    [SerializeField] Button[] switchButtons;
 
     [Header("Stat Window")]
     public GameObject expandedWindow;
@@ -27,28 +26,34 @@ public class InventoryUI : MonoBehaviour
     {
         gameObject.SetActive(false);
         Init();
-        InventoryReDrawAll();
-        EquipmentWindowReDrawAll();
-        GoldTextUpdate();
         btn_Close.onClick.AddListener(FindAnyObjectByType<InputManager>().ToggleInventory);
     }
 
+    private void OnEnable()
+    {
+        GameEventsManager.Instance.playerEvents.onStatChanged += UpdateStatWindow;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.Instance.playerEvents.onStatChanged -= UpdateStatWindow;
+    }
+
+    private void Start()
+    {
+        SwitchPage(0);
+        EquipmentWindowReDrawAll();
+        GoldTextUpdate();
+    }
 
     void Init()
     {
         inventorySlots = new ItemSlot[InventoryManager.inventorySize];
-        inventoryImages = new Image[InventoryManager.inventorySize];
         for (int i = 0; i < InventoryManager.inventorySize; i++)
         {
             inventorySlots[i] = inventorySlotTrs[i].GetComponent<ItemSlot>();
-            inventoryImages[i] = inventorySlotTrs[i].GetChild(0).GetComponent<Image>();
         }
 
-        equipmentWindowImages = new Image[InventoryManager.equipmentWindowSize];
-        for (int i = 0; i < InventoryManager.equipmentWindowSize; i++)
-        {
-            equipmentWindowImages[i] = equipmentWindowSlots[i].transform.GetChild(0).GetComponent<Image>();
-        }
     }
 
     public void InventoryReDrawAll()
@@ -56,15 +61,7 @@ public class InventoryUI : MonoBehaviour
         ItemData[] curItems = GameManager.Instance.inventoryManager.GetCurrentPageItems();
         for (int i = 0; i < InventoryManager.inventorySize; i++)
         {
-            if (!curItems[i].Empty())
-            {
-                AddressableManager.Instance.LoadSprite(curItems[i].id.ToString(), inventoryImages[i]);
-                inventorySlotTrs[i].GetChild(0).gameObject.SetActive(true);
-            }
-            else
-            {
-                inventorySlotTrs[i].GetChild(0).gameObject.SetActive(false);
-            }
+            inventorySlots[i].UpdateSlot();
         }
     }
 
@@ -72,16 +69,7 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < InventoryManager.equipmentWindowSize; i++)
         {
-            if (!GameManager.Instance.inventoryManager.equipmentWindowItems[i].Empty())
-            {
-                AddressableManager.Instance.LoadSprite(GameManager.Instance.inventoryManager.equipmentWindowItems[i].id.ToString(), equipmentWindowImages[i]);
-                equipmentWindowImages[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                equipmentWindowImages[i].gameObject.SetActive(false);
-            }
-            equipmentWindowSlots[i].Update_BG_Slot();
+            equipmentWindowSlots[i].UpdateSlot();
         }
     }
 
@@ -92,29 +80,26 @@ public class InventoryUI : MonoBehaviour
 
     public void SwitchPage(int _page)
     {
-        GameManager.Instance.inventoryManager.SwitchSlotTypes(_page);
-        InventoryReDrawAll();
-    }
+        for(int i = 0;i < switchButtons.Length; i++)
+        {
+            ColorBlock colorBlock = switchButtons[i].colors;
+            if (i == _page)
+            {
+                colorBlock.normalColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+            }
+            else
+            {
+                colorBlock.normalColor = new Color(1f, 1f, 1f, 1f);
+            }
+            switchButtons[i].colors = colorBlock;
+        }
 
-    public void SwitchSlotTypes(ItemType curPage)
-    {
+        GameManager.Instance.inventoryManager.SwitchSlotTypes(_page);
         for (int i = 0; i < InventoryManager.inventorySize; i++)
         {
-            inventorySlots[i].itemType = curPage;
+            inventorySlots[i].itemType = (ItemType)_page;
         }
-    }
-
-    public Image GetItemImage(int slotIndex, ItemSlotType slotType)
-    {
-        switch (slotType)
-        {
-            case ItemSlotType.Inventory:
-                return inventoryImages[slotIndex];
-            case ItemSlotType.EquipmentWindow:
-                return equipmentWindowImages[slotIndex];
-            default:
-                return null;
-        }
+        InventoryReDrawAll();
     }
 
     public void UpdateStatWindow()

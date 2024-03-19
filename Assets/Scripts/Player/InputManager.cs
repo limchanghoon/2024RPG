@@ -36,6 +36,7 @@ public class InputManager : MonoBehaviour
     public void CloseAll()
     {
         GameManager.Instance.inventoryManager.inventoryUI.gameObject.SetActive(false);
+        GameManager.Instance.questUI.canvas.enabled = false;
 
         depth = 0;
         UpdateCursor();
@@ -55,10 +56,11 @@ public class InputManager : MonoBehaviour
 
     public void ToggleQuestWindow()
     {
-        Canvas canvas = GameManager.Instance.questUI;
+        Canvas canvas = GameManager.Instance.questUI.canvas;
         canvas.enabled = !canvas.enabled;
         if (canvas.enabled) depth++;
         else depth--;
+
         UpdateCursor();
     }
 }

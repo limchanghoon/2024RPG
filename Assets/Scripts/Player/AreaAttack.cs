@@ -42,7 +42,7 @@ public class AreaAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Monster")
+        if (other.CompareTag("Monster"))
         {
             other.GetComponent<InstanceMaterial>().material.color *= clr;
             other.GetComponent<MonsterAI>().SpeedBuff(buffValue);
@@ -51,7 +51,7 @@ public class AreaAttack : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Monster")
+        if (other.CompareTag("Monster"))
         {
             other.GetComponent<InstanceMaterial>().material.color *= invClr;
             other.GetComponent<MonsterAI>().SpeedBuff(buffValueInv);

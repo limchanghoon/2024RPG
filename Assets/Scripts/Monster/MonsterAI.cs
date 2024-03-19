@@ -143,7 +143,7 @@ public class MonsterAI : MonoBehaviour
 
         for (int i = 0; i < colliders.Length; ++i)
         {
-            if (colliders[i].tag == "Player")
+            if (colliders[i].CompareTag("Player"))
             {
                 colliders[i].GetComponent<IHit>().Hit(attackPower, m_attackAttribute, false);
             }

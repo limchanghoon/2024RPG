@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class InventoryManager : MonoBehaviour
@@ -36,7 +37,6 @@ public class InventoryManager : MonoBehaviour
     public void SwitchSlotTypes(int _page)
     {
         curPage = _page;
-        inventoryUI.SwitchSlotTypes((ItemType)curPage);
     }
 
 
@@ -51,8 +51,7 @@ public class InventoryManager : MonoBehaviour
                 curItems[i].Set(itemData.ToItemData());
                 if (curPage == (int)itemData.itemType)
                 {
-                    AddressableManager.Instance.LoadSprite(curItems[i].id.ToString(), inventoryUI.inventoryImages[i]);
-                    inventoryUI.inventorySlotTrs[i].GetChild(0).gameObject.SetActive(true);
+                    inventoryUI.inventorySlots[i].UpdateSlot();
                 }
                 break;
             }
@@ -73,8 +72,7 @@ public class InventoryManager : MonoBehaviour
                 curItems[i] = itemData;
                 if (curPage == (int)itemData.itemType)
                 {
-                    AddressableManager.Instance.LoadSprite(curItems[i].id.ToString(), inventoryUI.inventoryImages[i]);
-                    inventoryUI.inventorySlotTrs[i].GetChild(0).gameObject.SetActive(true);
+                    inventoryUI.inventorySlots[i].UpdateSlot();
                 }
                 break;
             }

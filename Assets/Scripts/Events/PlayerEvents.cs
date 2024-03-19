@@ -20,4 +20,12 @@ public class PlayerEvents
         }
     }
 
+    public event Action onStatChanged;
+    public void ChangeStat()
+    {
+        if (onStatChanged != null)
+        {
+            onStatChanged();
+        }
+    }
 }

@@ -15,6 +15,7 @@ MonoBehaviour:
   questID: 2
   questName: "\uBAAC\uC2A4\uD130 \uC0AC\uB0E5"
   requiredLevel: 1
+  prerequisiteQuest: []
   startable_Dialogs:
   - dialog: "\uC548\uB155\uD558\uC138\uC694 {Player_Name}\uB2D8."
     currentTalker: 1
@@ -38,4 +39,9 @@ MonoBehaviour:
     target: Dog soldier
     goal_count: 1
     count: 0
-  rewards: []
+  rewardItems:
+  - {fileID: 11400000, guid: e1876172dd7f05f4ab8f93668541f91c, type: 2}
+  - {fileID: 11400000, guid: 2aee72954a4f6b540b9188d4e112f0ff, type: 2}
+  rewardGold:
+    gold: 100
+  rewardExp: 55

@@ -11,5 +11,7 @@ public class ScriptableQuestData : ScriptableObject
     public DialogData[] inProgress_Dialogs;
     public DialogData[] AbleToComplete_Dialogs;
     public QuestContent[] questContents;
-    public ScriptableItemData[] rewards;
+    public ScriptableItemData[] rewardItems;
+    public Gold rewardGold;
+    public int rewardExp;
 }

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb19a2cd1b799c4c8ef36829d587e70, type: 3}
+  m_Name: Quest5
+  m_EditorClassIdentifier: 
+  questID: 5
+  questName: "\uD14C\uC2A4\uD2B85"
+  requiredLevel: 1
+  prerequisiteQuest: []
+  startable_Dialogs:
+  - dialog: "\uC548\uB155\uD558\uC138\uC694 {Player_Name}\uB2D8."
+    currentTalker: 1
+  - dialog: "\uBAAC\uC2A4\uD130 \uD1A0\uBC8C\uC744 \uBD80\uD0C1\uB4DC\uB9BD\uB2C8\uB2E4."
+    currentTalker: 1
+  inProgress_Dialogs:
+  - dialog: "1\uC5B5 \uB9C8\uB9AC\uB9CC \uC7A1\uC544\uC8FC\uC138\uC694!"
+    currentTalker: 1
+  - dialog: '?'
+    currentTalker: 0
+  - dialog: "\uC7A5\uB09C\uC785\uB2C8\uB2E4.\uD558  \uD558  \uD558"
+    currentTalker: 1
+  - dialog: "\uD55C\uB9C8\uB9AC\uB9CC \uC7A1\uC544\uC8FC\uC138\uC694."
+    currentTalker: 1
+  AbleToComplete_Dialogs:
+  - dialog: "\uC815\uB9D0 \uAC10\uC0AC\uD569\uB2C8\uB2E4 {Player_Name}\uB2D8!"
+    currentTalker: 1
+  questContents:
+  - step: 0
+    questContentType: 0
+    target: Dog soldier
+    goal_count: 1
+    count: 0
+  rewards: []

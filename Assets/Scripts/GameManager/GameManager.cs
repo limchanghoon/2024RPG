@@ -28,6 +28,6 @@ public class GameManager : MonoSingleton<GameManager>
     public CinemachineTargetGroup dialogTargetGroup;
 
     public QuestManager questManager;
-    public Canvas questUI;
+    public QuestUI questUI;
 
 }

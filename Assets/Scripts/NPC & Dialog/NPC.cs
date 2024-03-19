@@ -7,9 +7,10 @@ public class NPC : MonoBehaviour, HelpForRay
     [SerializeField] Transform npcCameraRoot;
     [SerializeField] Transform playerPoint;
     [SerializeField] GameObject npcNameObj;
-    [SerializeField] List<ScriptableQuestData> questDatas; // 임시로 하나만
+    [SerializeField] List<ScriptableQuestData> questDatas;
 
     [SerializeField] GameObject[] progressMark;
+    [SerializeField] OutlineController outlineController;
 
     bool canInteractive = false;
 
@@ -86,12 +87,14 @@ public class NPC : MonoBehaviour, HelpForRay
     public void CloseHelp()
     {
         GameManager.Instance.npcTalkHelpUI.enabled = false;
+        outlineController.TurnOffOutline();
         npcNameObj.SetActive(false);
     }
 
     public void OpenHelp()
     {
         GameManager.Instance.npcTalkHelpUI.enabled = true;
+        outlineController.TurnOnOutline();
         npcNameObj.SetActive(true);
     }
 

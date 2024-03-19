@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class InventorySlot : ItemSlot
 {
-
-
-    public override void UpdateSlot()
-    {
-        UpdateSlot(ItemSlotType.Inventory);
-    }
-
     public override ItemData GetItem()
     {
         return GameManager.Instance.inventoryManager.GetCurrentPageItems()[slotIndex];
@@ -24,5 +17,6 @@ public class InventorySlot : ItemSlot
     public override void SetSlot(ItemData itemData)
     {
         GameManager.Instance.inventoryManager.GetCurrentPageItems()[slotIndex] = itemData;
+        UpdateSlot();
     }
 }

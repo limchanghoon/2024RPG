@@ -89,6 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c09580af80dd641855d8f581ac662c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RectTransform: {fileID: 7239352254347613819}
+  canvasGroup: {fileID: 3688251077524355680}
+  OriginTr: {fileID: 0}
 --- !u!225 &3688251077524355680
 CanvasGroup:
   m_ObjectHideFlags: 0

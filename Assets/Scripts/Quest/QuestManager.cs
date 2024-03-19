@@ -8,24 +8,40 @@ public class QuestManager : MonoBehaviour
 {
     private Dictionary<int, QuestData> questMap = new Dictionary<int, QuestData>();
 
+    public List<int> startableQuestList = new List<int>();
     public List<int> inProgressQuestList = new List<int>();
+    public List<int> completedQuestList = new List<int>();
 
-    public List<QuestData> questViewerForTest = new List<QuestData>();
+    public GameObject questUI;
 
     private void Awake()
     {
+        // 모든 퀘스트 정보 불러오기
         var quests = AddressableManager.Instance.LoadAllQuestData();
         foreach (var item in quests)
         {
             questMap.Add(item.questID, new QuestData(item));
         }
-        // 클리어 정보 업데이트
-        // 진행중 정보 업데이트
+        // 나의 퀘스트 정보 업데이트
         MyJsonManager.LoadQuestDatas(questMap);
+
 
         foreach (var item in questMap.Values)
         {
-            questViewerForTest.Add(item);
+            switch (item.questProgressState)
+            {
+                case QuestProgressState.Startable:
+                    startableQuestList.Add(item.questID);
+                    break;
+                case QuestProgressState.InProgress:
+                    //inProgressQuestList.Add(item.questID);
+                    break;
+                case QuestProgressState.Completed:
+                    completedQuestList.Add(item.questID);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -49,17 +65,16 @@ public class QuestManager : MonoBehaviour
 
     private void Start()
     {
-        CheckStartable();
+        //CheckStartable();
+        GameEventsManager.Instance.questEvents.QuestProgessChange();
     }
-
-
-    public TextMeshProUGUI text;
 
     public void StartQuest(int questID)
     {
         questMap[questID].questProgressState = QuestProgressState.InProgress;
         questMap[questID].StartQuest();
 
+        startableQuestList.Remove(questID);
         inProgressQuestList.Add(questID);
     }
 
@@ -70,6 +85,7 @@ public class QuestManager : MonoBehaviour
         questMap[questID].FinishQuest();
 
         inProgressQuestList.Remove(questID);
+        completedQuestList.Add(questID);
     }
 
     private void CheckStartable()
@@ -92,6 +108,7 @@ public class QuestManager : MonoBehaviour
             if (check)
             {
                 _quest.questProgressState = QuestProgressState.Startable;
+                startableQuestList.Add(_quest.questID);
                 isChanged = true;
             }
         }
@@ -105,8 +122,8 @@ public class QuestManager : MonoBehaviour
         return questMap[questID];
     }
 
-    public Dictionary<int, QuestData> GetQuestMap()
+    public void SaveQuestDatas()
     {
-        return questMap;
+        MyJsonManager.SaveQuestDatas(questMap);
     }
 }

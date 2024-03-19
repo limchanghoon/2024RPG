@@ -5,16 +5,9 @@ using UnityEngine.EventSystems;
 
 public class DragItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IGetItemInfo
 {
-    private RectTransform m_RectTransform;
-    private CanvasGroup canvasGroup;
-    public Transform OriginTr { get; private set; }
-
-    private void Awake()
-    {
-        m_RectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
-        OriginTr = transform.parent;
-    }
+    [SerializeField] private RectTransform m_RectTransform;
+    [SerializeField] private CanvasGroup canvasGroup;
+    public Transform OriginTr;
 
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {

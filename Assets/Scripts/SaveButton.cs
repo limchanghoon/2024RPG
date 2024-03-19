@@ -9,6 +9,6 @@ public class SaveButton : MonoBehaviour
     {
         MyJsonManager.SaveInventory();
         MyJsonManager.SavePlayerInfo();
-        MyJsonManager.SaveQuestDatas(GameManager.Instance.questManager.GetQuestMap());
+        GameManager.Instance.questManager.SaveQuestDatas();
     }
 }

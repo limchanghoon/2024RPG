@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class EquipmentWindowSlot : ItemSlot
 {
-    public EquipmentType equipmentType;
     [SerializeField] GameObject bg_Obj;
+    public EquipmentType equipmentType;
 
     public override void OnDrop(PointerEventData eventData)
     {
@@ -24,7 +24,7 @@ public class EquipmentWindowSlot : ItemSlot
 
     public override void UpdateSlot()
     {
-        UpdateSlot(ItemSlotType.EquipmentWindow);
+        base.UpdateSlot();
         Update_BG_Slot();
     }
 
@@ -41,6 +41,7 @@ public class EquipmentWindowSlot : ItemSlot
     public override void SetSlot(ItemData itemData)
     {
         GameManager.Instance.inventoryManager.equipmentWindowItems[slotIndex] = (EquipmentItemData)itemData;
+        UpdateSlot();
     }
 
     public void Update_BG_Slot()
