@@ -18,7 +18,7 @@ public class BootyUI : MonoBehaviour
 
 
         int idx = 0;
-        if(m_booty.gold > 0)
+        if(m_booty.gold.gold > 0)
         {
             AddressableManager.Instance.LoadSprite("Gold", bootyItemPanel.transform.GetChild(idx).GetChild(0).GetComponent<Image>());
             bootyItemPanel.transform.GetChild(idx).GetChild(1).GetComponent<TextMeshProUGUI>().text = m_booty.gold.ToString() + "G";

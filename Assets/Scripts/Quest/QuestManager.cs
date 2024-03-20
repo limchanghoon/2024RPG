@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
@@ -71,8 +69,11 @@ public class QuestManager : MonoBehaviour
 
     public void StartQuest(int questID)
     {
-        questMap[questID].questProgressState = QuestProgressState.InProgress;
         questMap[questID].StartQuest();
+        if (questMap[questID].Check_AbleToComplete())
+            questMap[questID].questProgressState = QuestProgressState.AbleToComplete;
+        else 
+            questMap[questID].questProgressState = QuestProgressState.InProgress;
 
         startableQuestList.Remove(questID);
         inProgressQuestList.Add(questID);
@@ -81,11 +82,18 @@ public class QuestManager : MonoBehaviour
 
     private void FinishQuest(int questID)
     {
-        questMap[questID].questProgressState = QuestProgressState.Completed;
-        questMap[questID].FinishQuest();
+        string msg = string.Empty;
+        if (questMap[questID].FinishQuest(GameManager.Instance.inventoryManager, GameManager.Instance.playerInfoManager, ref msg))
+        {
+            questMap[questID].questProgressState = QuestProgressState.Completed;
 
-        inProgressQuestList.Remove(questID);
-        completedQuestList.Add(questID);
+            inProgressQuestList.Remove(questID);
+            completedQuestList.Add(questID);
+        }
+        else
+        {
+            Debug.Log(msg);
+        }
     }
 
     private void CheckStartable()

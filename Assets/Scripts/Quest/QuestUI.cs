@@ -19,7 +19,8 @@ public class QuestUI : MonoBehaviour
 
     [Header("Expanded Window")]
     [SerializeField] TextMeshProUGUI questNameText;
-    [SerializeField] TextMeshProUGUI questInfoText;
+    [SerializeField] TextMeshProUGUI questSummaryText;
+    [SerializeField] TextMeshProUGUI questProgressText;
 
     public Canvas canvas;
 
@@ -79,20 +80,22 @@ public class QuestUI : MonoBehaviour
                 quest_list = null;
                 break;
         }
-        reUseScrollView.SetDatas(quest_list);
+        reUseScrollView.SetDatas(quest_list, curPage);
     }
 
     public void UpdateQuestExpandedWindow(Transform tr = null)
     {
         if (tr == null)
         {
-            questInfoText.text = string.Empty;
+            questNameText.text = string.Empty;
+            questSummaryText.text = string.Empty;
+            questProgressText.text = string.Empty;
             return;
         }
         int idx = quest_list[reUseScrollView.curIndex + tr.GetSiblingIndex() - 1];
         QuestData curQuestData = GameManager.Instance.questManager.GetQuestDataByID(idx);
         questNameText.text = "Lv" + curQuestData.requiredLevel.ToString() + " : " + curQuestData.questName;
-        questInfoText.text = curQuestData.requiredLevel.ToString();
+        questSummaryText.text = curQuestData.summary;
         StringBuilder sb = new StringBuilder(512);
         for(int i = 0;i< curQuestData.questContents.Length;i++)
         {
@@ -102,17 +105,7 @@ public class QuestUI : MonoBehaviour
             sb.Append(" / ");
             sb.AppendLine(curQuestData.questContents[i].goal_count.ToString());
         }
-        sb.AppendLine("=============================");
-        for (int i = 0; i < curQuestData.rewardItems.Length; i++)
-        {
-            sb.AppendLine(curQuestData.rewardItems[i].itemName);
-        }
-        sb.AppendLine("=============================");
-        sb.Append("EXP : +");
-        sb.AppendLine(curQuestData.rewardExp.ToString());
-        sb.Append("Gold : +");
-        sb.Append(curQuestData.rewardGold.ToString());
-        questInfoText.text = sb.ToString();
+        questProgressText.text = sb.ToString();
     }
 
 

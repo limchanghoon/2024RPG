@@ -1,8 +1,6 @@
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Consumption ItemData", menuName = "Scriptable Object/Consumption ItemData")]
-[System.Serializable]
 public class ScriptableConsumptionItemData : ScriptableItemData
 {
     [Header("Consumption Fields")]

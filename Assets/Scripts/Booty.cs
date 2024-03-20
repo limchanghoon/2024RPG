@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Booty : MonoBehaviour, HelpForRay
 {
-    public int gold;
+    public Gold gold;
     public ScriptableItemData[] itemDatas;
     public int curIndex = 0;
 
@@ -13,7 +13,7 @@ public class Booty : MonoBehaviour, HelpForRay
         inventoryManager.EarnGold(gold);
     }
 
-    public int GetGold() { return gold; }
+    public Gold GetGold() { return gold; }
 
     public void CloseHelp()
     {
@@ -28,10 +28,10 @@ public class Booty : MonoBehaviour, HelpForRay
 
     public void Interact1()
     {
-        if (gold > 0)
+        if (gold.gold > 0)
         {
             GameManager.Instance.inventoryManager.EarnGold(gold);
-            gold = 0;
+            gold.gold = 0;
         }
         else
         {
@@ -48,9 +48,9 @@ public class Booty : MonoBehaviour, HelpForRay
 
     public void Interact2()
     {
-        if (gold > 0)
+        if (gold.gold > 0)
         {
-            gold = 0;
+            gold.gold = 0;
         }
         else
         {

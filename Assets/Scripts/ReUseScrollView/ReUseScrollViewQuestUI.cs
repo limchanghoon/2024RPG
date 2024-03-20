@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class ReUseScrollViewQuestUI : MonoBehaviour
 {
     [SerializeField] Canvas canvas;
     [SerializeField] RectTransform content;
+    [SerializeField] ScrollView scrollView;
     List<int> datas = new List<int>();
 
     [SerializeField] float cell_Y;
@@ -16,9 +19,12 @@ public class ReUseScrollViewQuestUI : MonoBehaviour
     int itemSize;
     int lastIndex;
 
+    int curPage = 0;
+    float[] anchoredY = new float[3];
+
     private void Awake()
     {
-        curIndex = 1;
+        SetInitPosition();
     }
 
     private void Update()
@@ -29,7 +35,19 @@ public class ReUseScrollViewQuestUI : MonoBehaviour
         ScrollUp();
     }
 
-    public void SetDatas(List<int> questDatas)
+    public void SetInitPosition()
+    {
+        curIndex = 1;
+        for (int i = 0;i < content.childCount; i++)
+        {
+            RectTransform rectTr = content.GetChild(i).GetComponent<RectTransform>();
+            rectTr.anchoredPosition = new Vector2(0, -i * (cell_Y + spaceing_Y));
+            rectTr.sizeDelta = new Vector2(rectTr.sizeDelta.x, cell_Y);
+        }
+        content.anchoredPosition = new Vector2(content.anchoredPosition.x, anchoredY[curPage]);
+    }
+
+    public void SetDatas(List<int> questDatas, int _curPage)
     {
         datas = questDatas;
         itemSize = content.childCount;
@@ -48,6 +66,9 @@ public class ReUseScrollViewQuestUI : MonoBehaviour
         }
         float height = datas.Count * (cell_Y + spaceing_Y);
         content.sizeDelta = new Vector2(content.sizeDelta.x, height);
+        anchoredY[curPage] = content.anchoredPosition.y;
+        curPage = _curPage;
+        SetInitPosition();
     }
 
     private void ScrollDown()

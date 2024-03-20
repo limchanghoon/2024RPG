@@ -1,20 +1,19 @@
 
-using UnityEngine;
-
 [System.Serializable]
 public class QuestData
 {
     public int questID;
-    public string questName;
-    public int requiredLevel;
-
-    // 퀘스트 줄거리???? 나중에 추가하자
-    public ScriptableQuestData[] prerequisiteQuest;
+    public ScriptableQuestData scriptableQuestData;
     public QuestContent[] questContents;
-    public ScriptableItemData[] rewardItems;
-    public Gold rewardGold;
-    public int rewardExp;
     public QuestProgressState questProgressState;
+
+    public string questName { get { return scriptableQuestData.questName; } }
+    public int requiredLevel { get { return scriptableQuestData.requiredLevel; } }
+    public ScriptableQuestData[] prerequisiteQuest { get { return scriptableQuestData.prerequisiteQuest; } }
+    public ScriptableItemData[] rewardItems { get { return scriptableQuestData.rewardItems; } }
+    public string summary { get { return scriptableQuestData.summary; } }
+    public Gold rewardGold { get { return scriptableQuestData.rewardGold; } }
+    public int rewardExp { get { return scriptableQuestData.rewardExp; } }
 
     public QuestData() { }
 
@@ -26,40 +25,98 @@ public class QuestData
     public void Set(ScriptableQuestData input)
     {
         questID = input.questID;
-        questName = input.questName;
-        requiredLevel = input.requiredLevel;
-        prerequisiteQuest = input.prerequisiteQuest;
+        scriptableQuestData = input;
+
         questContents = new QuestContent[input.questContents.Length];
-        for(int i = 0; i< questContents.Length; ++i)
+        for (int i = 0; i < questContents.Length; ++i)
         {
-            if(questContents[i] == null)
+            if (questContents[i] == null)
                 questContents[i] = new QuestContent();
             questContents[i].DeepCopy(input.questContents[i]);
         }
-        if (input.rewardItems != null) rewardItems = input.rewardItems;
-        else rewardItems = new ScriptableItemData[0];
-        rewardGold = input.rewardGold;
-        rewardExp = input.rewardExp;
 
         questProgressState = QuestProgressState.NotStartable;
-        /*
-        dialogs = (DialogData[])input.dialogs.Clone();
-        questContents = (QuestContent[])input.questContents.Clone();
-        rewards = (ScriptableItemData[])input.rewards.Clone();
-        */
+    }
+
+    public void Set(QuestData input)
+    {
+        for (int i = 0; i < input.questContents.Length; ++i)
+        {
+            questContents[i].DeepCopy(input.questContents[i]);
+        }
+        questProgressState = input.questProgressState;
     }
 
     public void StartQuest()
     {
         GameEventsManager.Instance.killEvents.onKill += Proceed;
-
-        if(Check_AbleToComplete())
-            questProgressState = QuestProgressState.AbleToComplete;
     }
 
-    public void FinishQuest()
+    public bool FinishQuest(InventoryManager inventoryManager, PlayerInfoManager playerInfoManager, ref string msg)
     {
+        int requiredQuipment = 0;
+        int requiredConsumption = 0;
+        int requiredOther = 0;
+        for(int i = 0;i< rewardItems.Length; ++i)
+        {
+            if (rewardItems[i].itemType == ItemType.Equipment)
+                ++requiredQuipment;
+            else if (rewardItems[i].itemType == ItemType.Consumption)
+                ++requiredConsumption;
+            else if (rewardItems[i].itemType == ItemType.Other)
+                ++requiredOther;
+        }
+
+        // 장비창 개수 확인
+        int cnt = 0;
+        for (int i = 0; i < InventoryManager.inventorySize; ++i)
+        {
+            if (inventoryManager.equipmentItems[i].Empty())
+                ++cnt;
+            if (cnt >= requiredQuipment) break;
+        }
+        if (cnt < requiredQuipment) {
+            msg = "장비창이 " + (requiredQuipment - cnt).ToString() + "칸 부족합니다!";
+            return false;
+        }
+
+        // 소비창 개수 확인
+        cnt = 0;
+        for (int i = 0; i < InventoryManager.inventorySize; ++i)
+        {
+            if (inventoryManager.consumptionItems[i].Empty())
+                ++cnt;
+            if (cnt >= requiredConsumption) break;
+        }
+        if (cnt < requiredConsumption)
+        {
+            msg = "소비창이 " + (requiredConsumption - cnt).ToString() + "칸 부족합니다!";
+            return false;
+        }
+
+        // 기타창 개수 확인
+        cnt = 0;
+        for (int i = 0; i < InventoryManager.inventorySize; ++i)
+        {
+            if (inventoryManager.otherItems[i].Empty())
+                ++cnt;
+            if (cnt >= requiredOther) break;
+        }
+        if (cnt < requiredOther)
+        {
+            msg = "기타창이 " + (requiredOther - cnt).ToString() + "칸 부족합니다!";
+            return false;
+        }
+
+        for (int i = 0; i < rewardItems.Length; ++i)
+        {
+            inventoryManager.EarnItem(rewardItems[i]);
+        }
+        inventoryManager.EarnGold(rewardGold);
+        playerInfoManager.GainExp(rewardExp);
+
         GameEventsManager.Instance.killEvents.onKill -= Proceed;
+        return true;
     }
 
     // kill.. Collect.. 등등 타입에 따라 이벤트 변경?
@@ -82,7 +139,7 @@ public class QuestData
         }
     }
 
-    private bool Check_AbleToComplete()
+    public bool Check_AbleToComplete()
     {
         for (int i = 0; i < questContents.Length; i++)
         {

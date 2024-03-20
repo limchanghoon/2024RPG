@@ -27,6 +27,11 @@ public class InventoryManager : MonoBehaviour
         inventoryUI = Instantiate(inventoryUIPrefab).GetComponent<InventoryUI>();
     }
 
+    // 나중에 골드 오버플로우 체크??
+    public void EarnGold(Gold newGold)
+    {
+        EarnGold(newGold.gold);
+    }
 
     public void EarnGold(int newGold)
     {

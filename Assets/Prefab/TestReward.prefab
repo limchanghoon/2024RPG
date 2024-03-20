@@ -118,7 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c33c314b1b4acf4ba4c8962a78cb7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 100
+  gold:
+    gold: 100
   itemDatas:
   - {fileID: 11400000, guid: 4e6b68c469e770c468c248c7682e313b, type: 2}
   - {fileID: 11400000, guid: c3a9331e60491b342b672a3bebf7d417, type: 2}

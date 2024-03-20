@@ -13,4 +13,9 @@ public class Gold
     {
         this.gold = gold;
     }
+
+    public override string ToString()
+    {
+        return gold.ToString();
+    }
 }

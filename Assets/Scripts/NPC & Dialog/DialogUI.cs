@@ -102,11 +102,8 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
 
     public void AcceptQuest()
     {
-        Debug.Log(questData[currentQuestIndex].questName + " : StartQuest");
         GameEventsManager.Instance.questEvents.StartQuest(questData[currentQuestIndex].questID);
 
-        // 임시 
-        //GameEventsManager.Instance.playerEvents.ChangeLevel();
         GameEventsManager.Instance.questEvents.QuestProgessChange();
         StartCoroutine(EndTalk());
     }
@@ -118,11 +115,8 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
 
     public void CompleteQuest()
     {
-        Debug.Log(questData[currentQuestIndex].questName + " : CompleteQuest");
         GameEventsManager.Instance.questEvents.FinishQuest(questData[currentQuestIndex].questID);
 
-        // 임시 
-        //GameEventsManager.Instance.playerEvents.ChangeLevel();
         GameEventsManager.Instance.questEvents.QuestProgessChange();
         StartCoroutine(EndTalk());
     }
@@ -219,7 +213,6 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
 
     private void OnValidButton()
     {
-        Debug.Log(GameManager.Instance.questManager.GetQuestDataByID(questData[currentQuestIndex].questID).questProgressState);
         switch (GameManager.Instance.questManager.GetQuestDataByID(questData[currentQuestIndex].questID).questProgressState)
         {
             case QuestProgressState.NotStartable:

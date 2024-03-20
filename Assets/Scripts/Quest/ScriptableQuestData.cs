@@ -12,6 +12,7 @@ public class ScriptableQuestData : ScriptableObject
     public DialogData[] AbleToComplete_Dialogs;
     public QuestContent[] questContents;
     public ScriptableItemData[] rewardItems;
+    public string summary;
     public Gold rewardGold;
     public int rewardExp;
 }

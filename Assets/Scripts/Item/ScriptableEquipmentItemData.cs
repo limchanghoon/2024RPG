@@ -1,8 +1,6 @@
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Equipment ItemData", menuName = "Scriptable Object/Equipment ItemData")]
-[System.Serializable]
 public class ScriptableEquipmentItemData : ScriptableItemData
 {
     [Header("Equipment Fields")]

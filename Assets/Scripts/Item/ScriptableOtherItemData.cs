@@ -1,9 +1,6 @@
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 [CreateAssetMenu(fileName = "Other ItemData", menuName = "Scriptable Object/Other ItemData")]
-[System.Serializable]
 public class ScriptableOtherItemData : ScriptableItemData
 {
     [Header("Other Fields")]

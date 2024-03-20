@@ -1,9 +1,5 @@
-using System;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
-[System.Serializable]
 public abstract class ScriptableItemData : ScriptableObject
 {
     [Header("Item Fields")]
