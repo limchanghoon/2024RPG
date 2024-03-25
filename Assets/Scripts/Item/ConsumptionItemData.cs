@@ -2,7 +2,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class ConsumptionItemData : ItemData
+public class ConsumptionItemData : CountableItemData
 {
     [Header("Consumption Fields")]
     public int upHP;
@@ -12,7 +12,7 @@ public class ConsumptionItemData : ItemData
         upHP = 0;
     }
 
-    public ConsumptionItemData(ScriptableConsumptionItemData input)
+    public ConsumptionItemData(ScriptableConsumptionItemData input) : base(input) 
     {
         id = input.id;
         itemType = input.itemType;
@@ -29,11 +29,17 @@ public class ConsumptionItemData : ItemData
         }
         base.Set(itemData);
         upHP = temp.upHP;
+        count = temp.count;
     }
 
 
     public override string GetString()
     {
-        return $"*Item Name : {itemName}\n*Type : {itemType}\n\n[Item Description]\n" + AddressableManager.Instance.LoadItemDescription(id.ToString());
+        return $"*아이템 이름 : {itemName}\n*아이템 종류 : {itemType.ToCustomString()}\n\n[아이템 설명]\n" + AddressableManager.Instance.LoadItemDescription(id.ToString());
+    }
+
+    public int Count()
+    {
+        return count;
     }
 }

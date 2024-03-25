@@ -36,4 +36,9 @@ MonoBehaviour:
     target: Dog soldier
     goal_count: 2
     count: 0
-  rewards: []
+  rewardItems: []
+  summary: "\uD14C\uC2A4\uD2B8 \uD018\uC2A4\uD2B8 \uC904\uAC70\uB9AC"
+  rewardGold:
+    gold: 0
+  rewardExp:
+    exp: 90

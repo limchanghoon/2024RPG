@@ -40,8 +40,18 @@ MonoBehaviour:
     goal_count: 1
     count: 0
   rewardItems:
-  - {fileID: 11400000, guid: e1876172dd7f05f4ab8f93668541f91c, type: 2}
-  - {fileID: 11400000, guid: 2aee72954a4f6b540b9188d4e112f0ff, type: 2}
+  - scriptableItemData: {fileID: 11400000, guid: 4e6b68c469e770c468c248c7682e313b,
+      type: 2}
+    count: 1
+  - scriptableItemData: {fileID: 11400000, guid: 2b1254630072616458a9001a9a24574a,
+      type: 2}
+    count: 100
+  - scriptableItemData: {fileID: 11400000, guid: 379f71a81ca420d4996ecb05986f2d11,
+      type: 2}
+    count: 100
+  summary: "\uBAAC\uC2A4\uD130 \uD1A0\uBC8C\uC744 \uC644\uB8CC\uD558\uACE0 \uB9C8\uC774\uD06C\uC5D0\uAC8C
+    \uB3CC\uC544\uAC00\uC790!"
   rewardGold:
     gold: 100
-  rewardExp: 55
+  rewardExp:
+    exp: 90

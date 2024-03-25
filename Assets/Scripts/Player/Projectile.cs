@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class Projectile : MonoBehaviour
 {
@@ -15,8 +16,12 @@ public class Projectile : MonoBehaviour
     [SerializeField] float radius = 0f;
     [SerializeField] AttackAttribute m_attackAttribute;
 
-    public void SetTarget(Vector3 destination)
+    private Transform owner;
+
+    public void Init(Vector3 destination, Transform newOwner)
     {
+        owner= newOwner;
+
         transform.parent = null;
         transform.LookAt(destination);
 
@@ -49,7 +54,7 @@ public class Projectile : MonoBehaviour
         bool isCri;
         MyMathf.IsCritical(GameManager.Instance.playerInfoManager.GetPlayerStat().criticalPer, ref damage, out isCri);
 
-        other.GetComponent<IHit>()?.Hit(damage, m_attackAttribute, isCri);
+        other.GetComponent<IHit>()?.Hit(damage, m_attackAttribute, owner, isCri);
 
         Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
         isActive = false;

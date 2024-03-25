@@ -12,7 +12,6 @@ public class NPC : MonoBehaviour, HelpForRay
     [SerializeField] GameObject[] progressMark;
     [SerializeField] OutlineController outlineController;
 
-    bool canInteractive = false;
 
     private void OnEnable()
     {
@@ -26,7 +25,6 @@ public class NPC : MonoBehaviour, HelpForRay
 
     private void UpdateInteractive()
     {
-        canInteractive = false;
         // 완료된 퀘스트 제거
         for(int i = questDatas.Count - 1;  i >= 0; --i)
         {
@@ -43,7 +41,6 @@ public class NPC : MonoBehaviour, HelpForRay
                 progressMark[0].SetActive(false);
                 progressMark[1].SetActive(false);
                 progressMark[2].SetActive(true);
-                canInteractive = true;
                 return;
             }
         }
@@ -57,7 +54,6 @@ public class NPC : MonoBehaviour, HelpForRay
                 progressMark[0].SetActive(true);
                 progressMark[1].SetActive(false);
                 progressMark[2].SetActive(false);
-                canInteractive = true;
                 return;
             }
         }
@@ -71,7 +67,6 @@ public class NPC : MonoBehaviour, HelpForRay
                 progressMark[0].SetActive(false);
                 progressMark[1].SetActive(true);
                 progressMark[2].SetActive(false);
-                canInteractive = true;
                 return;
             }
         }
@@ -80,8 +75,6 @@ public class NPC : MonoBehaviour, HelpForRay
         progressMark[0].SetActive(false);
         progressMark[1].SetActive(false);
         progressMark[2].SetActive(false);
-        canInteractive = false;
-
     }
 
     public void CloseHelp()
@@ -100,10 +93,7 @@ public class NPC : MonoBehaviour, HelpForRay
 
     public void Interact1()
     {
-        if (questDatas.Count > 0 && canInteractive)
-        {
-            GameManager.Instance.dialogUI.StartDialog(questDatas, npcCameraRoot, playerPoint);
-        }
+        GameManager.Instance.dialogUI.StartDialog(questDatas, npcCameraRoot, playerPoint);
     }
 
     public void Interact2() { return; }

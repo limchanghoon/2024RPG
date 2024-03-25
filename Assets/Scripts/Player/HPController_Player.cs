@@ -13,15 +13,17 @@ public class HPController_Player : MonoBehaviour, IHit
 
     Coroutine coroutine;
 
+    public bool invincibility { get; set; }
+
     private void Start()
     {
         currentHP = maxHP;
         hpBar.fillAmount = (float)currentHP / maxHP;
     }
 
-    public void Hit(int dmg, AttackAttribute attackAttribute, bool isCri)
+    public void Hit(int dmg, AttackAttribute attackAttribute, Transform ownerTr, bool isCri)
     {
-        if (currentHP <= 0) return;
+        if (invincibility || currentHP <= 0) return;
         GameManager.Instance.objectPoolManager.GetObject(ObjectPoolType.DamageText).GetComponent<DamageText>().SetAndActive(dmg, transform.position, attackAttribute, isCri);
         //Debug.Log($"{gameObject.name} : Hit {dmg.ToString()}!");
         currentHP = currentHP < dmg ? 0 : currentHP - dmg;

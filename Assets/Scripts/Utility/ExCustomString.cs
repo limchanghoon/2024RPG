@@ -18,4 +18,21 @@ public static class ExCustomString
         }
         return "NULL";
     }
+
+    public static string ToCustomString(this ItemType itemType)
+    {
+        switch(itemType)
+        {
+            case ItemType.Equipment:
+                return "장비";
+            case ItemType.Consumption:
+                return "소비";
+            case ItemType.Other:
+                return "기타";
+            case ItemType.Default:
+                return "??";
+            default:
+                return "NULL";
+        }
+    }
 }

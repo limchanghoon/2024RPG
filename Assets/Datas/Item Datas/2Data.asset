@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: 2Data
   m_EditorClassIdentifier: 
   id: 2
-  itemName: Iron Ore
+  itemName: "\uCCA0\uAD11\uC11D"
   itemType: 2
-  itemDescription: It is Iron Ore
+  itemDescription: "\uC774\uAC83\uC740 \uCCA0\uAD11\uC11D\uC774\uB2E4. \uC4F8\uBAA8\uAC00
+    \uB9CE\uC544 \uBCF4\uC778\uB2E4."
   count: 1

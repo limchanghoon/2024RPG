@@ -1471,6 +1471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87d4e85c8f27bf48a8db6a35822fad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 6703965489101469244}
   btn_Close: {fileID: 5554125167388405723}
   goldText: {fileID: 3736446746695309858}
   inventorySlotTrs:
@@ -8090,6 +8091,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043988055966285083, guid: a5d564c75cf04c24f886604c43cbabcd,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043988055966285083, guid: a5d564c75cf04c24f886604c43cbabcd,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043988055966285083, guid: a5d564c75cf04c24f886604c43cbabcd,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043988055966285083, guid: a5d564c75cf04c24f886604c43cbabcd,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

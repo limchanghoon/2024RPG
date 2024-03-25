@@ -121,8 +121,13 @@ MonoBehaviour:
   gold:
     gold: 100
   itemDatas:
-  - {fileID: 11400000, guid: 4e6b68c469e770c468c248c7682e313b, type: 2}
-  - {fileID: 11400000, guid: c3a9331e60491b342b672a3bebf7d417, type: 2}
-  - {fileID: 11400000, guid: 2b1254630072616458a9001a9a24574a, type: 2}
-  - {fileID: 11400000, guid: 379f71a81ca420d4996ecb05986f2d11, type: 2}
+  - scriptableItemData: {fileID: 11400000, guid: 2b1254630072616458a9001a9a24574a,
+      type: 2}
+    count: 3
+  - scriptableItemData: {fileID: 11400000, guid: 379f71a81ca420d4996ecb05986f2d11,
+      type: 2}
+    count: 5
+  - scriptableItemData: {fileID: 11400000, guid: 4e6b68c469e770c468c248c7682e313b,
+      type: 2}
+    count: 1
   curIndex: 0

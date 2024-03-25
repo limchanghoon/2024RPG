@@ -115,7 +115,7 @@ public class TargetRay : MonoBehaviour
                 {
                     animator.SetTrigger(_animIDJMagicShoot);
                     thirdPersonController.stop = true;
-                    Instantiate(redEnergyExplosion, hit.point, Quaternion.identity);
+                    Instantiate(redEnergyExplosion, hit.point, Quaternion.identity, transform);
                     _input = hit.point;
                     Debug.DrawRay(rayStart, Vector3.down * 10f, Color.yellow, 5f);
                 }
@@ -145,7 +145,7 @@ public class TargetRay : MonoBehaviour
         }
 
         magicBall.GetComponent<FollowTarget>().enabled = false;
-        magicBall.GetComponent<Projectile>().SetTarget(_input);
+        magicBall.GetComponent<Projectile>().Init(_input, transform);
     }
 
     public void ExitMagicShoot()

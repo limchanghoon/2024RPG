@@ -41,6 +41,6 @@ public class EquipmentItemData : ItemData
 
     public override string GetString()
     {
-        return $"*Item Name : {itemName}\n*Type : {itemType}\n*Attack Power : +{attackPower}\n*MaxHP : +{plusMaxHP}\n*Critical Percentage : +{criticalPer}\n\n[Item Description]\n" + AddressableManager.Instance.LoadItemDescription(id.ToString());
+        return $"*아이템 이름 : {itemName}\n*아이템 종류 : {itemType.ToCustomString()}\n*공격력 : +{attackPower}\n*최대HP : +{plusMaxHP}\n*크리티컬 확률 : +{criticalPer}\n\n[아이템 설명]\n" + AddressableManager.Instance.LoadItemDescription(id.ToString());
     }
 }

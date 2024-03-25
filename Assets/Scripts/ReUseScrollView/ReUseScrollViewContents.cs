@@ -1,48 +1,56 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class ReUseScrollViewContents : MonoBehaviour
+public abstract class ReUseScrollViewContents<T> : MonoBehaviour
 {
-    [SerializeField] RectTransform content;
-    [SerializeField] List<string> datas = new List<string>();
+    [SerializeField] protected Canvas canvas;
+    [SerializeField] protected RectTransform content;
+    [SerializeField] protected ScrollView scrollView;
+    protected List<T> datas = new List<T>();
 
-    [SerializeField] float cell_Y;
-    [SerializeField] float spaceing_Y;
+    [SerializeField] protected float cell_Y;
+    [SerializeField] protected float spaceing_Y;
 
-    int itemSize;
-    int curIndex = 1;
-    int lastIndex;
-    private void Awake()
+    public int curIndex { get; protected set; }
+    protected int itemSize;
+    protected int lastIndex;
+
+    protected void Awake()
     {
-        for(int i = 0; i < 10000; ++i)
-        {
-            datas.Add(i.ToString() + " 번째 데이터!");
-        }
+        SetInitPosition();
     }
 
-    private void Start()
+    protected void Update()
     {
-        SetDatas();
-    }
-    int DownCount = 0;
-    int UpCount = 0;
-    private void Update()
-    {
+        if (!canvas.enabled) return;
         if (itemSize > datas.Count) return;
         ScrollDown();
         ScrollUp();
     }
 
-    private void SetDatas()
+    public virtual void SetInitPosition()
     {
+        curIndex = 1;
+        for (int i = 0; i < content.childCount; i++)
+        {
+            RectTransform rectTr = content.GetChild(i).GetComponent<RectTransform>();
+            rectTr.anchoredPosition = new Vector2(0, -i * (cell_Y + spaceing_Y));
+            rectTr.sizeDelta = new Vector2(rectTr.sizeDelta.x, cell_Y);
+        }
+    }
+
+    protected void SetDatas(List<T> inputData)
+    {
+        datas = inputData;
         itemSize = content.childCount;
         lastIndex = itemSize - 1;
         int i = 0;
         for (; i < itemSize && i < datas.Count; i++)
         {
-            content.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().text = datas[i];
+            UpdateContent(i, i);
+            content.GetChild(i).gameObject.SetActive(true);
         }
         for (; i < itemSize; i++)
         {
@@ -50,9 +58,10 @@ public class ReUseScrollViewContents : MonoBehaviour
         }
         float height = datas.Count * (cell_Y + spaceing_Y);
         content.sizeDelta = new Vector2(content.sizeDelta.x, height);
+        SetInitPosition();
     }
 
-    private void ScrollDown()
+    protected void ScrollDown()
     {
         if (curIndex + itemSize - 1 < datas.Count)
         {
@@ -62,9 +71,8 @@ public class ReUseScrollViewContents : MonoBehaviour
             }
             if (content.anchoredPosition.y >= (cell_Y + spaceing_Y) * curIndex)
             {
-                DownCount++;
                 content.GetChild(0).GetComponent<RectTransform>().anchoredPosition = -new Vector2(0, cell_Y + spaceing_Y) * (curIndex + itemSize - 1);
-                content.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = datas[curIndex + itemSize - 1];
+                UpdateContent(0, curIndex + itemSize - 1);
                 content.GetChild(0).SetAsLastSibling();
                 curIndex++;
                 ScrollDown();
@@ -72,23 +80,24 @@ public class ReUseScrollViewContents : MonoBehaviour
         }
     }
 
-    private void ScrollUp()
+    protected void ScrollUp()
     {
         if (curIndex > 1)
         {
             while (content.anchoredPosition.y < (cell_Y + spaceing_Y) * (curIndex - 1 - 2 * itemSize))
             {
                 curIndex -= itemSize;
-            }   
+            }
             if (content.anchoredPosition.y < (cell_Y + spaceing_Y) * (curIndex - 1))
             {
-                UpCount++;
                 content.GetChild(lastIndex).GetComponent<RectTransform>().anchoredPosition = -new Vector2(0, cell_Y + spaceing_Y) * (curIndex - 2);
-                content.GetChild(lastIndex).GetComponentInChildren<TextMeshProUGUI>().text = datas[curIndex - 2];
+                UpdateContent(lastIndex, curIndex - 2);
                 content.GetChild(lastIndex).SetAsFirstSibling();
                 curIndex--;
                 ScrollUp();
             }
         }
     }
+
+    protected abstract void UpdateContent(int childIndex, int dataIndex);
 }

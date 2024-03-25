@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1Data
   m_EditorClassIdentifier: 
   id: 1
-  itemName: Copper Ore
+  itemName: "\uAD6C\uB9AC \uAD11\uC11D"
   itemType: 2
-  itemDescription: It is Copper Ore
+  itemDescription: "\uC774\uAC83\uC740 \uD754\uD55C \uAD6C\uB9AC \uAD11\uC11D\uC774\uB2E4."
   count: 1

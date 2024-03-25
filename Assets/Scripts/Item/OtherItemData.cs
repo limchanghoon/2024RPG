@@ -1,18 +1,16 @@
 using UnityEngine;
 
 [System.Serializable]
-public class OtherItemData : ItemData
+public class OtherItemData : CountableItemData
 {
-    public int count;
-
     public OtherItemData() : base()
     {
-        count = 0;
+
     }
 
     public OtherItemData(ScriptableOtherItemData input) : base(input)
     {
-        count = input.count;
+
     } 
 
     public override void Set(ItemData itemData)
@@ -24,12 +22,11 @@ public class OtherItemData : ItemData
             return;
         }
         base.Set(itemData);
-        count = temp.count;
     }
 
     public override string GetString()
     {
-        return $"*Item Name : {itemName}\n*Type : {itemType}\n\n[Item Description]\n" + AddressableManager.Instance.LoadItemDescription(id.ToString());
+        return $"*아이템 이름 : {itemName}\n*아이템 종류 : {itemType.ToCustomString()}\n\n[아이템 설명]\n" + AddressableManager.Instance.LoadItemDescription(id.ToString());
     }
 }
 

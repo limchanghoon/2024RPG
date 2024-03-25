@@ -2,7 +2,14 @@
 [System.Serializable]
 public class PlayerInfoData
 {
-    public string playerName = "z임시 이름z";
-    public int playerLevel = 1;
-    public int playerExp = 0;
+    public string playerName;
+    public int playerLevel;
+    public Exp playerExp;
+
+    public PlayerInfoData()
+    {
+        playerName = "z임시 이름z";
+        playerLevel = 1;
+        playerExp = new Exp();
+    }
 }

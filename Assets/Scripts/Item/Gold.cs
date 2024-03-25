@@ -1,6 +1,6 @@
 
 [System.Serializable]
-public class Gold
+public class Gold : IGetAddress
 {
     public int gold;
 
@@ -14,8 +14,13 @@ public class Gold
         this.gold = gold;
     }
 
+    public string GetAddress()
+    {
+        return "Gold";
+    }
+
     public override string ToString()
     {
-        return gold.ToString();
+        return "+" + gold.ToString() + "G";
     }
 }

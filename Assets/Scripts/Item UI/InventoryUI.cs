@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-
+    [SerializeField] Canvas canvas;
     [SerializeField] Button btn_Close;
     [SerializeField] TextMeshProUGUI goldText;
 
@@ -24,7 +25,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
-        gameObject.SetActive(false);
+        canvas.enabled = false;
         Init();
         btn_Close.onClick.AddListener(FindAnyObjectByType<InputManager>().ToggleInventory);
     }
@@ -109,6 +110,33 @@ public class InventoryUI : MonoBehaviour
         attackPowerText.text = "Attack Power : " + tempStat.attackPower.ToString();
         maxHPText.text = "MaxHP : " + tempStat.plusMaxHP.ToString();
         criPerText.text = "Critical Percentage : " + tempStat.criticalPer.ToString();
+    }
+
+    public bool IsOpened()
+    {
+        return canvas.enabled;
+    }
+
+    public void Open()
+    {
+        canvas.enabled = true;
+    }
+
+    public void Close()
+    {
+        canvas.enabled = false;
+
+        for (int i = 0;i< InventoryManager.inventorySize; i++)
+        {
+            DragItem _dragItem = inventorySlots[i].img.GetComponent<DragItem>();
+            _dragItem.OnEndDrag(null);
+        }
+        for (int i = 0; i < InventoryManager.equipmentWindowSize; i++)
+        {
+            DragItem _dragItem = equipmentWindowSlots[i].img.GetComponent<DragItem>();
+            _dragItem.OnEndDrag(null);
+        }
+
     }
 
     public void ToggleExpandedWindow(Toggle toggle)

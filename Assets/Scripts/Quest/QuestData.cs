@@ -10,10 +10,10 @@ public class QuestData
     public string questName { get { return scriptableQuestData.questName; } }
     public int requiredLevel { get { return scriptableQuestData.requiredLevel; } }
     public ScriptableQuestData[] prerequisiteQuest { get { return scriptableQuestData.prerequisiteQuest; } }
-    public ScriptableItemData[] rewardItems { get { return scriptableQuestData.rewardItems; } }
+    public ScriptableItemData_Count[] rewardItems { get { return scriptableQuestData.rewardItems; } }
     public string summary { get { return scriptableQuestData.summary; } }
     public Gold rewardGold { get { return scriptableQuestData.rewardGold; } }
-    public int rewardExp { get { return scriptableQuestData.rewardExp; } }
+    public Exp rewardExp { get { return scriptableQuestData.rewardExp; } }
 
     public QuestData() { }
 
@@ -59,11 +59,11 @@ public class QuestData
         int requiredOther = 0;
         for(int i = 0;i< rewardItems.Length; ++i)
         {
-            if (rewardItems[i].itemType == ItemType.Equipment)
+            if (rewardItems[i].scriptableItemData.itemType == ItemType.Equipment)
                 ++requiredQuipment;
-            else if (rewardItems[i].itemType == ItemType.Consumption)
+            else if (rewardItems[i].scriptableItemData.itemType == ItemType.Consumption)
                 ++requiredConsumption;
-            else if (rewardItems[i].itemType == ItemType.Other)
+            else if (rewardItems[i].scriptableItemData.itemType == ItemType.Other)
                 ++requiredOther;
         }
 

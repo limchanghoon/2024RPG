@@ -17,8 +17,12 @@ public class AreaAttack : MonoBehaviour
     Color invClr;
     [SerializeField] AttackAttribute m_attackAttribute;
 
+    private Transform owner;
+
     private void Awake()
     {
+        owner = transform.parent;
+        transform.parent = null;
         invClr = new Color(1 / clr.r, 1 / clr.g, 1 / clr.b, 1 / clr.a);
     }
 
@@ -34,7 +38,7 @@ public class AreaAttack : MonoBehaviour
                 bool isCri;
                 int _damage = damage;
                 MyMathf.IsCritical(GameManager.Instance.playerInfoManager.GetPlayerStat().criticalPer, ref _damage, out isCri);
-                cols[i].GetComponent<IHit>()?.Hit(_damage, m_attackAttribute, isCri);
+                cols[i].GetComponent<IHit>()?.Hit(_damage, m_attackAttribute, owner, isCri);
             }
             yield return MyYieldCache.WaitForSeconds(interval);
         }

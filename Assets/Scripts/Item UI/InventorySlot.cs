@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using TMPro;
 
 public class InventorySlot : ItemSlot
 {
+    public TextMeshProUGUI countText;
+
     public override ItemData GetItem()
     {
         return GameManager.Instance.inventoryManager.GetCurrentPageItems()[slotIndex];
@@ -18,5 +18,13 @@ public class InventorySlot : ItemSlot
     {
         GameManager.Instance.inventoryManager.GetCurrentPageItems()[slotIndex] = itemData;
         UpdateSlot();
+    }
+
+    public override void UpdateSlot()
+    {
+        base.UpdateSlot();
+        ItemData curItem = GetItem();
+        CountableItemData countable = curItem as CountableItemData;
+        countText.text = (countable == null || curItem.Empty()) ? string.Empty : countable.count.ToString();
     }
 }

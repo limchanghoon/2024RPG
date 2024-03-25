@@ -7,6 +7,8 @@ public class HPController_AI : MonoBehaviour, IHit
 {
     public string monsterName;
 
+    MonsterAI monsterAI;
+
     [SerializeField] int maxHP;
     [SerializeField] int currentHP;
 
@@ -14,11 +16,16 @@ public class HPController_AI : MonoBehaviour, IHit
     [SerializeField] Image hpBar;
     [SerializeField] Image hpBarBack;
 
-    int exp = 60; // юс╫ц
+    [SerializeField] Exp rewardExp;
 
     float backHPTimer = 0f;
 
     Coroutine coroutine;
+
+    private void Awake()
+    {
+        monsterAI = GetComponent<MonsterAI>();
+    }
 
     private void Start()
     {
@@ -26,9 +33,10 @@ public class HPController_AI : MonoBehaviour, IHit
         hpBar.fillAmount = (float)currentHP / maxHP;
     }
 
-    public void Hit(int dmg, AttackAttribute attackAttribute, bool isCri)
+    public void Hit(int dmg, AttackAttribute attackAttribute, Transform ownerTr, bool isCri)
     {
         if (currentHP <= 0) return;
+        monsterAI.SetTartgetByHit(ownerTr);
         GameManager.Instance.objectPoolManager.GetObject(ObjectPoolType.DamageText).GetComponent<DamageText>().SetAndActive(dmg, transform.position, attackAttribute, isCri);
         currentHP = currentHP < dmg ? 0 : currentHP - dmg;
         hpBar.fillAmount = (float)currentHP / maxHP;
@@ -43,7 +51,7 @@ public class HPController_AI : MonoBehaviour, IHit
         }
         if (currentHP <= 0)
         {
-            GameManager.Instance.playerInfoManager.GainExp(exp);
+            GameManager.Instance.playerInfoManager.GainExp(rewardExp);
             GameEventsManager.Instance.killEvents.Kill(monsterName);
             if (booty != null)
                 Instantiate(booty, transform.position + Vector3.up, Quaternion.identity);

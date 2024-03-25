@@ -3,7 +3,6 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -21,8 +20,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public FadeManager fadeManager;
     public DialogUI dialogUI;
-    public TargetRay targetRay;
-    public PlayerInput playerInput;
+    public GameObject playerObj;
 
     public CinemachineVirtualCamera dialogCam;
     public CinemachineTargetGroup dialogTargetGroup;

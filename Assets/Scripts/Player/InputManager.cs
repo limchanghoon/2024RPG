@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
 
     public void CloseAll()
     {
-        GameManager.Instance.inventoryManager.inventoryUI.gameObject.SetActive(false);
+        GameManager.Instance.inventoryManager.inventoryUI.Close();
         GameManager.Instance.questUI.canvas.enabled = false;
 
         depth = 0;
@@ -46,10 +46,16 @@ public class InputManager : MonoBehaviour
 
     public void ToggleInventory()
     {
-        GameObject obj = GameManager.Instance.inventoryManager.inventoryUI.gameObject;
-        obj.SetActive(!obj.activeSelf);
-        if (obj.activeSelf) depth++;
-        else depth--;
+        if(GameManager.Instance.inventoryManager.inventoryUI.IsOpened())
+        {
+            GameManager.Instance.inventoryManager.inventoryUI.Close();
+            depth--;
+        }
+        else
+        {
+            GameManager.Instance.inventoryManager.inventoryUI.Open();
+            depth++;
+        }
         UpdateCursor();
     }
 

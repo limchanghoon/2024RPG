@@ -16,9 +16,16 @@ public class ScriptableItemDataEditor : Editor
     {
         var op = Addressables.LoadAssetAsync<Texture2D>(data.id.ToString());
         Texture2D _sprite = op.WaitForCompletion();
-        GUILayout.Box(_sprite, GUILayout.Width(_sprite.width), GUILayout.Height(_sprite.height));
-        if (op.Result != null)
+        if (_sprite != null)
+        {
+            GUILayout.Box(_sprite, GUILayout.Width(_sprite.width), GUILayout.Height(_sprite.height));
             GUILayout.TextArea(op.Result.name);
+        }
+        else
+        {
+            GUILayout.Box("",GUILayout.Width(128), GUILayout.Height(128));
+            GUILayout.TextArea("해당 ID의 아이템이 없습니다!");
+        }
         Addressables.Release(op);
         base.OnInspectorGUI();
         GUILayout.Space(10);

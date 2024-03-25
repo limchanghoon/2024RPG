@@ -11,7 +11,7 @@ public class ScriptableEquipmentItemData : ScriptableItemData
 
     public override string GetString()
     {
-        return $"ID : {id}\nType : {itemType}\nAttack Power : {attackPower}\n+MaxHP : {plusMaxHP}\n+Critical Percentage : {criticalPer}";
+        return $"*아이템 이름 : {itemName}\n*아이템 종류 : {itemType.ToCustomString()}\n*공격력 : +{attackPower}\n*최대HP : +{plusMaxHP}\n*크리티컬 확률 : +{criticalPer}\n\n[아이템 설명]\n" + itemDescription;
     }
 
     public override ItemData ToItemData()
@@ -19,22 +19,3 @@ public class ScriptableEquipmentItemData : ScriptableItemData
         return new EquipmentItemData(this);
     }
 }
-
-/*
-[CustomEditor(typeof(ScriptableEquipmentItemData))]
-public class ScriptableEquipmentItemDataEditor : Editor
-{
-
-
-    private void OnEnable()
-    {
-
-    }
-
-    // 인스펙터 GUI에서의 모든 이벤트에 대해
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-    }
-}
-*/

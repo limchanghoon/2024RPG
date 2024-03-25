@@ -5,7 +5,7 @@ using UnityEngine;
 public class Booty : MonoBehaviour, HelpForRay
 {
     public Gold gold;
-    public ScriptableItemData[] itemDatas;
+    public ScriptableItemData_Count[] itemDatas;
     public int curIndex = 0;
 
     public void Acquire(InventoryManager inventoryManager)

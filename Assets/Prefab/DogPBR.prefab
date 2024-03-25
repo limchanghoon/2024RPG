@@ -1681,8 +1681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32a55934c7329c48ba2be55479182ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originSpeed: 3.5
-  speedRatio: 1
+  target: {fileID: 0}
   search_delay: 1
   search_radius: 15
   sqrAttackRange: 3
@@ -1690,6 +1689,7 @@ MonoBehaviour:
   attackCenter: {x: 0, y: 1, z: 1.25}
   attackSize: {x: 2, y: 2, z: 2.5}
   m_attackAttribute: 0
+  monsterState: 0
 --- !u!114 &3694213415098495795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1722,6 +1722,8 @@ MonoBehaviour:
   booty: {fileID: 8188536230797105562, guid: a4599b868d166124e8ee8cac82938b87, type: 3}
   hpBar: {fileID: 6428587776791205638}
   hpBarBack: {fileID: 2112399223300770631}
+  rewardExp:
+    exp: 22
 --- !u!1 &8422892626600285394
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,9 +10,10 @@ public class EquipmentWindowSlot : ItemSlot
 
     public override void OnDrop(PointerEventData eventData)
     {
-        if (eventData.pointerDrag != null)
+        DragItem _dragItem = eventData.pointerDrag.GetComponent<DragItem>();
+        if (eventData.pointerDrag != null && _dragItem && _dragItem.isDragging)
         {
-            ItemSlot preSlot = eventData.pointerDrag.GetComponent<DragItem>().OriginTr.GetComponent<ItemSlot>();
+            ItemSlot preSlot = _dragItem.OriginTr.GetComponent<ItemSlot>();
             if ((preSlot.GetItem() is EquipmentItemData) == false)
                 return;
             if (equipmentType != ((EquipmentItemData)preSlot.GetItem()).equipmentType)

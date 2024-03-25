@@ -5,21 +5,24 @@ using UnityEngine.AI;
 
 public class MonsterAI : MonoBehaviour
 {
-    enum MonsterState
+    public enum MonsterState
     {
         StartIdle,
         Idle,
         StartChase,
         Chase,
         StartAttack,
-        Attack
+        Attack,
+        StartGoBack,
+        GoBack
     }
 
     NavMeshAgent agent;
     Animator animator;
-    Transform target;
-    [SerializeField] float originSpeed;
-    [SerializeField] float speedRatio = 1f;
+    [SerializeField]Transform target;
+    Vector3 initPos;
+    float originSpeed;
+    float speedRatio = 1f;
 
     [SerializeField] float search_delay;
     [SerializeField] float search_radius;
@@ -31,7 +34,7 @@ public class MonsterAI : MonoBehaviour
 
     [SerializeField] AttackAttribute m_attackAttribute;
 
-    MonsterState monsterState = MonsterState.StartIdle;
+    public MonsterState monsterState = MonsterState.StartIdle;
 
 
     // animation IDs
@@ -45,12 +48,15 @@ public class MonsterAI : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+
+        originSpeed = agent.speed;
     }
 
     private void Start()
     {
         AssignAnimationIDs();
-        target = GameManager.Instance.playerInput.transform;
+        initPos = transform.position;
+        //target = GameManager.Instance.playerInput.transform;
         StartCoroutine(SearchTargetCoroutine());
     }
 
@@ -77,7 +83,7 @@ public class MonsterAI : MonoBehaviour
 
             case MonsterState.Chase:
                 agent.destination = target.position;
-                if ((target.position-transform.position).sqrMagnitude <= sqrAttackRange)
+                if ((agent.destination - transform.position).sqrMagnitude <= sqrAttackRange)
                 {
                     monsterState = MonsterState.StartAttack;
                 }
@@ -91,6 +97,21 @@ public class MonsterAI : MonoBehaviour
                 break;
 
             case MonsterState.Attack:
+                break;
+
+            case MonsterState.StartGoBack:
+                agent.isStopped = false;
+                agent.destination = initPos;
+                monsterState = MonsterState.GoBack;
+                StopAllCoroutines();
+                break;
+
+            case MonsterState.GoBack:
+                if ((agent.destination - transform.position).sqrMagnitude <= 2f)
+                {
+                    monsterState = MonsterState.StartIdle;
+                    StartCoroutine(SearchTargetCoroutine());
+                }
                 break;
 
             default:
@@ -125,6 +146,12 @@ public class MonsterAI : MonoBehaviour
         var cols = Physics.OverlapSphere(transform.position, search_radius, 1 << LayerMask.NameToLayer("Player"));
         if (cols.Length > 0)
         {
+            HPController_Player hPController_Player = cols[0].GetComponent<HPController_Player>();
+            if (hPController_Player != null && hPController_Player.invincibility)
+            {
+                monsterState = MonsterState.StartGoBack;
+                target = null;
+            }
             if (monsterState == MonsterState.Idle)
             {
                 target = cols[0].transform;
@@ -133,7 +160,7 @@ public class MonsterAI : MonoBehaviour
         }
         else
         {
-            monsterState = MonsterState.StartIdle;
+            //monsterState = MonsterState.StartGoBack;
         }
     }
 
@@ -145,7 +172,7 @@ public class MonsterAI : MonoBehaviour
         {
             if (colliders[i].CompareTag("Player"))
             {
-                colliders[i].GetComponent<IHit>().Hit(attackPower, m_attackAttribute, false);
+                colliders[i].GetComponent<IHit>().Hit(attackPower, m_attackAttribute, transform, false);
             }
         }
     }
@@ -153,8 +180,19 @@ public class MonsterAI : MonoBehaviour
     public void EndAttack()
     {
         monsterState = MonsterState.StartIdle;
-        SearchTarget();
         StartCoroutine(SearchTargetCoroutine());
+    }
+
+    public void SetTartgetByHit(Transform input)
+    {
+        if (target == null)
+        {
+            target = input;
+            if(monsterState == MonsterState.Idle)
+            {
+                monsterState = MonsterState.StartChase;
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()

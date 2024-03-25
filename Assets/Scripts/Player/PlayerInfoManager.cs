@@ -14,13 +14,18 @@ public class PlayerInfoManager : MonoBehaviour
         GameEventsManager.Instance.playerEvents.ChangeExp();
     }
 
+    public void GainExp(Exp _exp)
+    {
+        GainExp(_exp.exp);
+    }
+
     public void GainExp(int _exp)
     {
-        playerInfoData.playerExp += _exp;
-        if(playerInfoData.playerExp >= 100) // 임시
+        playerInfoData.playerExp.exp += _exp;
+        if (playerInfoData.playerExp.exp >= 100) // 임시
         {
             playerInfoData.playerLevel++;
-            playerInfoData.playerExp -= 100;
+            playerInfoData.playerExp.exp -= 100;
             GameEventsManager.Instance.playerEvents.ChangeLevel();
         }
         GameEventsManager.Instance.playerEvents.ChangeExp();

@@ -20,15 +20,16 @@ public class BootyUI : MonoBehaviour
         int idx = 0;
         if(m_booty.gold.gold > 0)
         {
-            AddressableManager.Instance.LoadSprite("Gold", bootyItemPanel.transform.GetChild(idx).GetChild(0).GetComponent<Image>());
-            bootyItemPanel.transform.GetChild(idx).GetChild(1).GetComponent<TextMeshProUGUI>().text = m_booty.gold.ToString() + "G";
+            AddressableManager.Instance.LoadSprite(m_booty.gold.GetAddress(), bootyItemPanel.transform.GetChild(idx).GetChild(0).GetComponent<Image>());
+            bootyItemPanel.transform.GetChild(idx).GetChild(1).GetComponent<TextMeshProUGUI>().text = m_booty.gold.ToString();
             bootyItemPanel.transform.GetChild(idx).gameObject.SetActive(true);
             ++idx;
         }
         for (int i = m_booty.curIndex; idx < bootyItemPanel.transform.childCount && i < m_booty.itemDatas.Length; ++idx, ++i)
         {
-            AddressableManager.Instance.LoadSprite(m_booty.itemDatas[i].id.ToString(), bootyItemPanel.transform.GetChild(idx).GetChild(0).GetComponent<Image>());
-            bootyItemPanel.transform.GetChild(idx).GetChild(1).GetComponent<TextMeshProUGUI>().text = m_booty.itemDatas[i].GetName();
+            AddressableManager.Instance.LoadSprite(m_booty.itemDatas[i].GetAddress(), bootyItemPanel.transform.GetChild(idx).GetChild(0).GetComponent<Image>());
+            bootyItemPanel.transform.GetChild(idx).GetChild(1).GetComponent<TextMeshProUGUI>().text
+                = m_booty.itemDatas[i].scriptableItemData.GetName() + " : " + m_booty.itemDatas[i].count.ToString() + "°³";
             bootyItemPanel.transform.GetChild(idx).gameObject.SetActive(true);
         }
         
@@ -49,8 +50,8 @@ public class BootyUI : MonoBehaviour
         int lastIndex = m_booty.curIndex + bootyItemPanel.transform.childCount - 1;
         if (lastIndex < m_booty.itemDatas.Length)
         {
-            AddressableManager.Instance.LoadSprite(m_booty.itemDatas[lastIndex].id.ToString(), bootyItemPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>());
-            bootyItemPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = m_booty.itemDatas[lastIndex].GetName();
+            AddressableManager.Instance.LoadSprite(m_booty.itemDatas[lastIndex].GetAddress(), bootyItemPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>());
+            bootyItemPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = m_booty.itemDatas[lastIndex].scriptableItemData.GetName() + " : " + m_booty.itemDatas[lastIndex].count + "°³";
         }
         else
             bootyItemPanel.transform.GetChild(0).gameObject.SetActive(false);

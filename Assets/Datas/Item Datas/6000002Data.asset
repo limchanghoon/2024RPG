@@ -18,4 +18,5 @@ MonoBehaviour:
   itemDescription: These are ordinary leather gloves.
   attackPower: 2
   plusMaxHP: 20
+  criticalPer: 0
   equipmentType: 5

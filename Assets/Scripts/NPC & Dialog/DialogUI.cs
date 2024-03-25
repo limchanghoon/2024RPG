@@ -1,11 +1,10 @@
-using Cinemachine;
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -23,6 +22,9 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] GameObject questBlockPrefab;
     [SerializeField] Transform questBlockParent;
     [SerializeField] GameObject scrollviewObj;
+
+    [SerializeField] GameObject rewardPanel;
+    [SerializeField] ReUseScrollViewQuestRewardUI rewardView;
 
 
     string curDialog;
@@ -65,6 +67,24 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
 
     public void ShowNextDialog()
     {
+        if (dialogIndex == dialogs.Length - 1)
+        {
+            ++dialogIndex;
+            QuestData curQuest = GameManager.Instance.questManager.GetQuestDataByID(questData[currentQuestIndex].questID);
+            if (curQuest.questProgressState == QuestProgressState.AbleToComplete)
+            {
+                dialogText.text = string.Empty;
+                rewardPanel.SetActive(true);
+                List<IGetAddress> temp = new List<IGetAddress>();
+                temp = curQuest.rewardItems.ToList<IGetAddress>();
+                temp.Add(curQuest.rewardGold);
+                temp.Add(curQuest.rewardExp);
+                rewardView.SetDatas(temp);
+            }
+            OnValidButton();
+            return;
+        }
+
         if (dialogIndex + 1 < dialogs.Length)
         {
             ++dialogIndex;
@@ -92,11 +112,6 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
                 dialogText.text = curDialog.Substring(0, ++curIndex);
                 t = 0f;
             }
-        }
-
-        if (dialogIndex == dialogs.Length - 1)
-        {
-            OnValidButton();
         }
     }
 
@@ -126,23 +141,24 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         // 조작 불가능
         GameManager.Instance.rayForHelp.TurnOff();
         GameManager.Instance.inputManager.CloseAll();
-        GameManager.Instance.targetRay.enabled = false;
-        GameManager.Instance.playerInput.enabled = false;
+        GameManager.Instance.playerObj.GetComponent<HPController_Player>().invincibility = true;
+        GameManager.Instance.playerObj.GetComponent<TargetRay>().enabled = false;
+        GameManager.Instance.playerObj.GetComponent<PlayerInput>().enabled = false;
 
         // 페이드 아웃
         yield return GameManager.Instance.fadeManager.Fade(true);
 
         // UI 숨기기
-        GameManager.Instance.topCanvas.enabled = false;
+        //GameManager.Instance.topCanvas.enabled = false;
         GameManager.Instance.staticCanvas.enabled = false;
         GameManager.Instance.playerUICanvas.enabled = false;
 
         // 플레이어 위치 옮기기
-        GameManager.Instance.playerInput.GetComponent<CharacterController>().enabled = false;
-        GameManager.Instance.playerInput.transform.position = playerPoint.position;
-        GameManager.Instance.playerInput.transform.LookAt(npcCameraRoot.position);
-        GameManager.Instance.playerInput.transform.rotation = Quaternion.Euler(0f, GameManager.Instance.playerInput.transform.rotation.y, 0f);
-        GameManager.Instance.playerInput.GetComponent<CharacterController>().enabled = true;
+        GameManager.Instance.playerObj.GetComponent<CharacterController>().enabled = false;
+        GameManager.Instance.playerObj.transform.position = playerPoint.position;
+        GameManager.Instance.playerObj.transform.LookAt(npcCameraRoot.position);
+        GameManager.Instance.playerObj.transform.rotation = Quaternion.Euler(0f, GameManager.Instance.playerObj.transform.rotation.eulerAngles.y, 0f);
+        GameManager.Instance.playerObj.GetComponent<CharacterController>().enabled = true;
 
         // 카메라 옮기기
         GameManager.Instance.dialogTargetGroup.AddMember(npcCameraRoot, 1, 0);
@@ -155,6 +171,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         button_accept.SetActive(false);
         button_complete.SetActive(false);
         button_reject.SetActive(true);
+        rewardPanel.SetActive(false);
 
         foreach (Transform child in questBlockParent)
         {
@@ -162,7 +179,11 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         }
         for (int i = 0; i < questData.Count; i++)
         {
-            GenerateQuestBlock(i);
+            if (GameManager.Instance.questManager.GetQuestDataByID(questData[i].questID).questProgressState !=QuestProgressState.NotStartable 
+                && GameManager.Instance.questManager.GetQuestDataByID(questData[i].questID).questProgressState != QuestProgressState.Completed)
+            {
+                GenerateQuestBlock(i);
+            }
         }
         scrollviewObj.SetActive(true);
 
@@ -198,7 +219,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         GameManager.Instance.dialogTargetGroup.m_Targets[0].weight = 1.0f;
 
         // UI 켜기
-        GameManager.Instance.topCanvas.enabled = true;
+        //GameManager.Instance.topCanvas.enabled = true;
         GameManager.Instance.staticCanvas.enabled = true;
         GameManager.Instance.playerUICanvas.enabled = true;
 
@@ -206,8 +227,9 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         yield return GameManager.Instance.fadeManager.Fade(false);
 
         // 조작 가능
-        GameManager.Instance.targetRay.enabled = true;
-        GameManager.Instance.playerInput.enabled = true;
+        GameManager.Instance.playerObj.GetComponent<TargetRay>().enabled = true;
+        GameManager.Instance.playerObj.GetComponent<PlayerInput>().enabled = true;
+        GameManager.Instance.playerObj.GetComponent<HPController_Player>().invincibility = false;
         GameManager.Instance.rayForHelp.TurnOn();
     }
 
@@ -262,10 +284,6 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
             StopAllCoroutines();
             dialogText.text = curDialog;
             curIndex = curDialog.Length;
-            if(dialogIndex == dialogs.Length - 1)
-            {
-                OnValidButton();
-            }
             return;
         }
         ShowNextDialog();

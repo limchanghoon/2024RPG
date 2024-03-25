@@ -45,16 +45,48 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    public bool EarnItem(ScriptableItemData itemData)
+    public bool EarnItem(ScriptableItemData_Count itemData)
     {
+        ItemData[] curItems = GetItems(itemData.scriptableItemData.itemType);
+        CountableItemData countable = curItems[0] as CountableItemData;
+        if (countable != null)
+        {
+            return EarnCountableItem((CountableItemData[])curItems, itemData);
+        }
+        else
+        {
+            return EarnUnCountableItem(curItems, itemData);
+        }
+    }
+
+    private bool EarnCountableItem(CountableItemData[] curItems, ScriptableItemData_Count itemData)
+    {
+        // 1. 기존에 해당 아이템 소지했으면
         int i = 0;
-        ItemData[] curItems = GetItems(itemData.itemType);
+        for (; i < inventorySize; i++)
+        {
+            if (!curItems[i].Empty() && curItems[i].id == itemData.scriptableItemData.id)
+            {
+                curItems[i].Add(itemData.count);
+                if (curPage == (int)itemData.scriptableItemData.itemType)
+                {
+                    inventoryUI.inventorySlots[i].UpdateSlot();
+                }
+                break;
+            }
+        }
+        // 기존에 해당 아이템 소지함!
+        if (i != inventorySize)
+            return true;
+
+        // 2. 기존에 해당 아이템 소지하지 않았으면
+        i = 0;
         for (; i < inventorySize; i++)
         {
             if (curItems[i].Empty())
             {
-                curItems[i].Set(itemData.ToItemData());
-                if (curPage == (int)itemData.itemType)
+                curItems[i].Set(itemData.scriptableItemData.ToItemData());
+                if (curPage == (int)itemData.scriptableItemData.itemType)
                 {
                     inventoryUI.inventorySlots[i].UpdateSlot();
                 }
@@ -66,23 +98,22 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
 
-    public bool EarnItem(ItemData itemData)
+    private bool EarnUnCountableItem(ItemData[] curItems, ScriptableItemData_Count itemData)
     {
         int i = 0;
-        ItemData[] curItems = GetItems(itemData.itemType);
         for (; i < inventorySize; i++)
         {
             if (curItems[i].Empty())
             {
-                curItems[i] = itemData;
-                if (curPage == (int)itemData.itemType)
+                curItems[i].Set(itemData.scriptableItemData.ToItemData());
+                if (curPage == (int)itemData.scriptableItemData.itemType)
                 {
                     inventoryUI.inventorySlots[i].UpdateSlot();
                 }
                 break;
             }
         }
-        if(i == inventorySize)
+        if (i == inventorySize)
             return false;
         return true;
     }

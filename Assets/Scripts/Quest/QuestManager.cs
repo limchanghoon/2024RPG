@@ -10,8 +10,6 @@ public class QuestManager : MonoBehaviour
     public List<int> inProgressQuestList = new List<int>();
     public List<int> completedQuestList = new List<int>();
 
-    public GameObject questUI;
-
     private void Awake()
     {
         // 모든 퀘스트 정보 불러오기

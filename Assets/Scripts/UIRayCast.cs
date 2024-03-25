@@ -43,10 +43,19 @@ public class UIRayCast : MonoBehaviour
                 if (temp != null && getItemInfo != temp)
                 {
                     getItemInfo = temp;
-                    MoveInfoRect(pointer.position);
                     var tup = getItemInfo.GetItemInfo();
+                    if(tup.id == 0)
+                    {
+                        return;
+                    }
                     AddressableManager.Instance.LoadSprite(tup.id.ToString(), itemImage);
                     itemInfoText.text = tup.str;
+                    MoveInfoRect(pointer.position);
+                }
+                else if(temp == null)
+                {
+                    getItemInfo = null;
+                    infoRectTr.anchoredPosition = new Vector2(-99999, -99999);
                 }
             }
         }

@@ -36,4 +36,13 @@ MonoBehaviour:
     target: Dog soldier
     goal_count: 2
     count: 0
-  rewards: []
+  rewardItems:
+  - scriptableItemData: {fileID: 11400000, guid: 379f71a81ca420d4996ecb05986f2d11,
+      type: 2}
+    count: 5
+  summary: "\uB610 \uB2E4\uC2DC \uB9C8\uC774\uD06C\uAC00 \uBAAC\uC2A4\uD130 \uD1A0\uBC8C\uC744
+    \uC758\uB8B0\uD588\uB2E4. \uC740\uADFC \uADC0\uCC2E\uB124.."
+  rewardGold:
+    gold: 0
+  rewardExp:
+    exp: 90
