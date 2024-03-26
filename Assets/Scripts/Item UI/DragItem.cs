@@ -55,7 +55,7 @@ public class DragItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         this.OriginTr = OriginTr;
     }
 
-    public (uint id, string str) GetItemInfo()
+    public (int id, string str) GetItemInfo()
     {
         var temp = OriginTr.GetComponent<ItemSlot>().GetItem();
         return (temp.id, temp.GetString());

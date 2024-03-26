@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class ItemData
 {
     [Header("Item Fields")]
-    public uint id;
+    public int id;
     public string itemName;
     public ItemType itemType;
 

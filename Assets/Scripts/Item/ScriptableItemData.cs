@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class ScriptableItemData : ScriptableObject
 {
     [Header("Item Fields")]
-    public uint id;
+    public int id;
     public string itemName;
     public ItemType itemType;
     [HideInInspector] public string itemDescription;

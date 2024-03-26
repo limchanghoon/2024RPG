@@ -35,44 +35,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - QuestData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 15aac014b816c064db373f840314e9f7
-    m_Address: Assets/Datas/Quest Datas/Quest6.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - QuestData
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 293dcf33a504d2b4b80e9fa096739ec3
     m_Address: Assets/Datas/Quest Datas/Quest4.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - QuestData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7b0df4b9f0aacf14bafa6a1dbaa34afd
-    m_Address: Assets/Datas/Quest Datas/Quest7.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - QuestData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3c9de6cf663df93428c49c370ac0cc74
-    m_Address: Assets/Datas/Quest Datas/Quest8.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - QuestData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8ca663b21ae77964d9cf4b9d11692a6b
-    m_Address: Assets/Datas/Quest Datas/Quest5.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - QuestData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4746c64c1b6f12949b520c58b8a7fb3a
-    m_Address: Assets/Datas/Quest Datas/Quest9.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - QuestData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a59deae111f0b794fb82e53fd86603d8
-    m_Address: Assets/Datas/Quest Datas/Quest10.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - QuestData

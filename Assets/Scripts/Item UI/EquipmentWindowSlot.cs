@@ -36,7 +36,7 @@ public class EquipmentWindowSlot : ItemSlot
 
     public override void ResetSlot()
     {
-        GameManager.Instance.inventoryManager.equipmentWindowItems[slotIndex] = null;
+        GameManager.Instance.inventoryManager.equipmentWindowItems[slotIndex].id = 0;
     }
 
     public override void SetSlot(ItemData itemData)

@@ -9,9 +9,9 @@ public abstract class CountableItemData : ItemData
         count = 0;
     }
 
-    public CountableItemData(ScriptableCountableItemData input) : base(input)
+    public CountableItemData(ScriptableItemData input) : base(input)
     {
-        count = input.count;
+
     }
 
     public override void Set(ItemData itemData)

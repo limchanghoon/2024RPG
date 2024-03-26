@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Consumption ItemData", menuName = "Scriptable Object/Consumption ItemData")]
-public class ScriptableConsumptionItemData : ScriptableCountableItemData
+public class ScriptableConsumptionItemData : ScriptableItemData
 {
     [Header("Consumption Fields")]
     public int upHP = 0;

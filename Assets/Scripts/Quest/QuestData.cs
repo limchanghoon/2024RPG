@@ -3,6 +3,7 @@
 public class QuestData
 {
     public int questID;
+    public int step;
     public ScriptableQuestData scriptableQuestData;
     public QuestContent[] questContents;
     public QuestProgressState questProgressState;
@@ -45,11 +46,14 @@ public class QuestData
             questContents[i].DeepCopy(input.questContents[i]);
         }
         questProgressState = input.questProgressState;
+        step = input.step;
     }
 
     public void StartQuest()
     {
-        GameEventsManager.Instance.killEvents.onKill += Proceed;
+        GameEventsManager.Instance.killEvents.onKill += Kill;
+        GameEventsManager.Instance.collectEvents.onCollect += Collect;
+        GameEventsManager.Instance.communicateEvents.onCommunicate += Communicate;
     }
 
     public bool FinishQuest(InventoryManager inventoryManager, PlayerInfoManager playerInfoManager, ref string msg)
@@ -108,6 +112,26 @@ public class QuestData
             return false;
         }
 
+        // Collect 자원 확인
+        for (int i = 0; i < questContents.Length; ++i)
+        {
+            if (questContents[i].questContentType != QuestContentType.Collect) continue;
+            if (questContents[i].goal_count < inventoryManager.GetCount(questContents[i].targetId))
+            {
+                msg = "Collect 자원이 부족합니다!";
+                return false;
+            }
+        }
+
+        // Collect 자원 회수
+        for (int i = 0; i < questContents.Length; ++i)
+        {
+            if (questContents[i].questContentType != QuestContentType.Collect) continue;
+            inventoryManager.DropItem(questContents[i].targetId, questContents[i].goal_count);
+        }
+
+
+        // 보상 획득
         for (int i = 0; i < rewardItems.Length; ++i)
         {
             inventoryManager.EarnItem(rewardItems[i]);
@@ -115,31 +139,97 @@ public class QuestData
         inventoryManager.EarnGold(rewardGold);
         playerInfoManager.GainExp(rewardExp);
 
-        GameEventsManager.Instance.killEvents.onKill -= Proceed;
+        GameEventsManager.Instance.killEvents.onKill -= Kill;
+        GameEventsManager.Instance.collectEvents.onCollect -= Collect;
+        GameEventsManager.Instance.communicateEvents.onCommunicate -= Communicate;
+
+        inventoryManager.inventoryUI.InventoryReDrawAll();
         return true;
     }
 
-    // kill.. Collect.. 등등 타입에 따라 이벤트 변경?
-    private void Proceed(string _target)
+    private void Kill(int _targetId)
     {
         bool check = false;
         for (int i = 0; i < questContents.Length; i++)
         {
-            if (questContents[i].questContentType == QuestContentType.Kill && questContents[i].target == _target)
+            if (questContents[i].questContentType == QuestContentType.Kill && questContents[i].targetId == _targetId)
             {
                 check = true;
-                questContents[i].count++;
+                questContents[i].Kill();
             }
         }
-        if(check && Check_AbleToComplete())
+        if (check && Check_AbleToProceed())
         {
-            questProgressState = QuestProgressState.AbleToComplete;
-            // 임시
+            questProgressState = QuestProgressState.AbleToProceed;
             GameEventsManager.Instance.questEvents.QuestProgessChange();
         }
     }
 
-    public bool Check_AbleToComplete()
+    private void Collect(int _targetId, int curCount)
+    {
+        bool check = false;
+        for (int i = 0; i < questContents.Length; i++)
+        {
+            if (questContents[i].questContentType == QuestContentType.Collect && questContents[i].targetId == _targetId)
+            {
+                check = true;
+                questContents[i].Collect(curCount);
+            }
+        }
+        if (check)
+        {
+            if (Check_AbleToProceed())
+            {
+                questProgressState = QuestProgressState.AbleToProceed;
+                GameEventsManager.Instance.questEvents.QuestProgessChange();
+            }
+            else
+            {
+                questProgressState = QuestProgressState.InProgress;
+                GameEventsManager.Instance.questEvents.QuestProgessChange();
+            }
+        }
+    }
+
+    private void Communicate(int _targetId)
+    {
+        bool check = false;
+        for (int i = 0; i < questContents.Length; i++)
+        {
+            if (questContents[i].questContentType == QuestContentType.Communicate && questContents[i].targetId == _targetId)
+            {
+                check = true;
+                questContents[i].Communicate();
+            }
+        }
+        if (check && Check_AbleToProceed())
+        {
+            questProgressState = QuestProgressState.AbleToProceed;
+            GameEventsManager.Instance.questEvents.QuestProgessChange();
+        }
+    }
+
+    public void UpdateCollectInfo(InventoryManager inventoryManager)
+    {
+        for (int i = 0; i < questContents.Length; i++)
+        {
+            if (questContents[i].questContentType == QuestContentType.Collect)
+            {
+                questContents[i].Collect(inventoryManager.GetCount(questContents[i].targetId));
+            }
+        }
+    }
+
+    public int GetMaxStep()
+    {
+        int _max = 0;
+        for(int i = 0; i< scriptableQuestData.AbleToProceed_Dialogs.Length; i++)
+        {
+            _max = System.Math.Max(_max, scriptableQuestData.AbleToProceed_Dialogs[i].step);
+        }
+        return _max;
+    }
+    public bool Check_AbleToProceed()
     {
         for (int i = 0; i < questContents.Length; i++)
         {

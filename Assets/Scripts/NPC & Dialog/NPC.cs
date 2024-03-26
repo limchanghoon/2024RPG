@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour, HelpForRay
 {
+    [SerializeField] int npcId;
     [SerializeField] Transform npcCameraRoot;
     [SerializeField] Transform playerPoint;
     [SerializeField] GameObject npcNameObj;
@@ -32,16 +33,22 @@ public class NPC : MonoBehaviour, HelpForRay
                 questDatas.RemoveAt(i);
         }
 
-        // 완료 가능 표시
+        // 다음 단계 가능 표시
         for (int i = 0;i < questDatas.Count; ++i)
         {
             QuestData _questData = GameManager.Instance.questManager.GetQuestDataByID(questDatas[i].questID);
-            if(_questData.questProgressState == QuestProgressState.AbleToComplete)
+            if(_questData.questProgressState == QuestProgressState.AbleToProceed)
             {
-                progressMark[0].SetActive(false);
-                progressMark[1].SetActive(false);
-                progressMark[2].SetActive(true);
-                return;
+                for (int j = 0; j < _questData.scriptableQuestData.AbleToProceed_Dialogs.Length; ++j)
+                {
+                    if (_questData.scriptableQuestData.AbleToProceed_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.AbleToProceed_Dialogs[j].step == _questData.step)
+                    {
+                        progressMark[0].SetActive(false);
+                        progressMark[1].SetActive(false);
+                        progressMark[2].SetActive(true);
+                        return;
+                    }
+                }
             }
         }
 
@@ -51,10 +58,16 @@ public class NPC : MonoBehaviour, HelpForRay
             QuestData _questData = GameManager.Instance.questManager.GetQuestDataByID(questDatas[i].questID);
             if (_questData.questProgressState == QuestProgressState.Startable)
             {
-                progressMark[0].SetActive(true);
-                progressMark[1].SetActive(false);
-                progressMark[2].SetActive(false);
-                return;
+                for(int j = 0; j < _questData.scriptableQuestData.startable_Dialogs.Length; ++j)
+                {
+                    if (_questData.scriptableQuestData.startable_Dialogs[j].npcId == npcId)
+                    {
+                        progressMark[0].SetActive(true);
+                        progressMark[1].SetActive(false);
+                        progressMark[2].SetActive(false);
+                        return;
+                    }
+                }
             }
         }
 
@@ -62,12 +75,18 @@ public class NPC : MonoBehaviour, HelpForRay
         for (int i = 0; i < questDatas.Count; ++i)
         {
             QuestData _questData = GameManager.Instance.questManager.GetQuestDataByID(questDatas[i].questID);
-            if (_questData.questProgressState == QuestProgressState.InProgress)
+            if (_questData.questProgressState == QuestProgressState.InProgress || _questData.questProgressState == QuestProgressState.AbleToProceed)
             {
-                progressMark[0].SetActive(false);
-                progressMark[1].SetActive(true);
-                progressMark[2].SetActive(false);
-                return;
+                for (int j = 0; j < _questData.scriptableQuestData.inProgress_Dialogs.Length; ++j)
+                {
+                    if (_questData.scriptableQuestData.inProgress_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.inProgress_Dialogs[j].step == _questData.step)
+                    {
+                        progressMark[0].SetActive(false);
+                        progressMark[1].SetActive(true);
+                        progressMark[2].SetActive(false);
+                        return;
+                    }
+                }
             }
         }
 
@@ -93,7 +112,7 @@ public class NPC : MonoBehaviour, HelpForRay
 
     public void Interact1()
     {
-        GameManager.Instance.dialogUI.StartDialog(questDatas, npcCameraRoot, playerPoint);
+        GameManager.Instance.dialogUI.StartDialog(questDatas, npcCameraRoot, playerPoint, npcId);
     }
 
     public void Interact2() { return; }

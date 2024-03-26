@@ -68,8 +68,9 @@ public class QuestManager : MonoBehaviour
     public void StartQuest(int questID)
     {
         questMap[questID].StartQuest();
-        if (questMap[questID].Check_AbleToComplete())
-            questMap[questID].questProgressState = QuestProgressState.AbleToComplete;
+        questMap[questID].UpdateCollectInfo(GameManager.Instance.inventoryManager);
+        if (questMap[questID].Check_AbleToProceed())
+            questMap[questID].questProgressState = QuestProgressState.AbleToProceed;
         else 
             questMap[questID].questProgressState = QuestProgressState.InProgress;
 
@@ -81,7 +82,8 @@ public class QuestManager : MonoBehaviour
     private void FinishQuest(int questID)
     {
         string msg = string.Empty;
-        if (questMap[questID].FinishQuest(GameManager.Instance.inventoryManager, GameManager.Instance.playerInfoManager, ref msg))
+        questMap[questID].step++;
+        if (questMap[questID].step > questMap[questID].GetMaxStep() && questMap[questID].FinishQuest(GameManager.Instance.inventoryManager, GameManager.Instance.playerInfoManager, ref msg))
         {
             questMap[questID].questProgressState = QuestProgressState.Completed;
 

@@ -11,7 +11,7 @@ public class InventorySlot : ItemSlot
 
     public override void ResetSlot()
     {
-        GameManager.Instance.inventoryManager.GetCurrentPageItems()[slotIndex] = null;
+        GameManager.Instance.inventoryManager.GetCurrentPageItems()[slotIndex].id = 0;
     }
 
     public override void SetSlot(ItemData itemData)

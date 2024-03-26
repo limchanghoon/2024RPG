@@ -175,7 +175,7 @@ public class MyJsonManager
             if (questMap.ContainsKey(_questID))
             {
                 questMap[_questID].Set(loadedData.questDatas[i]);
-                if (loadedData.questDatas[i].questProgressState == QuestProgressState.InProgress || loadedData.questDatas[i].questProgressState == QuestProgressState.AbleToComplete)
+                if (loadedData.questDatas[i].questProgressState == QuestProgressState.InProgress || loadedData.questDatas[i].questProgressState == QuestProgressState.AbleToProceed)
                     GameManager.Instance.questManager.StartQuest(_questID);
             }
         }

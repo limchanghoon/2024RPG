@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Other ItemData", menuName = "Scriptable Object/Other ItemData")]
-public class ScriptableOtherItemData : ScriptableCountableItemData
+public class ScriptableOtherItemData : ScriptableItemData
 {
     public override string GetString()
     {

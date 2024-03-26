@@ -4,6 +4,7 @@ public enum QuestProgressState
     NotStartable,
     Startable,
     InProgress,
-    AbleToComplete,
+    AbleToProceed,
     Completed,
+    NULL
 }

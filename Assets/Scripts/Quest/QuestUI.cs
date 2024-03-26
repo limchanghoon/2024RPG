@@ -99,7 +99,7 @@ public class QuestUI : MonoBehaviour
         StringBuilder sb = new StringBuilder(512);
         for(int i = 0;i< curQuestData.questContents.Length;i++)
         {
-            sb.Append(curQuestData.questContents[i].target);
+            sb.Append(curQuestData.questContents[i].targetId);
             sb.Append(" : ");
             sb.Append(curQuestData.questContents[i].count.ToString());
             sb.Append(" / ");

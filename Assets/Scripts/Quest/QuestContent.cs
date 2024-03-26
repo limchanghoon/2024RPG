@@ -4,7 +4,7 @@ public class QuestContent
 {
     public int step;
     public QuestContentType questContentType;
-    public string target;
+    public int targetId;
     public int goal_count;
     public int count;
 
@@ -12,8 +12,24 @@ public class QuestContent
     {
         step = input.step;
         questContentType = input.questContentType;
-        target = input.target;
+        targetId = input.targetId;
         goal_count = input.goal_count;
         count = input.count;
+    }
+
+    public void Kill()
+    {
+        if (++count > goal_count) 
+            count = goal_count;
+    }
+
+    public void Collect(int curCount)
+    {
+        count = curCount;
+    }
+
+    public void Communicate()
+    {
+        count = goal_count;
     }
 }

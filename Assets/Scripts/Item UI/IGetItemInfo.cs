@@ -1,4 +1,4 @@
 public interface IGetItemInfo
 {
-    (uint id, string str) GetItemInfo();
+    (int id, string str) GetItemInfo();
 }

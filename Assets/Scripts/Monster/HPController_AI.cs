@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HPController_AI : MonoBehaviour, IHit
 {
-    public string monsterName;
+    public int monsterId;
 
     MonsterAI monsterAI;
 
@@ -52,7 +52,7 @@ public class HPController_AI : MonoBehaviour, IHit
         if (currentHP <= 0)
         {
             GameManager.Instance.playerInfoManager.GainExp(rewardExp);
-            GameEventsManager.Instance.killEvents.Kill(monsterName);
+            GameEventsManager.Instance.killEvents.Kill(monsterId);
             if (booty != null)
                 Instantiate(booty, transform.position + Vector3.up, Quaternion.identity);
             Destroy(gameObject);

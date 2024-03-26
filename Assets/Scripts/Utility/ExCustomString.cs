@@ -11,7 +11,7 @@ public static class ExCustomString
                 return "시작 가능";
             case QuestProgressState.InProgress:
                 return "진행중";
-            case QuestProgressState.AbleToComplete:
+            case QuestProgressState.AbleToProceed:
                 return "완료 가능";
             case QuestProgressState.Completed:
                 return "완료";

@@ -68,6 +68,7 @@ public class InventoryManager : MonoBehaviour
             if (!curItems[i].Empty() && curItems[i].id == itemData.scriptableItemData.id)
             {
                 curItems[i].Add(itemData.count);
+                GameEventsManager.Instance.collectEvents.Collect(itemData.scriptableItemData.id, curItems[i].count);
                 if (curPage == (int)itemData.scriptableItemData.itemType)
                 {
                     inventoryUI.inventorySlots[i].UpdateSlot();
@@ -86,6 +87,8 @@ public class InventoryManager : MonoBehaviour
             if (curItems[i].Empty())
             {
                 curItems[i].Set(itemData.scriptableItemData.ToItemData());
+                curItems[i].count = itemData.count;
+                GameEventsManager.Instance.collectEvents.Collect(itemData.scriptableItemData.id, curItems[i].count);
                 if (curPage == (int)itemData.scriptableItemData.itemType)
                 {
                     inventoryUI.inventorySlots[i].UpdateSlot();
@@ -106,6 +109,7 @@ public class InventoryManager : MonoBehaviour
             if (curItems[i].Empty())
             {
                 curItems[i].Set(itemData.scriptableItemData.ToItemData());
+                GameEventsManager.Instance.collectEvents.Collect(itemData.scriptableItemData.id, GetCountOfUnCountableItem(itemData.scriptableItemData.id, ItemType.Equipment));
                 if (curPage == (int)itemData.scriptableItemData.itemType)
                 {
                     inventoryUI.inventorySlots[i].UpdateSlot();
@@ -116,6 +120,99 @@ public class InventoryManager : MonoBehaviour
         if (i == inventorySize)
             return false;
         return true;
+    }
+
+    public void DropItem(int _id, int _count)
+    {
+        if (_id < 500000)
+        {
+            for (int i = 0; i < inventorySize; i++)
+            {
+                if (otherItems[i].id == _id)
+                {
+                    otherItems[i].count -= _count;
+                    if (otherItems[i].count <= 0)
+                        otherItems[i].id = 0;
+                    return;
+                }
+            }
+        }
+        else if (_id < 1000000)
+        {
+            for (int i = 0; i < inventorySize; i++)
+            {
+                if (consumptionItems[i].id == _id)
+                {
+                    consumptionItems[i].count -= _count;
+                    if (consumptionItems[i].count <= 0)
+                        consumptionItems[i].id = 0;
+                    return;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < inventorySize; i++)
+            {
+                if (equipmentItems[i].id == _id)
+                {
+                    equipmentItems[i].id = 0;
+                    if (--_count <= 0)
+                        return;
+                }
+            }
+        }
+    }
+
+    public int GetCount(int _id)
+    {
+        if(_id < 500000)
+        {
+            return GetCountOfCountableItem(_id, ItemType.Other);
+        }
+        else if (_id < 1000000)
+        {
+            return GetCountOfCountableItem(_id, ItemType.Consumption);
+        }
+        else
+        {
+            return GetCountOfUnCountableItem(_id, ItemType.Equipment);
+        }
+    }
+
+    private int GetCountOfCountableItem(int _id, ItemType _itemType)
+    {
+        if (_id == 0) return -1;
+
+        CountableItemData[] curItems = (CountableItemData[])GetItems(_itemType);
+        for (int i = 0; i < inventorySize; i++)
+        {
+            if (curItems[i].id == _id)
+            {
+                return curItems[i].count;
+            }
+        }
+        return 0;
+    }
+
+    // 일단 장비만
+    private int GetCountOfUnCountableItem(int _id, ItemType _itemType)
+    {
+        if (_id == 0) return -1;
+
+        ItemData[] curItems = GetItems(_itemType);
+        int cnt = 0;
+        if (_itemType == ItemType.Equipment)
+        {
+            for (int i = 0; i < inventorySize; i++)
+            {
+                if (curItems[i].id == _id)
+                {
+                    ++cnt;
+                }
+            }
+        }
+        return cnt;
     }
 
     public ItemData[] GetCurrentPageItems()

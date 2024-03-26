@@ -7,9 +7,9 @@ public class ScriptableQuestData : ScriptableObject
     public string questName;
     public int requiredLevel;
     public ScriptableQuestData[] prerequisiteQuest;
-    public DialogData[] startable_Dialogs;
-    public DialogData[] inProgress_Dialogs;
-    public DialogData[] AbleToComplete_Dialogs;
+    public DialogDatas[] startable_Dialogs;
+    public DialogDatas[] inProgress_Dialogs;
+    public DialogDatas[] AbleToProceed_Dialogs;
     public QuestContent[] questContents;
     public ScriptableItemData_Count[] rewardItems;
     public string summary;

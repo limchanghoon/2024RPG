@@ -3,7 +3,7 @@ using UnityEngine;
 public class OnlyGetItemInfo : MonoBehaviour, IGetItemInfo
 {
     ScriptableItemData item;
-    public (uint id, string str) GetItemInfo()
+    public (int id, string str) GetItemInfo()
     {
         if(item == null)
         {
