@@ -36,7 +36,8 @@ public class InputManager : MonoBehaviour
     public void CloseAll()
     {
         GameManager.Instance.inventoryManager.inventoryUI.Close();
-        GameManager.Instance.questUI.canvas.enabled = false;
+        GameManager.Instance.questUI.Close();
+        GameManager.Instance.skillUI.Close();
 
         depth = 0;
         UpdateCursor();
@@ -46,27 +47,40 @@ public class InputManager : MonoBehaviour
 
     public void ToggleInventory()
     {
-        if(GameManager.Instance.inventoryManager.inventoryUI.IsOpened())
+        if (GameManager.Instance.inventoryManager.inventoryUI.Toggle())
         {
-            GameManager.Instance.inventoryManager.inventoryUI.Close();
-            depth--;
+            depth++;
         }
         else
         {
-            GameManager.Instance.inventoryManager.inventoryUI.Open();
-            depth++;
+            depth--;
         }
         UpdateCursor();
     }
 
-
     public void ToggleQuestWindow()
     {
-        Canvas canvas = GameManager.Instance.questUI.canvas;
-        canvas.enabled = !canvas.enabled;
-        if (canvas.enabled) depth++;
-        else depth--;
+        if (GameManager.Instance.questUI.Toggle())
+        {
+            depth++;
+        }
+        else
+        {
+            depth--;
+        }
+        UpdateCursor();
+    }
 
+    public void ToggleSkillWindow()
+    {
+        if (GameManager.Instance.skillUI.Toggle())
+        {
+            depth++;
+        }
+        else
+        {
+            depth--;
+        }
         UpdateCursor();
     }
 }

@@ -24,6 +24,7 @@ public class NPC : MonoBehaviour, HelpForRay
         GameEventsManager.Instance.questEvents.onQuestProgressChange -= UpdateInteractive;
     }
 
+
     private void UpdateInteractive()
     {
         // 완료된 퀘스트 제거
@@ -39,9 +40,9 @@ public class NPC : MonoBehaviour, HelpForRay
             QuestData _questData = GameManager.Instance.questManager.GetQuestDataByID(questDatas[i].questID);
             if(_questData.questProgressState == QuestProgressState.AbleToProceed)
             {
-                for (int j = 0; j < _questData.scriptableQuestData.AbleToProceed_Dialogs.Length; ++j)
+                for (int j = 0; j < _questData.AbleToProceed_Dialogs.Length; ++j)
                 {
-                    if (_questData.scriptableQuestData.AbleToProceed_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.AbleToProceed_Dialogs[j].step == _questData.step)
+                    if (_questData.AbleToProceed_Dialogs[j].npcId == npcId && _questData.AbleToProceed_Dialogs[j].step == _questData.step)
                     {
                         progressMark[0].SetActive(false);
                         progressMark[1].SetActive(false);
@@ -58,9 +59,9 @@ public class NPC : MonoBehaviour, HelpForRay
             QuestData _questData = GameManager.Instance.questManager.GetQuestDataByID(questDatas[i].questID);
             if (_questData.questProgressState == QuestProgressState.Startable)
             {
-                for(int j = 0; j < _questData.scriptableQuestData.startable_Dialogs.Length; ++j)
+                for(int j = 0; j < _questData.startable_Dialogs.Length; ++j)
                 {
-                    if (_questData.scriptableQuestData.startable_Dialogs[j].npcId == npcId)
+                    if (_questData.startable_Dialogs[j].npcId == npcId)
                     {
                         progressMark[0].SetActive(true);
                         progressMark[1].SetActive(false);
@@ -77,9 +78,9 @@ public class NPC : MonoBehaviour, HelpForRay
             QuestData _questData = GameManager.Instance.questManager.GetQuestDataByID(questDatas[i].questID);
             if (_questData.questProgressState == QuestProgressState.InProgress || _questData.questProgressState == QuestProgressState.AbleToProceed)
             {
-                for (int j = 0; j < _questData.scriptableQuestData.inProgress_Dialogs.Length; ++j)
+                for (int j = 0; j < _questData.inProgress_Dialogs.Length; ++j)
                 {
-                    if (_questData.scriptableQuestData.inProgress_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.inProgress_Dialogs[j].step == _questData.step)
+                    if (_questData.inProgress_Dialogs[j].npcId == npcId && _questData.inProgress_Dialogs[j].step == _questData.step)
                     {
                         progressMark[0].SetActive(false);
                         progressMark[1].SetActive(true);

@@ -38,6 +38,15 @@ public class QuestEvents
         }
     }
 
+    public event Action onQuestListChange;
+    public void QuestListChange()
+    {
+        if (onQuestListChange != null)
+        {
+            onQuestListChange();
+        }
+    }
+
     /*
     public event Action<Quest> onQuestStateChange;
     public void QuestStateChange(Quest quest)

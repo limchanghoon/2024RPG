@@ -10,12 +10,10 @@ public class TargetRay : MonoBehaviour
     //public Transform target_tr;
     public Transform player_tr;
 
-    public GameObject redEnergyExplosion;
-
     Animator animator;
     ThirdPersonController thirdPersonController;
 
-    Vector3 _input;
+    public Vector3 _input { get; set; }
     private Camera _mainCamera;
     float _targetRotation = 0.0f;
     float _rotationVelocity;
@@ -32,7 +30,6 @@ public class TargetRay : MonoBehaviour
     // animation IDs
     private int _animIDIsLeft;
     private int _animID1HMagicShoot;
-    private int _animIDJMagicShoot;
 
 
     private void Awake()
@@ -74,7 +71,6 @@ public class TargetRay : MonoBehaviour
     {
         _animIDIsLeft = Animator.StringToHash("IsLeft");
         _animID1HMagicShoot = Animator.StringToHash("1HMagicShoot");
-        _animIDJMagicShoot = Animator.StringToHash("MagicShoot");
     }
 
     private void UpdeteForInput()
@@ -100,25 +96,6 @@ public class TargetRay : MonoBehaviour
             {
                 magicBall = Instantiate(magicBowPrefab, rHandTr.position, Quaternion.identity);
                 magicBall.GetComponent<FollowTarget>().SetTarget(rHandTr);
-            }
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Alpha1) && thirdPersonController.Grounded && !thirdPersonController.stop)
-        {
-            RaycastHit hit;
-            Ray ray = _mainCamera.ScreenPointToRay(screenCenter);
-            Vector3 rayStart = new Vector3(transform.position.x + ray.direction.x * 10f, transform.position.y + 2f, transform.position.z + ray.direction.z * 10f);
-            if (Physics.Raycast(ray.origin, ray.direction, out hit, 20, 1 << LayerMask.NameToLayer("Default")))
-            {
-                if((transform.position - hit.point).sqrMagnitude <= 100f && hit.normal.y >= 0.9)
-                {
-                    animator.SetTrigger(_animIDJMagicShoot);
-                    thirdPersonController.stop = true;
-                    Instantiate(redEnergyExplosion, hit.point, Quaternion.identity, transform);
-                    _input = hit.point;
-                    Debug.DrawRay(rayStart, Vector3.down * 10f, Color.yellow, 5f);
-                }
             }
         }
     }

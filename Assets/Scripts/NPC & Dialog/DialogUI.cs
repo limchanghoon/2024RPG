@@ -120,6 +120,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         GameEventsManager.Instance.questEvents.StartQuest(questDataList[currentQuestIndex].questID);
         GameManager.Instance.questManager.GetQuestDataByID(questDataList[currentQuestIndex].questID).step = 1;
         GameEventsManager.Instance.questEvents.QuestProgessChange();
+        GameEventsManager.Instance.questEvents.QuestListChange();
         StartCoroutine(EndTalk());
     }
 
@@ -133,6 +134,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         GameEventsManager.Instance.questEvents.FinishQuest(questDataList[currentQuestIndex].questID);
 
         GameEventsManager.Instance.questEvents.QuestProgessChange();
+        GameEventsManager.Instance.questEvents.QuestListChange();
         StartCoroutine(EndTalk());
     }
 
@@ -152,6 +154,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         //GameManager.Instance.topCanvas.enabled = false;
         GameManager.Instance.staticCanvas.enabled = false;
         GameManager.Instance.playerUICanvas.enabled = false;
+        GameManager.Instance.quickSlotCanvas.enabled = false;
 
         // 플레이어 위치 옮기기
         GameManager.Instance.playerObj.GetComponent<CharacterController>().enabled = false;
@@ -182,9 +185,9 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
             QuestData _questData = GameManager.Instance.questManager.GetQuestDataByID(questDataList[i].questID);
             if (_questData.questProgressState == QuestProgressState.Startable )
             {
-                for (int j = 0; j < _questData.scriptableQuestData.startable_Dialogs.Length; ++j)
+                for (int j = 0; j < _questData.startable_Dialogs.Length; ++j)
                 {
-                    if (_questData.scriptableQuestData.startable_Dialogs[j].npcId == npcId)
+                    if (_questData.startable_Dialogs[j].npcId == npcId)
                     {
                         GenerateQuestBlock(i, QuestProgressState.Startable);
                         break;
@@ -193,9 +196,9 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
             }
             else if (_questData.questProgressState == QuestProgressState.InProgress)
             {
-                for (int j = 0; j < _questData.scriptableQuestData.inProgress_Dialogs.Length; ++j)
+                for (int j = 0; j < _questData.inProgress_Dialogs.Length; ++j)
                 {
-                    if (_questData.scriptableQuestData.inProgress_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.inProgress_Dialogs[j].step == _questData.step)
+                    if (_questData.inProgress_Dialogs[j].npcId == npcId && _questData.inProgress_Dialogs[j].step == _questData.step)
                     {
                         GenerateQuestBlock(i, QuestProgressState.InProgress);
                         break;
@@ -205,9 +208,9 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
             else if (_questData.questProgressState == QuestProgressState.AbleToProceed)
             {
                 bool check = false;
-                for (int j = 0; j < _questData.scriptableQuestData.AbleToProceed_Dialogs.Length; ++j)
+                for (int j = 0; j < _questData.AbleToProceed_Dialogs.Length; ++j)
                 {
-                    if (_questData.scriptableQuestData.AbleToProceed_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.AbleToProceed_Dialogs[j].step == _questData.step)
+                    if (_questData.AbleToProceed_Dialogs[j].npcId == npcId && _questData.AbleToProceed_Dialogs[j].step == _questData.step)
                     {
                         GenerateQuestBlock(i, QuestProgressState.AbleToProceed);
                         check = true;
@@ -216,9 +219,9 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
                 }
                 if (check)
                     break;
-                for (int j = 0; j < _questData.scriptableQuestData.inProgress_Dialogs.Length; ++j)
+                for (int j = 0; j < _questData.inProgress_Dialogs.Length; ++j)
                 {
-                    if (_questData.scriptableQuestData.inProgress_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.inProgress_Dialogs[j].step == _questData.step)
+                    if (_questData.inProgress_Dialogs[j].npcId == npcId && _questData.inProgress_Dialogs[j].step == _questData.step)
                     {
                         GenerateQuestBlock(i, QuestProgressState.InProgress);
                         break;
@@ -263,6 +266,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         //GameManager.Instance.topCanvas.enabled = true;
         GameManager.Instance.staticCanvas.enabled = true;
         GameManager.Instance.playerUICanvas.enabled = true;
+        GameManager.Instance.quickSlotCanvas.enabled = true;
 
         // 페이드 인
         yield return GameManager.Instance.fadeManager.Fade(false);
@@ -298,9 +302,9 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         QuestData _questData = GameManager.Instance.questManager.GetQuestDataByID(questDataList[index].questID);
         if (_questData.questProgressState == QuestProgressState.Startable)
         {
-            for (int j = 0; j < _questData.scriptableQuestData.startable_Dialogs.Length; ++j)
+            for (int j = 0; j < _questData.startable_Dialogs.Length; ++j)
             {
-                if (_questData.scriptableQuestData.startable_Dialogs[j].npcId == npcId)
+                if (_questData.startable_Dialogs[j].npcId == npcId)
                 {
                     return QuestProgressState.Startable;
                 }
@@ -308,9 +312,9 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         }
         else if (_questData.questProgressState == QuestProgressState.InProgress)
         {
-            for (int j = 0; j < _questData.scriptableQuestData.inProgress_Dialogs.Length; ++j)
+            for (int j = 0; j < _questData.inProgress_Dialogs.Length; ++j)
             {
-                if (_questData.scriptableQuestData.inProgress_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.inProgress_Dialogs[j].step == _questData.step)
+                if (_questData.inProgress_Dialogs[j].npcId == npcId && _questData.inProgress_Dialogs[j].step == _questData.step)
                 {
                     return QuestProgressState.InProgress;
                 }
@@ -318,16 +322,16 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         }
         else if (_questData.questProgressState == QuestProgressState.AbleToProceed)
         {
-            for (int j = 0; j < _questData.scriptableQuestData.AbleToProceed_Dialogs.Length; ++j)
+            for (int j = 0; j < _questData.AbleToProceed_Dialogs.Length; ++j)
             {
-                if (_questData.scriptableQuestData.AbleToProceed_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.AbleToProceed_Dialogs[j].step == _questData.step)
+                if (_questData.AbleToProceed_Dialogs[j].npcId == npcId && _questData.AbleToProceed_Dialogs[j].step == _questData.step)
                 {
                     return QuestProgressState.AbleToProceed;
                 }
             }
-            for (int j = 0; j < _questData.scriptableQuestData.inProgress_Dialogs.Length; ++j)
+            for (int j = 0; j < _questData.inProgress_Dialogs.Length; ++j)
             {
-                if (_questData.scriptableQuestData.inProgress_Dialogs[j].npcId == npcId && _questData.scriptableQuestData.inProgress_Dialogs[j].step == _questData.step)
+                if (_questData.inProgress_Dialogs[j].npcId == npcId && _questData.inProgress_Dialogs[j].step == _questData.step)
                 {
                     return QuestProgressState.InProgress;
                 }

@@ -63,6 +63,20 @@ public class AddressableManager : MonoSingleton<AddressableManager>
         return output;
     }
 
+    public ICommand LoadConsumptionCommand(string address_str)
+    {
+        address_str += "Data";
+        var op = Addressables.LoadAssetAsync<ScriptableConsumptionItemData>(address_str);
+        ScriptableConsumptionItemData _data = op.WaitForCompletion();
+        ICommand output = null;
+        if (op.Result != null)
+        {
+            output = Instantiate(_data.consumptionCommandObj).GetComponent<ICommand>();
+        }
+        Addressables.Release(op);
+        return output;
+    }
+
     public IList<ScriptableQuestData> LoadAllQuestData()
     {
         var op = Addressables.LoadAssetsAsync<ScriptableQuestData>("QuestData", null);

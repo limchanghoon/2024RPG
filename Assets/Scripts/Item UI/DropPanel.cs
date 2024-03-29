@@ -10,10 +10,10 @@ public class DropPanel : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        DragItem _dragItem = eventData.pointerDrag.GetComponent<DragItem>();
+        DragInventoryItem _dragItem = eventData.pointerDrag.GetComponent<DragInventoryItem>();
         if (eventData.pointerDrag != null && _dragItem && _dragItem.isDragging)
         {
-            dropItemSlot = _dragItem.OriginTr.GetComponent<ItemSlot>();
+            dropItemSlot = _dragItem.itemSlot;
             dropConfirmPanel.SetActive(true);
         }
     }

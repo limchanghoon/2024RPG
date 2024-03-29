@@ -10,9 +10,11 @@ public class GameManager : MonoSingleton<GameManager>
     public Canvas npcTalkHelpUI;
     public Canvas staticCanvas;
     public Canvas playerUICanvas;
+    public Canvas quickSlotCanvas;
 
     public BootyUI bootyUI;
     public RayForHelp rayForHelp;
+    //            inputManager = FindAnyObjectByType<InputManager>();
     public InputManager inputManager;
     public InventoryManager inventoryManager;
     public PlayerInfoManager playerInfoManager;
@@ -27,5 +29,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public QuestManager questManager;
     public QuestUI questUI;
-
+    public SkillManager skillManager;
+    public SkillUI skillUI;
+    public ConsumptionManager consumptionManager;
 }

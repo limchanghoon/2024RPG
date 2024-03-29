@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : MonoBehaviour, IToggleUI
 {
     [SerializeField] Canvas canvas;
     [SerializeField] Button btn_Close;
@@ -27,7 +27,7 @@ public class InventoryUI : MonoBehaviour
     {
         canvas.enabled = false;
         Init();
-        btn_Close.onClick.AddListener(FindAnyObjectByType<InputManager>().ToggleInventory);
+        btn_Close.onClick.AddListener(GameManager.Instance.inputManager.ToggleInventory);
     }
 
     private void OnEnable()
@@ -128,15 +128,14 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0;i< InventoryManager.inventorySize; i++)
         {
-            DragItem _dragItem = inventorySlots[i].img.GetComponent<DragItem>();
+            DragInventoryItem _dragItem = inventorySlots[i].img.GetComponent<DragInventoryItem>();
             _dragItem.OnEndDrag(null);
         }
         for (int i = 0; i < InventoryManager.equipmentWindowSize; i++)
         {
-            DragItem _dragItem = equipmentWindowSlots[i].img.GetComponent<DragItem>();
+            DragInventoryItem _dragItem = equipmentWindowSlots[i].img.GetComponent<DragInventoryItem>();
             _dragItem.OnEndDrag(null);
         }
-
     }
 
     public void ToggleExpandedWindow(Toggle toggle)
@@ -144,5 +143,19 @@ public class InventoryUI : MonoBehaviour
         if (toggle.isOn)
             UpdateStatWindow();
         expandedWindow.SetActive(toggle.isOn);
+    }
+
+    public bool Toggle()
+    {
+        if(IsOpened())
+        {
+            Close();
+            return false;
+        }
+        else
+        {
+            Open();
+            return true;
+        }
     }
 }

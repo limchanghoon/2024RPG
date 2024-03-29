@@ -199,6 +199,11 @@ PrefabInstance:
       propertyPath: OriginTr
       value: 
       objectReference: {fileID: 2976801733356071798}
+    - target: {fileID: 282204394951576798, guid: 55ba825ea76155f4f853ac327e89ab46,
+        type: 3}
+      propertyPath: itemSlot
+      value: 
+      objectReference: {fileID: 4539889980257474773}
     - target: {fileID: 4835232363803671824, guid: 55ba825ea76155f4f853ac327e89ab46,
         type: 3}
       propertyPath: m_Name

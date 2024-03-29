@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class InventorySlot : ItemSlot
 {
@@ -11,7 +12,7 @@ public class InventorySlot : ItemSlot
 
     public override void ResetSlot()
     {
-        GameManager.Instance.inventoryManager.GetCurrentPageItems()[slotIndex].id = 0;
+        GameManager.Instance.inventoryManager.GetCurrentPageItems()[slotIndex].Reset();
     }
 
     public override void SetSlot(ItemData itemData)

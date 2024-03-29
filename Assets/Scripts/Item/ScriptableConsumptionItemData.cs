@@ -4,7 +4,7 @@ using UnityEngine;
 public class ScriptableConsumptionItemData : ScriptableItemData
 {
     [Header("Consumption Fields")]
-    public int upHP = 0;
+    public GameObject consumptionCommandObj;
 
     public override string GetString()
     {

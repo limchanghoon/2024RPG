@@ -21,6 +21,13 @@ public class HPController_Player : MonoBehaviour, IHit
         hpBar.fillAmount = (float)currentHP / maxHP;
     }
 
+    public void Hill(int mount)
+    {
+        if (invincibility || currentHP <= 0) return;
+        currentHP = currentHP + mount > maxHP ? maxHP : currentHP + mount;
+        hpBar.fillAmount = (float)currentHP / maxHP;
+    }
+
     public void Hit(int dmg, AttackAttribute attackAttribute, Transform ownerTr, bool isCri)
     {
         if (invincibility || currentHP <= 0) return;

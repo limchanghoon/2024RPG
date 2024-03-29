@@ -4,13 +4,18 @@ public class QuestData
 {
     public int questID;
     public int step;
-    public ScriptableQuestData scriptableQuestData;
+    private ScriptableQuestData scriptableQuestData;
     public QuestContent[] questContents;
     public QuestProgressState questProgressState;
 
     public string questName { get { return scriptableQuestData.questName; } }
     public int requiredLevel { get { return scriptableQuestData.requiredLevel; } }
     public ScriptableQuestData[] prerequisiteQuest { get { return scriptableQuestData.prerequisiteQuest; } }
+
+    public DialogDatas[] startable_Dialogs { get { return scriptableQuestData.startable_Dialogs; } }
+    public DialogDatas[] inProgress_Dialogs { get { return scriptableQuestData.inProgress_Dialogs; } }
+    public DialogDatas[] AbleToProceed_Dialogs { get { return scriptableQuestData.AbleToProceed_Dialogs; } }
+
     public ScriptableItemData_Count[] rewardItems { get { return scriptableQuestData.rewardItems; } }
     public string summary { get { return scriptableQuestData.summary; } }
     public Gold rewardGold { get { return scriptableQuestData.rewardGold; } }
@@ -143,7 +148,7 @@ public class QuestData
         GameEventsManager.Instance.collectEvents.onCollect -= Collect;
         GameEventsManager.Instance.communicateEvents.onCommunicate -= Communicate;
 
-        inventoryManager.inventoryUI.InventoryReDrawAll();
+        //inventoryManager.inventoryUI.InventoryReDrawAll();
         return true;
     }
 

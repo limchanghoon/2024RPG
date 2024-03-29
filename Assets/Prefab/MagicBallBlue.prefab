@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1712956349140794912}
   - component: {fileID: 4142424285221218562}
   - component: {fileID: 2834301724162041042}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4853,7 +4853,7 @@ GameObject:
   - component: {fileID: 6805425964074752920}
   - component: {fileID: 7229522980533270383}
   - component: {fileID: 991259279893666475}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FireDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9695,7 +9695,7 @@ GameObject:
   - component: {fileID: 8568260082016042758}
   - component: {fileID: 8030834558617225981}
   - component: {fileID: 7929796513367296162}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VFX_Trail_Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14528,7 +14528,7 @@ GameObject:
   - component: {fileID: 275009698657847220}
   - component: {fileID: 8478743350559783478}
   - component: {fileID: 2645354600381167803}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Trail_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19359,7 +19359,7 @@ GameObject:
   - component: {fileID: 2684367161614690717}
   - component: {fileID: 6345289137066513322}
   - component: {fileID: 5823428212439509532}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Magic fire ball blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24205,7 +24205,7 @@ GameObject:
   - component: {fileID: 1107835186694202678}
   - component: {fileID: 8601965930876956923}
   - component: {fileID: 3337518304511856734}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29047,7 +29047,7 @@ GameObject:
   - component: {fileID: 5089585343071736168}
   - component: {fileID: 3785637267093873971}
   - component: {fileID: 4738503728235797832}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Trail_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33968,6 +33968,7 @@ MonoBehaviour:
     type: 3}
   ball: {fileID: 3669341410986120671}
   trailDistortion: {fileID: 9107436556905040457}
+  liefTime: 3
   powerCoefficient: 1
   speed: 30
   radius: 0.2
@@ -33996,7 +33997,7 @@ GameObject:
   - component: {fileID: 8143453631695940720}
   - component: {fileID: 3875111833824805135}
   - component: {fileID: 7727515926549675440}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38838,7 +38839,7 @@ GameObject:
   - component: {fileID: 4741232761717857023}
   - component: {fileID: 4752355358793802096}
   - component: {fileID: 3407177831962847707}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Distortion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -132,7 +132,15 @@ public class InventoryManager : MonoBehaviour
                 {
                     otherItems[i].count -= _count;
                     if (otherItems[i].count <= 0)
-                        otherItems[i].id = 0;
+                    {
+                        otherItems[i].count = 0;
+                        otherItems[i].Reset();
+                    }
+                    GameEventsManager.Instance.collectEvents.Collect(_id, otherItems[i].count);
+                    if (curPage == (int)otherItems[i].itemType)
+                    {
+                        inventoryUI.inventorySlots[i].UpdateSlot();
+                    }
                     return;
                 }
             }
@@ -145,7 +153,15 @@ public class InventoryManager : MonoBehaviour
                 {
                     consumptionItems[i].count -= _count;
                     if (consumptionItems[i].count <= 0)
-                        consumptionItems[i].id = 0;
+                    {
+                        consumptionItems[i].count = 0;
+                        consumptionItems[i].Reset();
+                    }
+                    GameEventsManager.Instance.collectEvents.Collect(_id, consumptionItems[i].count);
+                    if (curPage == (int)consumptionItems[i].itemType)
+                    {
+                        inventoryUI.inventorySlots[i].UpdateSlot();
+                    }
                     return;
                 }
             }
@@ -156,9 +172,15 @@ public class InventoryManager : MonoBehaviour
             {
                 if (equipmentItems[i].id == _id)
                 {
-                    equipmentItems[i].id = 0;
+                    equipmentItems[i].Reset();
                     if (--_count <= 0)
                         return;
+
+                    GameEventsManager.Instance.collectEvents.Collect(_id, GetCount(_id));
+                    if (curPage == (int)equipmentItems[i].itemType)
+                    {
+                        inventoryUI.inventorySlots[i].UpdateSlot();
+                    }
                 }
             }
         }

@@ -12,7 +12,7 @@ public class UIRayCast : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemInfoText;
 
     private Camera _mainCamera;
-    IGetItemInfo getItemInfo;
+    IGetInfo getItemInfo;
 
     private void Awake()
     {
@@ -39,17 +39,17 @@ public class UIRayCast : MonoBehaviour
 
             if (raycastResults.Count > 0)
             {
-                var temp = raycastResults[0].gameObject.GetComponent<IGetItemInfo>();
+                var temp = raycastResults[0].gameObject.GetComponent<IGetInfo>();
                 if (temp != null && getItemInfo != temp)
                 {
                     getItemInfo = temp;
-                    var tup = getItemInfo.GetItemInfo();
-                    if(tup.id == 0)
+                    var _getAddress = raycastResults[0].gameObject.GetComponent<IGetAddress>();
+                    if (_getAddress == null || _getAddress.GetAddress() == "0")
                     {
                         return;
                     }
-                    AddressableManager.Instance.LoadSprite(tup.id.ToString(), itemImage);
-                    itemInfoText.text = tup.str;
+                    AddressableManager.Instance.LoadSprite(_getAddress.GetAddress(), itemImage);
+                    itemInfoText.text = getItemInfo.GetInfo();
                     MoveInfoRect(pointer.position);
                 }
                 else if(temp == null)

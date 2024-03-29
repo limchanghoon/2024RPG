@@ -22,6 +22,11 @@ public abstract class ItemData
         itemType = input.itemType;
     }
 
+    public void Reset()
+    {
+        id = 0;
+    }
+
     public bool Empty()
     {
         return id == 0;

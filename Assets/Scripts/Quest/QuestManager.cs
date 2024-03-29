@@ -45,7 +45,6 @@ public class QuestManager : MonoBehaviour
     {
         GameEventsManager.Instance.questEvents.onStartQuest += StartQuest;
         GameEventsManager.Instance.questEvents.onFinishQuest += FinishQuest;
-        GameEventsManager.Instance.questEvents.onQuestProgressChange += CheckStartable;
 
         GameEventsManager.Instance.playerEvents.onLevelChanged += CheckStartable;
     }
@@ -54,7 +53,6 @@ public class QuestManager : MonoBehaviour
     {
         GameEventsManager.Instance.questEvents.onStartQuest -= StartQuest;
         GameEventsManager.Instance.questEvents.onFinishQuest -= FinishQuest;
-        GameEventsManager.Instance.questEvents.onQuestProgressChange -= CheckStartable;
 
         GameEventsManager.Instance.playerEvents.onLevelChanged -= CheckStartable;
     }
@@ -63,6 +61,7 @@ public class QuestManager : MonoBehaviour
     {
         //CheckStartable();
         GameEventsManager.Instance.questEvents.QuestProgessChange();
+        GameEventsManager.Instance.questEvents.QuestListChange();
     }
 
     public void StartQuest(int questID)
@@ -89,6 +88,7 @@ public class QuestManager : MonoBehaviour
 
             inProgressQuestList.Remove(questID);
             completedQuestList.Add(questID);
+            CheckStartable();
         }
         else
         {
@@ -96,6 +96,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    // 레벨업 or 퀘스트 클리어시
     private void CheckStartable()
     {
         bool isChanged = false;
@@ -121,7 +122,10 @@ public class QuestManager : MonoBehaviour
             }
         }
         if (isChanged)
+        {
             GameEventsManager.Instance.questEvents.QuestProgessChange();
+            GameEventsManager.Instance.questEvents.QuestListChange();
+        }
 
     }
 

@@ -22,9 +22,13 @@ namespace StarterAssets
 
 		InputManager inputManager;
 
+		[SerializeField] QuickSlot quickSlot1;
+        [SerializeField] QuickSlot quickSlot2;
+        [SerializeField] QuickSlot quickSlot3;
+
         private void Awake()
         {
-            inputManager = FindAnyObjectByType<InputManager>();
+			inputManager = GameManager.Instance.inputManager;
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -60,6 +64,34 @@ namespace StarterAssets
         {
             GameManager.Instance.inputManager.ToggleQuestWindow();
         }
+
+        public void OnToggleSkillWindow(InputValue value)
+        {
+            GameManager.Instance.inputManager.ToggleSkillWindow();
+        }        
+		
+		public void OnAlpha1(InputValue value)
+        {
+			Debug.Log("Alpha1");
+			if (quickSlot1.command == null) return;
+            quickSlot1.command.Execute();
+        }
+
+        public void OnAlpha2(InputValue value)
+        {
+            Debug.Log("Alpha2");
+            if (quickSlot2.command == null) return;
+            quickSlot2.command.Execute();
+        }
+
+        public void OnAlpha3(InputValue value)
+        {
+            Debug.Log("Alpha3");
+            if (quickSlot3.command == null) return;
+            quickSlot3.command.Execute();
+        }
+
+
 #endif
 
 

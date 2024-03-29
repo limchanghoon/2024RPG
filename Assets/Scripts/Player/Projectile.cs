@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject ball;
     [SerializeField] GameObject trailDistortion;
 
+    [SerializeField] float liefTime;
     [SerializeField] float powerCoefficient;
     [SerializeField] float speed;
     bool isActive = false;
@@ -34,7 +35,7 @@ public class Projectile : MonoBehaviour
             if (!isActive)
                 return;
         }
-        Invoke("TimeOut", 5f);
+        Invoke("TimeOut", liefTime);
     }
 
     private void Update()
@@ -65,6 +66,7 @@ public class Projectile : MonoBehaviour
 
     private void TimeOut()
     {
+        if (!isActive) return;
         Instantiate(hitEffect, transform.position, Quaternion.identity);
         isActive = false;
         ball.SetActive(false);

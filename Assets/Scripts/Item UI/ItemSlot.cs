@@ -17,10 +17,10 @@ public abstract class ItemSlot : MonoBehaviour, IDropHandler
 
     public virtual void OnDrop(PointerEventData eventData)
     {
-        DragItem _dragItem = eventData.pointerDrag.GetComponent<DragItem>();
+        DragInventoryItem _dragItem = eventData.pointerDrag.GetComponent<DragInventoryItem>();
         if (eventData.pointerDrag != null && _dragItem && _dragItem.isDragging)
         {
-            ItemSlot preSlot = _dragItem.OriginTr.GetComponent<ItemSlot>();
+            ItemSlot preSlot = _dragItem.itemSlot;
             if (itemType != preSlot.GetItem().itemType)
                 return;
 
@@ -45,7 +45,7 @@ public abstract class ItemSlot : MonoBehaviour, IDropHandler
         if (curItem.Empty())
         {
             img.gameObject.SetActive(false);
-            img.GetComponent<DragItem>().OnEndDrag(null);
+            img.GetComponent<DragInventoryItem>().OnEndDrag(null);
         }
         else
         {

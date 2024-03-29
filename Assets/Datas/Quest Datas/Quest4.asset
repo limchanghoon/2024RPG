@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: 4
   questName: "\uD14C\uC2A4\uD2B8 \uC0AC\uB0E5 \uD018\uC2A4\uD2B8"
-  requiredLevel: 1
+  requiredLevel: 5
   prerequisiteQuest: []
   startable_Dialogs: []
   inProgress_Dialogs: []

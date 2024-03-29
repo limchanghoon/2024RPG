@@ -10,10 +10,10 @@ public class EquipmentWindowSlot : ItemSlot
 
     public override void OnDrop(PointerEventData eventData)
     {
-        DragItem _dragItem = eventData.pointerDrag.GetComponent<DragItem>();
+        DragInventoryItem _dragItem = eventData.pointerDrag.GetComponent<DragInventoryItem>();
         if (eventData.pointerDrag != null && _dragItem && _dragItem.isDragging)
         {
-            ItemSlot preSlot = _dragItem.OriginTr.GetComponent<ItemSlot>();
+            ItemSlot preSlot = _dragItem.itemSlot;
             if ((preSlot.GetItem() is EquipmentItemData) == false)
                 return;
             if (equipmentType != ((EquipmentItemData)preSlot.GetItem()).equipmentType)
@@ -36,7 +36,7 @@ public class EquipmentWindowSlot : ItemSlot
 
     public override void ResetSlot()
     {
-        GameManager.Instance.inventoryManager.equipmentWindowItems[slotIndex].id = 0;
+        GameManager.Instance.inventoryManager.equipmentWindowItems[slotIndex].Reset();
     }
 
     public override void SetSlot(ItemData itemData)
