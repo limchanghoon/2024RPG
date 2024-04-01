@@ -9,7 +9,7 @@ public class MyJsonManager
 {
     public static void SaveInventory()
     {
-        string dirPath = Path.Combine(Application.persistentDataPath, "ItemDatas");
+        string dirPath = Path.Combine(Application.persistentDataPath, "ItemData");
         if(!Directory.Exists(dirPath))
             Directory.CreateDirectory(dirPath);
         // Equipment
@@ -40,7 +40,7 @@ public class MyJsonManager
 
     public static void LoadInventory()
     {
-        string dirPath = Path.Combine(Application.persistentDataPath, "ItemDatas");
+        string dirPath = Path.Combine(Application.persistentDataPath, "ItemData");
         if (!Directory.Exists(dirPath))
             Directory.CreateDirectory(dirPath);
         // Equipment
@@ -114,7 +114,7 @@ public class MyJsonManager
 
     public static void SavePlayerInfo()
     {
-        string dirPath = Path.Combine(Application.persistentDataPath, "PlayerInfoDatas");
+        string dirPath = Path.Combine(Application.persistentDataPath, "PlayerInfoData");
         if (!Directory.Exists(dirPath))
             Directory.CreateDirectory(dirPath);
         // PlayerInfoDatas
@@ -125,7 +125,7 @@ public class MyJsonManager
 
     public static void LoadPlayerInfo()
     {
-        string dirPath = Path.Combine(Application.persistentDataPath, "PlayerInfoDatas");
+        string dirPath = Path.Combine(Application.persistentDataPath, "PlayerInfoData");
         if (!Directory.Exists(dirPath))
             Directory.CreateDirectory(dirPath);
         // PlayerInfoDatas
@@ -142,9 +142,9 @@ public class MyJsonManager
         }
     }
 
-    public static void SaveQuestDatas(Dictionary<int, QuestData> questMap)
+    public static void SaveQuestData(Dictionary<int, QuestData> questMap)
     {
-        string dirPath = Path.Combine(Application.persistentDataPath, "QuestDatas");
+        string dirPath = Path.Combine(Application.persistentDataPath, "QuestData");
         if (!Directory.Exists(dirPath))
             Directory.CreateDirectory(dirPath);
 
@@ -152,18 +152,18 @@ public class MyJsonManager
         allQuestDataForJson.questDatas = questMap.Values.ToArray();
 
         // QuestDatas
-        string path = Path.Combine(dirPath, "QuestDatas.json");
+        string path = Path.Combine(dirPath, "QuestData.json");
         string json = JsonUtility.ToJson(allQuestDataForJson, true);
         File.WriteAllText(path, json);
     }
 
-    public static void LoadQuestDatas(Dictionary<int, QuestData> questMap)
+    public static void LoadQuestData(Dictionary<int, QuestData> questMap)
     {
-        string dirPath = Path.Combine(Application.persistentDataPath, "QuestDatas");
+        string dirPath = Path.Combine(Application.persistentDataPath, "QuestData");
         if (!Directory.Exists(dirPath))
             Directory.CreateDirectory(dirPath);
 
-        string path = Path.Combine(dirPath, "QuestDatas.json");
+        string path = Path.Combine(dirPath, "QuestData.json");
         if (!File.Exists(path))
             return;
 
@@ -179,5 +179,59 @@ public class MyJsonManager
                     GameManager.Instance.questManager.StartQuest(_questID);
             }
         }
+    }
+
+    public static void SaveSkillData()
+    {
+        string dirPath = Path.Combine(Application.persistentDataPath, "SkillData");
+        if (!Directory.Exists(dirPath))
+            Directory.CreateDirectory(dirPath);
+        // QuickSlot
+        string path = Path.Combine(dirPath, "SkillData.json");
+        string json = JsonUtility.ToJson(GameManager.Instance.skillManager.GetAllSkillData(), true);
+        File.WriteAllText(path, json);
+    }
+
+    
+    public static SkillDataGroup LoadSkillData()
+    {
+        string dirPath = Path.Combine(Application.persistentDataPath, "SkillData");
+        if (!Directory.Exists(dirPath))
+            Directory.CreateDirectory(dirPath);
+
+        string path = Path.Combine(dirPath, "SkillData.json");
+        if (!File.Exists(path))
+            return null;
+
+        string loadedJson = File.ReadAllText(path);
+        var loadedData = JsonUtility.FromJson<SkillDataGroup>(loadedJson);
+        return loadedData;
+    }
+   
+
+    public static void SaveQuickSlot()
+    {
+        string dirPath = Path.Combine(Application.persistentDataPath, "QuickSlot");
+        if (!Directory.Exists(dirPath))
+            Directory.CreateDirectory(dirPath);
+        // QuickSlot
+        string path = Path.Combine(dirPath, "QuickSlot.json");
+        string json = JsonUtility.ToJson(GameManager.Instance.quickSlotManager.quickSlotDatagroup, true);
+        File.WriteAllText(path, json);
+    }
+
+    public static QuickSlotDataGroup LoadQuickSlotData()
+    {
+        string dirPath = Path.Combine(Application.persistentDataPath, "QuickSlot");
+        if (!Directory.Exists(dirPath))
+            Directory.CreateDirectory(dirPath);
+
+        string path = Path.Combine(dirPath, "QuickSlot.json");
+        if (!File.Exists(path))
+            return new QuickSlotDataGroup();
+
+        string loadedJson = File.ReadAllText(path);
+        var loadedData = JsonUtility.FromJson<QuickSlotDataGroup>(loadedJson);
+        return loadedData;
     }
 }

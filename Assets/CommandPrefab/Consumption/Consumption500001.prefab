@@ -45,3 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consumptionID: 500001
+  healAmount: 50
+  cooldown: 5
+  timer: 0

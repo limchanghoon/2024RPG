@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillID: 4
   skillName: "\uAE09\uC18D \uB0C9\uB3D9"
+  skillType: 1
   requiredLevel: 3
+  masterLevel: 1
+  cooldown: 0
   skillDescription: "\uAC15\uB825\uD55C \uB0C9\uAE30\uB85C \uC21C\uC2DD\uAC04\uC5D0
     \uC801\uC744 \uC5BC\uB9B0\uB2E4"
   skillCommandObj: {fileID: 5150544461461169463, guid: 08055e11b17c2d64c841536c456ac7e1,

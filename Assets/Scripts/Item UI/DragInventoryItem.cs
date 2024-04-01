@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class DragInventoryItem : DraggableUI, IGetInfo, IGetAddress, IPointerClickHandler
 {
+    public ItemSlot itemSlot;
+
     public string GetAddress()
     {
         return itemSlot.GetItem().id.ToString();

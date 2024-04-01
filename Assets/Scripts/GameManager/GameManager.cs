@@ -32,4 +32,5 @@ public class GameManager : MonoSingleton<GameManager>
     public SkillManager skillManager;
     public SkillUI skillUI;
     public ConsumptionManager consumptionManager;
+    public QuickSlotManager quickSlotManager;
 }

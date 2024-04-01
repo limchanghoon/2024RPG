@@ -26,6 +26,7 @@ public class PlayerInfoManager : MonoBehaviour
         {
             playerInfoData.playerLevel++;
             playerInfoData.playerExp.exp -= 100;
+            playerInfoData.skillPoint += 5;
             GameEventsManager.Instance.playerEvents.ChangeLevel();
         }
         GameEventsManager.Instance.playerEvents.ChangeExp();

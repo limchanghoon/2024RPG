@@ -8,7 +8,6 @@ public class DraggableUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private RectTransform m_RectTransform;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] Transform OriginTr;
-    public ItemSlot itemSlot;
 
     public bool isDragging { get; private set; }
 
@@ -22,7 +21,7 @@ public class DraggableUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public virtual void OnBeginDrag(PointerEventData eventData)
     {
         isDragging = true;
         transform.SetParent(GameManager.Instance.topCanvas.transform);

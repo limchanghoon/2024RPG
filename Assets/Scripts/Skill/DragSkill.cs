@@ -1,8 +1,14 @@
-
+using UnityEngine.EventSystems;
 
 public class DragSkill : DraggableUI, IGetInfo, IGetAddress
 {
     SkillData skill;
+
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+        if (skill.GetScriptableSkillData().skillType == SkillType.Passive) return;
+        base.OnBeginDrag(eventData);
+    }
 
     public void SetSkill(SkillData skill)
     {

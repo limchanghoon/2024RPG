@@ -19,7 +19,7 @@ public class QuestManager : MonoBehaviour
             questMap.Add(item.questID, new QuestData(item));
         }
         // 나의 퀘스트 정보 업데이트
-        MyJsonManager.LoadQuestDatas(questMap);
+        MyJsonManager.LoadQuestData(questMap);
 
 
         foreach (var item in questMap.Values)
@@ -136,6 +136,6 @@ public class QuestManager : MonoBehaviour
 
     public void SaveQuestDatas()
     {
-        MyJsonManager.SaveQuestDatas(questMap);
+        MyJsonManager.SaveQuestData(questMap);
     }
 }
