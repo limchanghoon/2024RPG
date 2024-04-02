@@ -68,9 +68,14 @@ namespace StarterAssets
         public void OnToggleSkillWindow(InputValue value)
         {
             GameManager.Instance.inputManager.ToggleSkillWindow();
-        }        
-		
-		public void OnAlpha1(InputValue value)
+        }
+
+        public void OnToggleEnchantWindow(InputValue value)
+        {
+            GameManager.Instance.inputManager.ToggleEnchantWindow();
+        }
+
+        public void OnAlpha1(InputValue value)
         {
 			if (quickSlot1.command == null) return;
             quickSlot1.command.Execute();

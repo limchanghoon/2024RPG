@@ -6,12 +6,12 @@ public class ScriptableEquipmentItemData : ScriptableItemData
     [Header("Equipment Fields")]
     public int attackPower = 0;
     public int plusMaxHP = 0;
-    public float criticalPer;
+    public int criticalPer;
     public EquipmentType equipmentType;
 
     public override string GetString()
     {
-        return $"*아이템 이름 : {itemName}\n*아이템 종류 : {itemType.ToCustomString()}\n*공격력 : +{attackPower}\n*최대HP : +{plusMaxHP}\n*크리티컬 확률 : +{criticalPer}\n\n[아이템 설명]\n" + itemDescription;
+        return $"<align=center>[{itemName}]</align>\n*아이템 종류 : {itemType.ToCustomString()}\n*공격력 : +{attackPower}\n*최대HP : +{plusMaxHP}\n*크리티컬 확률 : +{criticalPer}%\n\n[아이템 설명]\n" + itemDescription;
     }
 
     public override ItemData ToItemData()

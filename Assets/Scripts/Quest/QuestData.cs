@@ -85,7 +85,7 @@ public class QuestData
             if (cnt >= requiredQuipment) break;
         }
         if (cnt < requiredQuipment) {
-            msg = "장비창이 " + (requiredQuipment - cnt).ToString() + "칸 부족합니다!";
+            msg = $"장비창이 {requiredQuipment - cnt}칸 부족합니다!";
             return false;
         }
 
@@ -99,7 +99,7 @@ public class QuestData
         }
         if (cnt < requiredConsumption)
         {
-            msg = "소비창이 " + (requiredConsumption - cnt).ToString() + "칸 부족합니다!";
+            msg = $"소비창이 {requiredConsumption - cnt}칸 부족합니다!";
             return false;
         }
 
@@ -113,7 +113,7 @@ public class QuestData
         }
         if (cnt < requiredOther)
         {
-            msg = "기타창이 " + (requiredOther - cnt).ToString() + "칸 부족합니다!";
+            msg = $"기타창이 {requiredOther - cnt}칸 부족합니다!";
             return false;
         }
 

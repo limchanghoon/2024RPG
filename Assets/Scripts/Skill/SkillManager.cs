@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
+    public SkillUI skillUI;
+
     private Dictionary<int, SkillData> skillMap = new Dictionary<int, SkillData>();
     private Dictionary<int, ICommand> skillCommandMap = new Dictionary<int, ICommand>();
 

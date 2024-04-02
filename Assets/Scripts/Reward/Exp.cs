@@ -20,6 +20,6 @@ public class Exp : IGetAddress
 
     public override string ToString()
     {
-        return "+" + exp.ToString();
+        return $"+{exp}";
     }
 }

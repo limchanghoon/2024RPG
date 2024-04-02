@@ -4,7 +4,7 @@ public class PlayerStatData
 {
     public int attackPower;
     public int plusMaxHP;
-    public float criticalPer;
+    public int criticalPer;
 
     public void Add(EquipmentItemData input)
     {
@@ -22,6 +22,6 @@ public class PlayerStatData
 
     public override string ToString()
     {
-        return attackPower.ToString() + ", " + plusMaxHP.ToString() + ", " + criticalPer.ToString();
+        return $"{attackPower}, {plusMaxHP}, {criticalPer}";
     }
 }

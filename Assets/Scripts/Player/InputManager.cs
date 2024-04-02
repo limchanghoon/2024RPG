@@ -36,8 +36,9 @@ public class InputManager : MonoBehaviour
     public void CloseAll()
     {
         GameManager.Instance.inventoryManager.inventoryUI.Close();
-        GameManager.Instance.questUI.Close();
-        GameManager.Instance.skillUI.Close();
+        GameManager.Instance.questManager.questUI.Close();
+        GameManager.Instance.skillManager.skillUI.Close();
+        GameManager.Instance.enchantManager.enchantUI.Close();
 
         depth = 0;
         UpdateCursor();
@@ -60,7 +61,7 @@ public class InputManager : MonoBehaviour
 
     public void ToggleQuestWindow()
     {
-        if (GameManager.Instance.questUI.Toggle())
+        if (GameManager.Instance.questManager.questUI.Toggle())
         {
             depth++;
         }
@@ -73,7 +74,20 @@ public class InputManager : MonoBehaviour
 
     public void ToggleSkillWindow()
     {
-        if (GameManager.Instance.skillUI.Toggle())
+        if (GameManager.Instance.skillManager.skillUI.Toggle())
+        {
+            depth++;
+        }
+        else
+        {
+            depth--;
+        }
+        UpdateCursor();
+    }
+
+    public void ToggleEnchantWindow()
+    {
+        if (GameManager.Instance.enchantManager.enchantUI.Toggle())
         {
             depth++;
         }

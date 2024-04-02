@@ -43,23 +43,32 @@ public class ReUseScrollViewSkillUI : ReUseScrollViewContents<int>
         DragSkill _dragSkill = dragSkills[dataIndex % itemSize];
         _dragSkill.OnEndDrag(null);
         _dragSkill.SetSkill(tempSkill);
-        AddressableManager.Instance.LoadSprite(tempSkill.GetAddress(), content.GetChild(childIndex).GetComponent<GetTargetImage>().GetImage());
+        Image targetImage = content.GetChild(childIndex).GetComponent<GetTargetImage>().GetImage();
+        AddressableManager.Instance.LoadSprite(tempSkill.GetAddress(), targetImage);
 
-        content.GetChild(childIndex).GetChild(1).GetComponent<TextMeshProUGUI>().text =
-            "Lv " + tempSkill.requiredLevel.ToString()
-            + " : " + tempSkill.skillName;
+        content.GetChild(childIndex).GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Lv {tempSkill.requiredLevel} : {tempSkill.skillName}";
 
         content.GetChild(childIndex).GetChild(2).GetComponent<TextMeshProUGUI>().text = tempSkill.skillLevel.ToString();
 
         if(tempSkill.requiredLevel > GameManager.Instance.playerInfoManager.playerInfoData.playerLevel)
         {
             _dragSkill.enabled = false;
+            targetImage.color = Color.gray;
             content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = false;
             content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = false;
         }
         else
         {
-            _dragSkill.enabled = tempSkill.skillLevel <= 0 ? false : true;
+            if (tempSkill.skillLevel <= 0)
+            {
+                _dragSkill.enabled = false;
+                targetImage.color = Color.gray;
+            }
+            else
+            {
+                _dragSkill.enabled = true;
+                targetImage.color = Color.white;
+            }
 
             content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = true;
             content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = true;

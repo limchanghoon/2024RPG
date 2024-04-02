@@ -29,7 +29,7 @@ public class BootyUI : MonoBehaviour
         {
             AddressableManager.Instance.LoadSprite(m_booty.itemDatas[i].GetAddress(), bootyItemPanel.transform.GetChild(idx).GetChild(0).GetComponent<Image>());
             bootyItemPanel.transform.GetChild(idx).GetChild(1).GetComponent<TextMeshProUGUI>().text
-                = m_booty.itemDatas[i].scriptableItemData.GetName() + " : " + m_booty.itemDatas[i].count.ToString() + "개";
+                = $"{m_booty.itemDatas[i].scriptableItemData.GetName()} : {m_booty.itemDatas[i].count}개";
             bootyItemPanel.transform.GetChild(idx).gameObject.SetActive(true);
         }
         
@@ -51,7 +51,8 @@ public class BootyUI : MonoBehaviour
         if (lastIndex < m_booty.itemDatas.Length)
         {
             AddressableManager.Instance.LoadSprite(m_booty.itemDatas[lastIndex].GetAddress(), bootyItemPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>());
-            bootyItemPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = m_booty.itemDatas[lastIndex].scriptableItemData.GetName() + " : " + m_booty.itemDatas[lastIndex].count + "개";
+            bootyItemPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text 
+                = $"{m_booty.itemDatas[lastIndex].scriptableItemData.GetName()} : {m_booty.itemDatas[lastIndex].count}개";
         }
         else
             bootyItemPanel.transform.GetChild(0).gameObject.SetActive(false);

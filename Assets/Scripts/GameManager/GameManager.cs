@@ -28,9 +28,8 @@ public class GameManager : MonoSingleton<GameManager>
     public CinemachineTargetGroup dialogTargetGroup;
 
     public QuestManager questManager;
-    public QuestUI questUI;
     public SkillManager skillManager;
-    public SkillUI skillUI;
     public ConsumptionManager consumptionManager;
     public QuickSlotManager quickSlotManager;
+    public EnchantManager enchantManager;
 }

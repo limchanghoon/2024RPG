@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class InventoryManager : MonoBehaviour
@@ -36,6 +35,17 @@ public class InventoryManager : MonoBehaviour
     public void EarnGold(int newGold)
     {
         gold.gold += newGold;
+        inventoryUI.GoldTextUpdate();
+    }
+
+    public void LoseGold(Gold losedGold)
+    {
+        LoseGold(losedGold.gold);
+    }
+
+    public void LoseGold(int losedGold)
+    {
+        gold.gold -= losedGold;
         inventoryUI.GoldTextUpdate();
     }
 

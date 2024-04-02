@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038c83487f935fe44a2d441718801c4d, type: 3}
+  m_Name: Skill5
+  m_EditorClassIdentifier: 
+  skillID: 5
+  skillName: "\uC544\uC774\uC2A4 \uC0E4\uC6CC"
+  skillType: 1
+  requiredLevel: 2
+  masterLevel: 20
+  cooldown: 5
+  damage: 09000000090000000a0000000a0000000a0000000b0000000b0000000b0000000c0000000c0000000c0000000d0000000d0000000d0000000e0000000e0000000e0000000f0000000f0000000f000000
+  skillDescription: "\uB9C8\uB825\uC73C\uB85C \uB9CC\uB4E0 \uC5BC\uC74C \uACB0\uC815\uC744
+    \uC77C\uC815 \uBC94\uC704 \uB0B4\uC5D0 \uC3DF\uC544 \uBD80\uC5B4 \uC8FC\uAE30\uC801\uC73C\uB85C
+    {\uC218\uCE58}%\uC758 \uB370\uBBF8\uC9C0\uB97C \uC785\uD78C\uB2E4."
+  skillCommandObj: {fileID: 1803155637481852900, guid: 4a7566115adfdce46ab8f0bf57c4e720,
+    type: 3}

@@ -36,8 +36,6 @@ public class Skill5 : MonoActiveSkill
     public override void Execute()
     {
         if (!IsReady()) return;
-        Debug.Log("Skill5 Execute");
-
         if (thirdPersonController.Grounded && !thirdPersonController.stop)
         {
             RaycastHit hit;

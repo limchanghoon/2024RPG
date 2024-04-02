@@ -10,7 +10,7 @@ public class SkillData : IGetAddress
 
     public string skillName { get { return scriptableSkillData.skillName; } }
     public int requiredLevel { get { return scriptableSkillData.requiredLevel; } }
-    public string skillDescription { get { return scriptableSkillData.skillDescription; } }
+    public string skillDescription { get { return scriptableSkillData.GetString(skillLevel); } }
     public GameObject skillCommandObj { get { return scriptableSkillData.skillCommandObj; } }
 
     public int masterLevel { get { return scriptableSkillData.masterLevel; } }
@@ -48,6 +48,7 @@ public class SkillData : IGetAddress
 
     public string GetString()
     {
-        return "[" + skillType.ToString() + "]\n[현재 스킬 레벨 : " + skillLevel.ToString() + "]\n\n" + skillDescription;
+        return $"[{skillType}][마스터 레벨 : {masterLevel}]\n[현재 스킬 레벨 : {skillLevel}]\n\n{skillDescription}";
+        //return "[" + skillType.ToString() + "][마스터 레벨 : " + masterLevel.ToString() +"]\n[현재 스킬 레벨 : " + skillLevel.ToString() + "]\n\n" + skillDescription;
     }
 }

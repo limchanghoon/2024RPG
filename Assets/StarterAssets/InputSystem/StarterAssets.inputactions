@@ -69,6 +69,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToggleEnchantWindow",
+                    "type": "Button",
+                    "id": "26736070-2460-449d-a17a-6a23ef103ebd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Alpha1",
                     "type": "Button",
                     "id": "9632dfb1-da89-4989-a1a2-43f99c1c11c0",
@@ -336,6 +345,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Alpha3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aecf4b2b-8e22-4421-a5fb-1a8f0b83ab8d",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "ToggleEnchantWindow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

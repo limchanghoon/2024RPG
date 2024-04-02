@@ -96,7 +96,7 @@ public class QuestUI : MonoBehaviour, IToggleUI
         }
         int idx = quest_list[reUseScrollView.curIndex + tr.GetSiblingIndex() - 1];
         QuestData curQuestData = GameManager.Instance.questManager.GetQuestDataByID(idx);
-        questNameText.text = "Lv" + curQuestData.requiredLevel.ToString() + " : " + curQuestData.questName;
+        questNameText.text = $"Lv {curQuestData.requiredLevel} : {curQuestData.questName}";
         questSummaryText.text = curQuestData.summary;
         StringBuilder sb = new StringBuilder(512);
         for(int i = 0;i< curQuestData.questContents.Length;i++)

@@ -23,7 +23,6 @@ public class ReUseScrollViewQuestUI : ReUseScrollViewContents<int>
     protected override void UpdateContent(int childIndex, int dataIndex)
     {
         content.GetChild(childIndex).GetComponentInChildren<TextMeshProUGUI>().text =
-            "Lv" + GameManager.Instance.questManager.GetQuestDataByID(datas[dataIndex]).requiredLevel.ToString()
-            + " : " + GameManager.Instance.questManager.GetQuestDataByID(datas[dataIndex]).questName;
+            $"Lv {GameManager.Instance.questManager.GetQuestDataByID(datas[dataIndex]).requiredLevel} : {GameManager.Instance.questManager.GetQuestDataByID(datas[dataIndex]).questName}";
     }
 }

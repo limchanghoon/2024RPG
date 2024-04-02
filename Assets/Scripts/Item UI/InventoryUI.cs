@@ -107,9 +107,9 @@ public class InventoryUI : MonoBehaviour, IToggleUI
     {
         var tempStat = GameManager.Instance.playerInfoManager.GetPlayerStat();
 
-        attackPowerText.text = "Attack Power : " + tempStat.attackPower.ToString();
-        maxHPText.text = "MaxHP : " + tempStat.plusMaxHP.ToString();
-        criPerText.text = "Critical Percentage : " + tempStat.criticalPer.ToString();
+        attackPowerText.text = $"공격력 : {tempStat.attackPower}";
+        maxHPText.text = $"최대 체력 : {tempStat.plusMaxHP}";
+        criPerText.text = $"크리티컬 확률 : {tempStat.criticalPer}%";
     }
 
     public bool IsOpened()

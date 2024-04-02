@@ -100,7 +100,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         }
         curIndex = 0;
         float t = 0f;
-        curDialog = dialogs[dialogIndex].dialog.Replace("{Player_Name}", $"{GameManager.Instance.playerInfoManager.playerInfoData.playerName}");
+        curDialog = dialogs[dialogIndex].dialog.Replace("{´Ð³×ÀÓ}", $"{GameManager.Instance.playerInfoManager.playerInfoData.playerName}");
         int sz = curDialog.Length;
         dialogText.text = string.Empty;
         while (curIndex < sz)

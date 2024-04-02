@@ -20,11 +20,11 @@ public class LevelUI : MonoBehaviour
 
     private void UpdateExp()
     {
-        expText.text = "Exp : " + GameManager.Instance.playerInfoManager.playerInfoData.playerExp.exp.ToString() + " / 100";
+        expText.text = $"Exp : {GameManager.Instance.playerInfoManager.playerInfoData.playerExp.exp} / 100";
     }
 
     private void UpdateLevel()
     {
-        levelText.text = "Lv : " + GameManager.Instance.playerInfoManager.playerInfoData.playerLevel.ToString();
+        levelText.text = $"Lv : {GameManager.Instance.playerInfoManager.playerInfoData.playerLevel}";
     }
 }

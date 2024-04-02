@@ -29,7 +29,7 @@ public class DragSkill : DraggableUI, IGetInfo, IGetAddress
     public string GetAddress()
     {
         if (skill == null) return "0";
-        return "Skill" + skill.skillID.ToString();
+        return $"Skill{skill.skillID}";
     }
 
     public override ICommand GetCommand()

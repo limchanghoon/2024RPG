@@ -27,6 +27,7 @@ public abstract class MonoActiveSkill : MonoBehaviour, ICommand
 
     public float GetCooldownRatio()
     {
+        if (skillData.cooldown <= 0) return 1f;
         return timer / skillData.cooldown;
     }
 

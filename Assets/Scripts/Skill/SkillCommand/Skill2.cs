@@ -6,7 +6,7 @@ public class Skill2 : MonoActiveSkill
 {
     public override void Execute()
     {
-        Debug.Log("Skill2 Execute");
+        if (!IsReady()) return;
         ResetCooldown();
     }
 }

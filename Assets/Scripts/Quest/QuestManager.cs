@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
+    public QuestUI questUI;
+
     private Dictionary<int, QuestData> questMap = new Dictionary<int, QuestData>();
 
     public List<int> startableQuestList = new List<int>();

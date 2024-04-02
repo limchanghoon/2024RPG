@@ -10,6 +10,7 @@ public class DropPanel : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (GameManager.Instance.enchantManager.enchantUI.IsOpened()) return;
         DragInventoryItem _dragItem = eventData.pointerDrag.GetComponent<DragInventoryItem>();
         if (eventData.pointerDrag != null && _dragItem && _dragItem.isDragging)
         {

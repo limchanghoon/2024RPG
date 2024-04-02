@@ -12,6 +12,6 @@ public class ScriptableItemData_Count : IGetAddress
 
     public override string ToString()
     {
-        return scriptableItemData.GetName() + " : " + count.ToString() + "°³";
+        return $"{scriptableItemData.GetName()} : {count}°³";
     }
 }

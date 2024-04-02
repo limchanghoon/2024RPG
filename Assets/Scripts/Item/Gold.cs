@@ -21,6 +21,6 @@ public class Gold : IGetAddress
 
     public override string ToString()
     {
-        return "+" + gold.ToString() + "G";
+        return $"+{gold}G";
     }
 }

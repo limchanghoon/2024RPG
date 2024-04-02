@@ -8,12 +8,14 @@ public class ScriptableSkillData : ScriptableObject
     public SkillType skillType;
     public int requiredLevel;
     public int masterLevel;
-    public int cooldown;
+    public float cooldown;
+    public int[] damage;
     public string skillDescription;
     public GameObject skillCommandObj;
 
-    public string GetString()
+    public string GetString(int _skillLevel)
     {
-        return skillDescription;
+        if (_skillLevel > 0) _skillLevel--;
+        return skillDescription.Replace("{¼öÄ¡}", $"{damage[_skillLevel]}"); ;
     }
 }
