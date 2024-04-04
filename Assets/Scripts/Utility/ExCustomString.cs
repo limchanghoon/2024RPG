@@ -18,7 +18,7 @@ public static class ExCustomString
         }
         return "NULL";
     }
-
+    
     public static string ToCustomString(this ItemType itemType)
     {
         switch(itemType)
@@ -31,6 +31,21 @@ public static class ExCustomString
                 return "기타";
             case ItemType.Default:
                 return "??";
+            default:
+                return "NULL";
+        }
+    }
+
+    public static string ToCustomString(this QuestContentType questContentType)
+    {
+        switch (questContentType)
+        {
+            case QuestContentType.Kill:
+                return " 처치하기";
+            case QuestContentType.Collect:
+                return " 수집하기";
+            case QuestContentType.Communicate:
+                return " 만나기";
             default:
                 return "NULL";
         }

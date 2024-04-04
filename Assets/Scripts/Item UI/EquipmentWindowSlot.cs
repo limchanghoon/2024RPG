@@ -23,10 +23,17 @@ public class EquipmentWindowSlot : ItemSlot
         }
     }
 
+    // Only UI
     public override void UpdateSlot()
     {
         base.UpdateSlot();
         Update_BG_Slot();
+    }
+
+    private void UpdateStatForEvent()
+    {
+        GameManager.Instance.inventoryManager.UpdateEquipmentTotalStat();
+        GameEventsManager.Instance.playerEvents.ChangeStat();
     }
 
     public override ItemData GetItem()
@@ -37,12 +44,15 @@ public class EquipmentWindowSlot : ItemSlot
     public override void ResetSlot()
     {
         GameManager.Instance.inventoryManager.equipmentWindowItems[slotIndex].Reset();
+        UpdateSlot();
+        UpdateStatForEvent();
     }
 
     public override void SetSlot(ItemData itemData)
     {
         GameManager.Instance.inventoryManager.equipmentWindowItems[slotIndex] = (EquipmentItemData)itemData;
         UpdateSlot();
+        UpdateStatForEvent();
     }
 
     public void Update_BG_Slot()

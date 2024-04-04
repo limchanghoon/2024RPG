@@ -17,6 +17,21 @@ public class QuestContent
         count = input.count;
     }
 
+    public string GetTargetName()
+    {
+        switch (questContentType)
+        {
+            case QuestContentType.Kill:
+                return AddressableManager.Instance.LoadMonsterName(targetId.ToString());
+            case QuestContentType.Collect:
+                return AddressableManager.Instance.LoadItemName(targetId.ToString());
+            case QuestContentType.Communicate:
+                return "나중에 NPC 이름 추가하세요";
+            default:
+                return "타겟 못 찾음!";
+        }
+    }
+
     public void Kill()
     {
         if (++count > goal_count) 

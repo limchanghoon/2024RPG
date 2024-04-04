@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038c83487f935fe44a2d441718801c4d, type: 3}
+  m_Name: Skill7
+  m_EditorClassIdentifier: 
+  skillID: 7
+  skillName: "\uB77C\uC774\uD2B8\uB2DD \uC2A4\uD2B8\uB77C\uC774\uD06C"
+  skillType: 1
+  requiredLevel: 9
+  masterLevel: 10
+  cooldown: 6
+  damage: 64000000690000006e00000073000000780000007d00000082000000870000008c00000096000000
+  skillDescription: "\uC21C\uAC04\uC801\uC73C\uB85C \uB9C8\uB098\uB85C \uB9CC\uB4E0
+    \uC804\uB958\uB97C \uBC29\uCD9C\uD574 \uC790\uC2E0 \uC8FC\uBCC0\uC5D0 \uC801\uB4E4\uC5D0\uAC8C
+    {\uC218\uCE58}%\uC758 \uB370\uBBF8\uC9C0\uB97C \uC785\uD78C\uB2E4."
+  skillCommandObj: {fileID: 1803155637481852900, guid: 4a7566115adfdce46ab8f0bf57c4e720,
+    type: 3}

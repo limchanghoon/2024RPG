@@ -14,6 +14,8 @@ public class SkillManager : MonoBehaviour
 
     public ScriptableSkillData[] scriptableSkillDatas;
 
+    public PlayerStatData skillTotalStatData { get; private set; }
+
     private void Awake()
     {
         Array.Sort(scriptableSkillDatas, (num1, num2) => num1.requiredLevel.CompareTo(num2.requiredLevel));
@@ -34,6 +36,13 @@ public class SkillManager : MonoBehaviour
                 skillMap[_skill.skillID].skillLevel = _skill.skillLevel;
             }
         }
+
+        skillTotalStatData = new PlayerStatData();
+    }
+
+    private void Start()
+    {
+        UpdateSkillTotalStat();
     }
 
     public SkillData GetSkillDataByID(int skillID)
@@ -54,5 +63,16 @@ public class SkillManager : MonoBehaviour
             skillDataGroup.skillDataGroup.Add(_skil);
         }
         return skillDataGroup;
+    }
+
+    public void UpdateSkillTotalStat()
+    {
+        skillTotalStatData.Reset();
+        foreach (var _skill in skillMap.Values)
+        {
+            if (_skill.skillLevel == 0) continue;
+            skillTotalStatData.Add(_skill);
+        }
+        GameEventsManager.Instance.playerEvents.ChangeStat();
     }
 }

@@ -11,7 +11,12 @@ public class OtherItemData : CountableItemData
     public OtherItemData(ScriptableOtherItemData input) : base(input)
     {
 
-    } 
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+    }
 
     public override void Set(ItemData itemData)
     {

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb19a2cd1b799c4c8ef36829d587e70, type: 3}
+  m_Name: Quest3
+  m_EditorClassIdentifier: 
+  questID: 3
+  questName: "\uAD11\uBB3C \uC218\uC9D11"
+  requiredLevel: 1
+  prerequisiteQuest:
+  - {fileID: 11400000, guid: b1eab07ca8fec9c4dbf3828a271af103, type: 2}
+  startable_Dialogs:
+  - npcId: 2
+    step: 0
+    dialogs:
+    - dialog: "\uAD11\uBB3C \uC218\uC9D1\uC744 \uBD80\uD0C1\uB4DC\uB824\uC694!"
+      currentTalker: 1
+  inProgress_Dialogs:
+  - npcId: 2
+    step: 1
+    dialogs:
+    - dialog: "\uBE68\uB9AC \uBAA8\uC640\uC624\uC138\uC694!"
+      currentTalker: 1
+  AbleToProceed_Dialogs:
+  - npcId: 2
+    step: 1
+    dialogs:
+    - dialog: "\uD558 \uD558 \uD558 \uAC10\uC0AC\uD569\uB2C8\uB2E4"
+      currentTalker: 1
+  questContents:
+  - step: 1
+    questContentType: 1
+    targetId: 1
+    goal_count: 1
+    count: 0
+  rewardItems:
+  - scriptableItemData: {fileID: 11400000, guid: 4e6b68c469e770c468c248c7682e313b,
+      type: 2}
+    count: 1
+  summary: "\uB9C8\uC774\uD06C\uAC00 \uAD11\uBB3C\uC744 \uC694\uAD6C\uD588\uB2E4.
+    \uADC0\uCC2E\uC740 \uC0AC\uB78C\uC774\uB2E4.."
+  rewardGold:
+    gold: 0
+  rewardExp:
+    exp: 90

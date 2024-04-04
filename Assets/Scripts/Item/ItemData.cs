@@ -26,7 +26,7 @@ public abstract class ItemData
         guid = System.Guid.NewGuid().ToString();
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
         id = 0;
         guid = string.Empty;

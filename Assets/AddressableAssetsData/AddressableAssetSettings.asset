@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 0238b75aa2d37ec408fb9c6ff87101e6
   m_currentHash:
     serializedVersion: 2
-    Hash: 423ff92bc6f848ac502fca4cd8e6d624
+    Hash: c7e3a1905f48d25e1a6980055a992850
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1213b7b5c0c8d9544aae8fbd525a1ba8, type: 2}
   - {fileID: 11400000, guid: cc35a7042d7f7ab4e937ee0e91dda4ea, type: 2}
   - {fileID: 11400000, guid: 34ed5c2db89fee04c80c85a341efb2b3, type: 2}
+  - {fileID: 11400000, guid: 7121a7fd32f0ea3438412cf154abb699, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -95,6 +96,7 @@ MonoBehaviour:
     - ItemData
     - QuestData
     - SkillSprite
+    - MonsterData
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: c4d90e138fd60764fad698d33a433d19, type: 2}

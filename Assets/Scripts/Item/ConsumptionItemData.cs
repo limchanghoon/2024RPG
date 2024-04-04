@@ -17,6 +17,11 @@ public class ConsumptionItemData : CountableItemData
         itemType = input.itemType;
     }
 
+    public override void Reset()
+    {
+        base.Reset();
+    }
+
     public override void Set(ItemData itemData)
     {
         var temp = itemData as ConsumptionItemData;

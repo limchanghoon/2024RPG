@@ -17,8 +17,18 @@ public abstract class ReUseScrollViewContents<T> : MonoBehaviour
     protected int itemSize;
     protected int lastIndex;
 
+    protected RectTransform[] childs;
+
     protected void Awake()
     {
+        curIndex = 1;
+        childs = new RectTransform[content.childCount];
+        for (int i = 0; i < content.childCount; i++)
+        {
+            childs[i] = content.GetChild(i).GetComponent<RectTransform>();
+            childs[i].anchoredPosition = new Vector2(0, -i * (cell_Y + spaceing_Y));
+            childs[i].sizeDelta = new Vector2(childs[i].sizeDelta.x, cell_Y);
+        }
         SetInitPosition();
     }
 
@@ -35,14 +45,14 @@ public abstract class ReUseScrollViewContents<T> : MonoBehaviour
         curIndex = 1;
         for (int i = 0; i < content.childCount; i++)
         {
-            RectTransform rectTr = content.GetChild(i).GetComponent<RectTransform>();
-            rectTr.anchoredPosition = new Vector2(0, -i * (cell_Y + spaceing_Y));
-            rectTr.sizeDelta = new Vector2(rectTr.sizeDelta.x, cell_Y);
+            childs[i].anchoredPosition = new Vector2(0, -i * (cell_Y + spaceing_Y));
+            childs[i].SetAsLastSibling();
         }
     }
 
     protected void SetDatas(List<T> inputData)
     {
+        SetInitPosition();
         datas = inputData;
         itemSize = content.childCount;
         lastIndex = itemSize - 1;
@@ -58,7 +68,6 @@ public abstract class ReUseScrollViewContents<T> : MonoBehaviour
         }
         float height = datas.Count * (cell_Y + spaceing_Y);
         content.sizeDelta = new Vector2(content.sizeDelta.x, height);
-        SetInitPosition();
     }
 
     protected void ScrollDown()

@@ -5,13 +5,33 @@ using UnityEngine;
 public class PlayerInfoManager : MonoBehaviour
 {
     public PlayerInfoData playerInfoData;
+    PlayerStatData basePlayerStatData;
+
+    private void OnEnable()
+    {
+        GameEventsManager.Instance.playerEvents.onLevelChanged += UpdatePlayerStatDataByLevelUp;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.Instance.playerEvents.onLevelChanged -= UpdatePlayerStatDataByLevelUp;
+    }
+
+    private void Awake()
+    {
+        MyJsonManager.LoadPlayerInfo();
+        basePlayerStatData = new PlayerStatData(GameManager.Instance.playerInfoManager.playerInfoData.playerLevel);
+    }
 
     private void Start()
     {
-        // 정보 로드하고
-        MyJsonManager.LoadPlayerInfo();
         GameEventsManager.Instance.playerEvents.ChangeLevel();
         GameEventsManager.Instance.playerEvents.ChangeExp();
+    }
+
+    private void UpdatePlayerStatDataByLevelUp()
+    {
+        basePlayerStatData.UpdateLevel(GameManager.Instance.playerInfoManager.playerInfoData.playerLevel);
     }
 
     public void GainExp(Exp _exp)
@@ -32,8 +52,18 @@ public class PlayerInfoManager : MonoBehaviour
         GameEventsManager.Instance.playerEvents.ChangeExp();
     }
 
-    public PlayerStatData GetPlayerStat()
+    public int GetPlayerAttackPower()
     {
-        return GameManager.Instance.inventoryManager.GetEquipmentwindowTotalStat();
+        return basePlayerStatData.attackPower + GameManager.Instance.inventoryManager.euipmentTotalStatData.attackPower + GameManager.Instance.skillManager.skillTotalStatData.attackPower;
+    }
+
+    public int GetPlayerMaxHP()
+    {
+        return basePlayerStatData.plusMaxHP + GameManager.Instance.inventoryManager.euipmentTotalStatData.plusMaxHP + GameManager.Instance.skillManager.skillTotalStatData.plusMaxHP;
+    }
+
+    public int GetPlayerCriticalPer()
+    {
+        return basePlayerStatData.criticalPer + GameManager.Instance.inventoryManager.euipmentTotalStatData.criticalPer + GameManager.Instance.skillManager.skillTotalStatData.criticalPer;
     }
 }

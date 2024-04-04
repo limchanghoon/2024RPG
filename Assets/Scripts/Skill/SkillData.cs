@@ -26,6 +26,7 @@ public class SkillData : IGetAddress
     {
         if (skillLevel == masterLevel) return false;
         skillLevel++;
+        GameManager.Instance.skillManager.UpdateSkillTotalStat();
         return true;
     }
 
@@ -33,6 +34,7 @@ public class SkillData : IGetAddress
     {
         if (skillLevel == 0) return false;
         skillLevel--;
+        GameManager.Instance.skillManager.UpdateSkillTotalStat();
         return true;
     }
 
@@ -49,6 +51,5 @@ public class SkillData : IGetAddress
     public string GetString()
     {
         return $"[{skillType}][마스터 레벨 : {masterLevel}]\n[현재 스킬 레벨 : {skillLevel}]\n\n{skillDescription}";
-        //return "[" + skillType.ToString() + "][마스터 레벨 : " + masterLevel.ToString() +"]\n[현재 스킬 레벨 : " + skillLevel.ToString() + "]\n\n" + skillDescription;
     }
 }

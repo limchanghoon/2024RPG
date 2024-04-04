@@ -33,10 +33,6 @@ public abstract class ItemSlot : MonoBehaviour, IDropHandler
         ItemData temp = this.GetItem();
         this.SetSlot(preSlot.GetItem());
         preSlot.SetSlot(temp);
-        if (preSlot is EquipmentWindowSlot || this is EquipmentWindowSlot)
-        {
-            GameEventsManager.Instance.playerEvents.ChangeStat();
-        }
     }
 
     public virtual void UpdateSlot()

@@ -37,7 +37,7 @@ public class AreaAttack : MonoBehaviour
             {
                 bool isCri;
                 int _damage = damage;
-                MyMathf.IsCritical(GameManager.Instance.playerInfoManager.GetPlayerStat().criticalPer, ref _damage, out isCri);
+                MyMathf.IsCritical(GameManager.Instance.playerInfoManager.GetPlayerCriticalPer(), ref _damage, out isCri);
                 cols[i].GetComponent<IHit>()?.Hit(_damage, m_attackAttribute, owner, isCri);
             }
             yield return MyYieldCache.WaitForSeconds(interval);

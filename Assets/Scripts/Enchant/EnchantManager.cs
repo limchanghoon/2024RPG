@@ -78,16 +78,19 @@ public class EnchantManager : MonoBehaviour
         int percentage = GetPercentage();
 
         float rnd = Random.Range(0f, 1f) * 100;
+
+        // ¼º°ø
         if (rnd <= percentage)
         {
             if (enchantSlot.currentItem.equipmentType == EquipmentType.Weapon)
                 enchantSlot.currentItem.Upgrade(weaponAttackkUp, weaponMaxHPUp, weaponCriticalUp);
             else
                 enchantSlot.currentItem.Upgrade(attackkUp, maxHPUp, 0);
-        }
 
-        GameEventsManager.Instance.playerEvents.ChangeStat();
-        enchantUI.UpdateInfoUI(enchantSlot.currentItem);
+            GameManager.Instance.inventoryManager.UpdateEquipmentTotalStat();
+            GameEventsManager.Instance.playerEvents.ChangeStat();
+            enchantUI.UpdateInfoUI(enchantSlot.currentItem);
+        }
         isEnchanting = false;
         enchantCoroutine = null;
     }

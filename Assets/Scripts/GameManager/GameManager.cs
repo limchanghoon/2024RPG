@@ -3,18 +3,19 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoSingleton<GameManager>
 {
     public Canvas topCanvas;
-    public Canvas npcTalkHelpUI;
+    public NpcHelpUI npcHelpUI;
     public Canvas staticCanvas;
     public Canvas playerUICanvas;
     public Canvas quickSlotCanvas;
 
     public BootyUI bootyUI;
     public RayForHelp rayForHelp;
-    //            inputManager = FindAnyObjectByType<InputManager>();
+
     public InputManager inputManager;
     public InventoryManager inventoryManager;
     public PlayerInfoManager playerInfoManager;
@@ -32,4 +33,20 @@ public class GameManager : MonoSingleton<GameManager>
     public ConsumptionManager consumptionManager;
     public QuickSlotManager quickSlotManager;
     public EnchantManager enchantManager;
+
+    public void TurnOnController()
+    {
+        playerObj.GetComponent<TargetRay>().enabled = true;
+        playerObj.GetComponent<PlayerInput>().enabled = true;
+        playerObj.GetComponent<HPController_Player>().invincibility = false;
+        rayForHelp.TurnOn();
+    }
+
+    public void TurnOffController()
+    {
+        rayForHelp.TurnOff();
+        playerObj.GetComponent<HPController_Player>().invincibility = true;
+        playerObj.GetComponent<TargetRay>().enabled = false;
+        playerObj.GetComponent<PlayerInput>().enabled = false;
+    }
 }

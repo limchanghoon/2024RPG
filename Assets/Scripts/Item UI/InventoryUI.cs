@@ -23,13 +23,6 @@ public class InventoryUI : MonoBehaviour, IToggleUI
     public TextMeshProUGUI maxHPText;
     public TextMeshProUGUI criPerText;
 
-    private void Awake()
-    {
-        canvas.enabled = false;
-        Init();
-        btn_Close.onClick.AddListener(GameManager.Instance.inputManager.ToggleInventory);
-    }
-
     private void OnEnable()
     {
         GameEventsManager.Instance.playerEvents.onStatChanged += UpdateStatWindow;
@@ -42,6 +35,9 @@ public class InventoryUI : MonoBehaviour, IToggleUI
 
     private void Start()
     {
+        canvas.enabled = false;
+        Init();
+        btn_Close.onClick.AddListener(GameManager.Instance.inputManager.ToggleInventory);
         SwitchPage(0);
         EquipmentWindowReDrawAll();
         GoldTextUpdate();
@@ -105,11 +101,9 @@ public class InventoryUI : MonoBehaviour, IToggleUI
 
     public void UpdateStatWindow()
     {
-        var tempStat = GameManager.Instance.playerInfoManager.GetPlayerStat();
-
-        attackPowerText.text = $"공격력 : {tempStat.attackPower}";
-        maxHPText.text = $"최대 체력 : {tempStat.plusMaxHP}";
-        criPerText.text = $"크리티컬 확률 : {tempStat.criticalPer}%";
+        attackPowerText.text = $"공격력 : {GameManager.Instance.playerInfoManager.GetPlayerAttackPower()}";
+        maxHPText.text = $"최대 체력 : {GameManager.Instance.playerInfoManager.GetPlayerMaxHP()}";
+        criPerText.text = $"크리티컬 확률 : {GameManager.Instance.playerInfoManager.GetPlayerCriticalPer()}%";
     }
 
     public bool IsOpened()

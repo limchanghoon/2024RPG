@@ -1716,9 +1716,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90759fa584280f740a980ffece787652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterId: 1
-  maxHP: 400
-  currentHP: 0
+  scriptableMonsterData: {fileID: 11400000, guid: 32326a118a012914091e273102096cfa,
+    type: 2}
   booty: {fileID: 8188536230797105562, guid: a4599b868d166124e8ee8cac82938b87, type: 3}
   hpBar: {fileID: 6428587776791205638}
   hpBarBack: {fileID: 2112399223300770631}

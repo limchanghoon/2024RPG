@@ -27,6 +27,15 @@ public class EquipmentItemData : ItemData
         enchantLevel = 0;
     }
 
+    public override void Reset()
+    {
+        base.Reset();
+        attackPower = 0;
+        plusMaxHP = 0;
+        criticalPer = 0;
+        enchantLevel = 0;
+    }
+
     public override void Set(ItemData itemData)
     {
         var temp = itemData as EquipmentItemData;

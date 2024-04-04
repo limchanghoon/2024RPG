@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class DropPanel : MonoBehaviour, IDropHandler
 {
-    [SerializeField] GameObject dropConfirmPanel;
+    [SerializeField] Canvas canvas;
     ItemSlot dropItemSlot;
 
     public void OnDrop(PointerEventData eventData)
@@ -15,7 +15,7 @@ public class DropPanel : MonoBehaviour, IDropHandler
         if (eventData.pointerDrag != null && _dragItem && _dragItem.isDragging)
         {
             dropItemSlot = _dragItem.itemSlot;
-            dropConfirmPanel.SetActive(true);
+            canvas.enabled = true;
         }
     }
 
@@ -23,15 +23,14 @@ public class DropPanel : MonoBehaviour, IDropHandler
     {
         int tempID = dropItemSlot.GetItem().id;
         dropItemSlot.ResetSlot();
-        dropItemSlot.UpdateSlot();
         GameEventsManager.Instance.collectEvents.Collect(tempID, 0);
         dropItemSlot = null;
-        dropConfirmPanel.SetActive(false);
+        canvas.enabled = false;
     }
 
     public void Cancle()
     {
         dropItemSlot = null;
-        dropConfirmPanel.SetActive(false);
+        canvas.enabled = false;
     }
 }

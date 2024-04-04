@@ -1,31 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HPController_Player : MonoBehaviour, IHit
 {
-    [SerializeField] int maxHP;
-    [SerializeField] int currentHP;
+    //[SerializeField] int maxHP;
+    int currentHP;
 
     [SerializeField] Image hpBar;
     [SerializeField] Image hpBarBack;
+    [SerializeField] TextMeshProUGUI playerHPText;
 
     Coroutine coroutine;
 
     public bool invincibility { get; set; }
 
+    private void OnEnable()
+    {
+        GameEventsManager.Instance.playerEvents.onStatChanged += UpdateHpbar;
+    }
+
+    private void OnDisable()
+    {
+        GameEventsManager.Instance.playerEvents.onStatChanged -= UpdateHpbar;
+    }
+
     private void Start()
     {
-        currentHP = maxHP;
-        hpBar.fillAmount = (float)currentHP / maxHP;
+        currentHP = GameManager.Instance.playerInfoManager.GetPlayerMaxHP();
+        UpdateHpbar();
+    }
+
+    private void UpdateHpbar()
+    {
+        if (currentHP > GameManager.Instance.playerInfoManager.GetPlayerMaxHP())
+            currentHP = GameManager.Instance.playerInfoManager.GetPlayerMaxHP();
+        hpBar.fillAmount = (float)currentHP / GameManager.Instance.playerInfoManager.GetPlayerMaxHP();
+        playerHPText.text = $"{currentHP} / {GameManager.Instance.playerInfoManager.GetPlayerMaxHP()}";
     }
 
     public void Hill(int mount)
     {
         if (invincibility || currentHP <= 0) return;
-        currentHP = currentHP + mount > maxHP ? maxHP : currentHP + mount;
-        hpBar.fillAmount = (float)currentHP / maxHP;
+        currentHP = currentHP + mount > GameManager.Instance.playerInfoManager.GetPlayerMaxHP() ? GameManager.Instance.playerInfoManager.GetPlayerMaxHP() : currentHP + mount;
+        UpdateHpbar();
     }
 
     public void Hit(int dmg, AttackAttribute attackAttribute, Transform ownerTr, bool isCri)
@@ -34,7 +54,7 @@ public class HPController_Player : MonoBehaviour, IHit
         GameManager.Instance.objectPoolManager.GetObject(ObjectPoolType.DamageText).GetComponent<DamageText>().SetAndActive(dmg, transform.position, attackAttribute, isCri);
         //Debug.Log($"{gameObject.name} : Hit {dmg.ToString()}!");
         currentHP = currentHP < dmg ? 0 : currentHP - dmg;
-        hpBar.fillAmount = (float)currentHP / maxHP;
+        UpdateHpbar();
         if (coroutine == null)
         {
             coroutine = StartCoroutine(backHpbarCoroutine());

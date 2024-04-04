@@ -101,11 +101,12 @@ public class QuestUI : MonoBehaviour, IToggleUI
         StringBuilder sb = new StringBuilder(512);
         for(int i = 0;i< curQuestData.questContents.Length;i++)
         {
-            sb.Append(curQuestData.questContents[i].targetId);
+            sb.Append(curQuestData.questContents[i].GetTargetName());
             sb.Append(" : ");
             sb.Append(curQuestData.questContents[i].count.ToString());
             sb.Append(" / ");
-            sb.AppendLine(curQuestData.questContents[i].goal_count.ToString());
+            sb.Append(curQuestData.questContents[i].goal_count.ToString());
+            sb.AppendLine(curQuestData.questContents[i].questContentType.ToCustomString());
         }
         questProgressText.text = sb.ToString();
     }
@@ -139,6 +140,7 @@ public class QuestUI : MonoBehaviour, IToggleUI
 
     public void Open()
     {
+        UpdateQuestExpandedWindow();
         canvas.enabled = true;
         UpdateQuestList();
     }

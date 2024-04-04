@@ -5,18 +5,14 @@ using UnityEngine.UI;
 
 public class HPController_AI : MonoBehaviour, IHit
 {
-    public int monsterId;
+    [SerializeField] ScriptableMonsterData scriptableMonsterData;
 
     MonsterAI monsterAI;
-
-    [SerializeField] int maxHP;
-    [SerializeField] int currentHP;
+    int currentHP;
 
     [SerializeField] GameObject booty;
     [SerializeField] Image hpBar;
     [SerializeField] Image hpBarBack;
-
-    [SerializeField] Exp rewardExp;
 
     float backHPTimer = 0f;
 
@@ -29,8 +25,8 @@ public class HPController_AI : MonoBehaviour, IHit
 
     private void Start()
     {
-        currentHP = maxHP;
-        hpBar.fillAmount = (float)currentHP / maxHP;
+        currentHP = scriptableMonsterData.monsterMaxHP;
+        hpBar.fillAmount = (float)currentHP / scriptableMonsterData.monsterMaxHP;
     }
 
     public void Hit(int dmg, AttackAttribute attackAttribute, Transform ownerTr, bool isCri)
@@ -39,7 +35,7 @@ public class HPController_AI : MonoBehaviour, IHit
         monsterAI.SetTartgetByHit(ownerTr);
         GameManager.Instance.objectPoolManager.GetObject(ObjectPoolType.DamageText).GetComponent<DamageText>().SetAndActive(dmg, transform.position, attackAttribute, isCri);
         currentHP = currentHP < dmg ? 0 : currentHP - dmg;
-        hpBar.fillAmount = (float)currentHP / maxHP;
+        hpBar.fillAmount = (float)currentHP / scriptableMonsterData.monsterMaxHP;
 
         if(coroutine ==  null)
         {
@@ -51,8 +47,8 @@ public class HPController_AI : MonoBehaviour, IHit
         }
         if (currentHP <= 0)
         {
-            GameManager.Instance.playerInfoManager.GainExp(rewardExp);
-            GameEventsManager.Instance.killEvents.Kill(monsterId);
+            GameManager.Instance.playerInfoManager.GainExp(scriptableMonsterData.rewardExp);
+            GameEventsManager.Instance.killEvents.Kill(scriptableMonsterData.id);
             if (booty != null)
                 Instantiate(booty, transform.position + Vector3.up, Quaternion.identity);
             Destroy(gameObject);

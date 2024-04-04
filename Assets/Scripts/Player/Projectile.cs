@@ -51,9 +51,9 @@ public class Projectile : MonoBehaviour
         if (!isActive || other.CompareTag("Player") || other.CompareTag("Magic") || other.CompareTag("NPC")) return;
 
 
-        int damage = (int)(powerCoefficient * GameManager.Instance.playerInfoManager.GetPlayerStat().attackPower);
+        int damage = (int)(powerCoefficient * GameManager.Instance.playerInfoManager.GetPlayerAttackPower());
         bool isCri;
-        MyMathf.IsCritical(GameManager.Instance.playerInfoManager.GetPlayerStat().criticalPer, ref damage, out isCri);
+        MyMathf.IsCritical(GameManager.Instance.playerInfoManager.GetPlayerCriticalPer(), ref damage, out isCri);
 
         other.GetComponent<IHit>()?.Hit(damage, m_attackAttribute, owner, isCri);
 

@@ -99,14 +99,14 @@ public class NPC : MonoBehaviour, HelpForRay
 
     public void CloseHelp()
     {
-        GameManager.Instance.npcTalkHelpUI.enabled = false;
+        GameManager.Instance.npcHelpUI.Close();
         outlineController.TurnOffOutline();
         npcNameObj.SetActive(false);
     }
 
     public void OpenHelp()
     {
-        GameManager.Instance.npcTalkHelpUI.enabled = true;
+        GameManager.Instance.npcHelpUI.Open();
         outlineController.TurnOnOutline();
         npcNameObj.SetActive(true);
     }

@@ -8,7 +8,6 @@ public class InventoryManager : MonoBehaviour
     public static readonly int inventorySize = 56;
     public static readonly int equipmentWindowSize = 8;
     [HideInInspector] public Canvas topCanvas;
-    public GameObject inventoryUIPrefab;
     int curPage;
 
     public EquipmentItemData[] equipmentItems;
@@ -19,11 +18,14 @@ public class InventoryManager : MonoBehaviour
 
     public InventoryUI inventoryUI;
 
+    public PlayerStatData euipmentTotalStatData {  get; private set; }
+
 
     private void Awake()
     {
         MyJsonManager.LoadInventory();
-        inventoryUI = Instantiate(inventoryUIPrefab).GetComponent<InventoryUI>();
+        euipmentTotalStatData = new PlayerStatData();
+        UpdateEquipmentTotalStat();
     }
 
     // 나중에 골드 오버플로우 체크??
@@ -270,13 +272,12 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public PlayerStatData GetEquipmentwindowTotalStat()
+    public void UpdateEquipmentTotalStat()
     {
-        var totalStat = new PlayerStatData();
+        euipmentTotalStatData.Reset();
         for (int i = 0; i < equipmentWindowSize; ++i)
         {
-            totalStat.Add(equipmentWindowItems[i]);
+            euipmentTotalStatData.Add(equipmentWindowItems[i]);
         }
-        return totalStat;
     }
 }

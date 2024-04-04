@@ -141,11 +141,8 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
     IEnumerator StartTalk(Transform npcCameraRoot, Transform playerPoint)
     {
         // 조작 불가능
-        GameManager.Instance.rayForHelp.TurnOff();
         GameManager.Instance.inputManager.CloseAll();
-        GameManager.Instance.playerObj.GetComponent<HPController_Player>().invincibility = true;
-        GameManager.Instance.playerObj.GetComponent<TargetRay>().enabled = false;
-        GameManager.Instance.playerObj.GetComponent<PlayerInput>().enabled = false;
+        GameManager.Instance.TurnOffController();
 
         // 페이드 아웃
         yield return GameManager.Instance.fadeManager.Fade(true);
@@ -272,10 +269,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         yield return GameManager.Instance.fadeManager.Fade(false);
 
         // 조작 가능
-        GameManager.Instance.playerObj.GetComponent<TargetRay>().enabled = true;
-        GameManager.Instance.playerObj.GetComponent<PlayerInput>().enabled = true;
-        GameManager.Instance.playerObj.GetComponent<HPController_Player>().invincibility = false;
-        GameManager.Instance.rayForHelp.TurnOn();
+        GameManager.Instance.TurnOnController();
     }
 
     private void OnValidButton()

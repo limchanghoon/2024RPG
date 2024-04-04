@@ -14,6 +14,12 @@ public abstract class CountableItemData : ItemData
 
     }
 
+    public override void Reset()
+    {
+        base.Reset();
+        count = 0;
+    }
+
     public override void Set(ItemData itemData)
     {
         var temp = itemData as CountableItemData;
