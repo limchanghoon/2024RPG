@@ -24,6 +24,7 @@ public class MonsterAI : MonoBehaviour
     float originSpeed;
     float speedRatio = 1f;
 
+    [SerializeField] private float rotateSpeed;
     [SerializeField] float search_delay;
     [SerializeField] float search_radius;
     [SerializeField] float sqrAttackRange;
@@ -34,8 +35,8 @@ public class MonsterAI : MonoBehaviour
 
     [SerializeField] AttackAttribute m_attackAttribute;
 
-    public MonsterState monsterState = MonsterState.StartIdle;
-
+    private MonsterState monsterState = MonsterState.StartIdle;
+    private float sqrStoppingDistance;
 
     // animation IDs
     private int _animIDIdle;
@@ -50,6 +51,8 @@ public class MonsterAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         originSpeed = agent.speed;
+        sqrStoppingDistance = agent.stoppingDistance * agent.stoppingDistance;
+        GetComponentInChildren<HPController_AI>().onHit += SetTartget;
     }
 
     private void Start()
@@ -119,6 +122,16 @@ public class MonsterAI : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (target == null) return;
+        Vector3 tempDir = target.position - transform.position;
+        if (tempDir.sqrMagnitude <= sqrStoppingDistance)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(tempDir.normalized), Time.deltaTime * rotateSpeed);
+        }
+    }
+
     private void AssignAnimationIDs()
     {
         _animIDIdle = Animator.StringToHash("Idle");
@@ -183,12 +196,12 @@ public class MonsterAI : MonoBehaviour
         StartCoroutine(SearchTargetCoroutine());
     }
 
-    public void SetTartgetByHit(Transform input)
+    public void SetTartget(Transform input)
     {
         if (target == null)
         {
             target = input;
-            if(monsterState == MonsterState.Idle)
+            if(monsterState == MonsterState.Idle || monsterState == MonsterState.StartIdle)
             {
                 monsterState = MonsterState.StartChase;
             }

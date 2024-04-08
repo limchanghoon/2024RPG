@@ -18,7 +18,9 @@ MonoBehaviour:
   requiredLevel: 5
   masterLevel: 3
   cooldown: 7
-  damage: 05000000080000000a000000
+  values:
+  - value: 05000000080000000a000000
+    skillValueType: 0
   skillDescription: "\uC131\uC2A4\uB7EC\uC6B4 \uD798\uC73C\uB85C {\uC218\uCE58}\uC758
     HP\uB97C \uC989\uC2DC \uD68C\uBCF5\uD55C\uB2E4."
   skillCommandObj: {fileID: 1803155637481852900, guid: 4a7566115adfdce46ab8f0bf57c4e720,

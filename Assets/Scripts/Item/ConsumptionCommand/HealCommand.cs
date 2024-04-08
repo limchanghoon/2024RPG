@@ -9,6 +9,11 @@ public class HealCommand : MonoBehaviour, ICommand
     [SerializeField] float cooldown;
     [SerializeField] float timer = 0f;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     private void Update()
     {
         if (timer < cooldown)

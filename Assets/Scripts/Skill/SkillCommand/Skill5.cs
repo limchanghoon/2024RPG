@@ -15,8 +15,9 @@ public class Skill5 : MonoActiveSkill
 
     private int _animIDJMagicShoot;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         animator = GameManager.Instance.playerObj.GetComponent<Animator>();
         thirdPersonController = GameManager.Instance.playerObj.GetComponent<ThirdPersonController>();
         targetRay = GameManager.Instance.playerObj.GetComponent<TargetRay>();

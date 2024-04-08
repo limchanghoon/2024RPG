@@ -39,7 +39,15 @@ public class DungeonEntryUI : MonoBehaviour, IToggleUI
         MyJsonManager.SaveQuickSlot();
         MyJsonManager.SaveSkillData();
         GameManager.Instance.questManager.SaveQuestDatas();
-        SceneManager.LoadScene(dungeonSceneNumbers[currentIndex]);
+        //SceneManager.LoadScene(dungeonSceneNumbers[currentIndex]);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        GameManager.Instance.TurnOnController();
+
+        // 임시로 여기로만 이동
+        GameManager.Instance.loadSceneAsyncManager.LoadScene("SampleScene");
     }
 
     public bool IsOpened()

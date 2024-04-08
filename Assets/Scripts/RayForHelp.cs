@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RayForHelp : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class RayForHelp : MonoBehaviour
         {
             _mainCamera = Camera.main;
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
@@ -45,6 +47,12 @@ public class RayForHelp : MonoBehaviour
                 _help.Interact2();
             }
         }
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        _help = null;
+        GameManager.Instance.npcHelpUI.Close();
     }
 
     private void RayCastForHelp()

@@ -34,6 +34,8 @@ public class GameManager : MonoSingleton<GameManager>
     public QuickSlotManager quickSlotManager;
     public EnchantManager enchantManager;
 
+    public LoadSceneAsyncManager loadSceneAsyncManager;
+    public GameObject bootyPrefab;
     public void TurnOnController()
     {
         playerObj.GetComponent<TargetRay>().enabled = true;
@@ -48,5 +50,19 @@ public class GameManager : MonoSingleton<GameManager>
         playerObj.GetComponent<HPController_Player>().invincibility = true;
         playerObj.GetComponent<TargetRay>().enabled = false;
         playerObj.GetComponent<PlayerInput>().enabled = false;
+    }
+
+    public void TurnOnAllCanvas()
+    {
+        staticCanvas.enabled = true;
+        playerUICanvas.enabled = true;
+        quickSlotCanvas.enabled = true;
+    }
+
+    public void TurnOffAllCanvas()
+    {
+        staticCanvas.enabled = false;
+        playerUICanvas.enabled = false;
+        quickSlotCanvas.enabled = false;
     }
 }

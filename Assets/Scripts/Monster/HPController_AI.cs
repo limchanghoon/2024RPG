@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,9 @@ public class HPController_AI : MonoBehaviour, IHit
 {
     [SerializeField] ScriptableMonsterData scriptableMonsterData;
 
-    MonsterAI monsterAI;
     int currentHP;
 
-    [SerializeField] GameObject booty;
+    [SerializeField] bool dropBooty;
     [SerializeField] Image hpBar;
     [SerializeField] Image hpBarBack;
 
@@ -18,9 +18,22 @@ public class HPController_AI : MonoBehaviour, IHit
 
     Coroutine coroutine;
 
-    private void Awake()
+    public event Action<Transform> onHit;
+    public void NotifyHit(Transform ownerTr)
     {
-        monsterAI = GetComponent<MonsterAI>();
+        if (onHit != null)
+        {
+            onHit(ownerTr);
+        }
+    }
+
+    public event Action onDie;
+    public void Die()
+    {
+        if (onDie != null)
+        {
+            onDie();
+        }
     }
 
     private void Start()
@@ -32,7 +45,7 @@ public class HPController_AI : MonoBehaviour, IHit
     public void Hit(int dmg, AttackAttribute attackAttribute, Transform ownerTr, bool isCri)
     {
         if (currentHP <= 0) return;
-        monsterAI.SetTartgetByHit(ownerTr);
+        NotifyHit(ownerTr);
         GameManager.Instance.objectPoolManager.GetObject(ObjectPoolType.DamageText).GetComponent<DamageText>().SetAndActive(dmg, transform.position, attackAttribute, isCri);
         currentHP = currentHP < dmg ? 0 : currentHP - dmg;
         hpBar.fillAmount = (float)currentHP / scriptableMonsterData.monsterMaxHP;
@@ -49,9 +62,10 @@ public class HPController_AI : MonoBehaviour, IHit
         {
             GameManager.Instance.playerInfoManager.GainExp(scriptableMonsterData.rewardExp);
             GameEventsManager.Instance.killEvents.Kill(scriptableMonsterData.id);
-            if (booty != null)
-                Instantiate(booty, transform.position + Vector3.up, Quaternion.identity);
-            Destroy(gameObject);
+            Die();
+
+            if (dropBooty)
+                Instantiate(GameManager.Instance.bootyPrefab, transform.position + Vector3.up, Quaternion.identity);
         }
     }
 

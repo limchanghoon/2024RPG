@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SkillManager : MonoBehaviour
 {
@@ -41,6 +42,11 @@ public class SkillManager : MonoBehaviour
     }
 
     private void Start()
+    {
+        SceneManager.sceneLoaded += LoadedsceneEvent;
+    }
+
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
         UpdateSkillTotalStat();
     }

@@ -7,7 +7,7 @@ public class MyMathf
 {
     public static void IsCritical(float percentage, ref int dmg, out bool isCri)
     {
-        float selected = Random.Range(0.0f, 1.0f);
+        float selected = Random.Range(0.0f, 1.0f)*100f;
         if (selected <= percentage)
         {
             isCri = true;

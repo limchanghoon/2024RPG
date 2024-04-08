@@ -148,10 +148,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         yield return GameManager.Instance.fadeManager.Fade(true);
 
         // UI 숨기기
-        //GameManager.Instance.topCanvas.enabled = false;
-        GameManager.Instance.staticCanvas.enabled = false;
-        GameManager.Instance.playerUICanvas.enabled = false;
-        GameManager.Instance.quickSlotCanvas.enabled = false;
+        GameManager.Instance.TurnOffAllCanvas();
 
         // 플레이어 위치 옮기기
         GameManager.Instance.playerObj.GetComponent<CharacterController>().enabled = false;
@@ -260,10 +257,7 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         GameManager.Instance.dialogTargetGroup.m_Targets[0].weight = 1.0f;
 
         // UI 켜기
-        //GameManager.Instance.topCanvas.enabled = true;
-        GameManager.Instance.staticCanvas.enabled = true;
-        GameManager.Instance.playerUICanvas.enabled = true;
-        GameManager.Instance.quickSlotCanvas.enabled = true;
+        GameManager.Instance.TurnOnAllCanvas();
 
         // 페이드 인
         yield return GameManager.Instance.fadeManager.Fade(false);

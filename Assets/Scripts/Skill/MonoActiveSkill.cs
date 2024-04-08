@@ -7,6 +7,11 @@ public abstract class MonoActiveSkill : MonoBehaviour, ICommand
     [SerializeField] ScriptableSkillData skillData;
     [SerializeField] float timer = 0f;
 
+    protected virtual void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     private void Update()
     {
         if (timer < skillData.cooldown)
