@@ -42,13 +42,16 @@ public class PlayerInfoManager : MonoBehaviour
     public void GainExp(int _exp)
     {
         playerInfoData.playerExp.exp += _exp;
-        if (playerInfoData.playerExp.exp >= 100) // юс╫ц
+        bool changed = false;
+        while (playerInfoData.playerExp.exp >= playerInfoData.playerLevel*10)
         {
-            playerInfoData.playerLevel++;
-            playerInfoData.playerExp.exp -= 100;
+            playerInfoData.playerExp.exp -= playerInfoData.playerLevel * 10;
             playerInfoData.skillPoint += 5;
-            GameEventsManager.Instance.playerEvents.ChangeLevel();
+            playerInfoData.playerLevel++;
+            changed = true;
         }
+        if(changed)
+            GameEventsManager.Instance.playerEvents.ChangeLevel();
         GameEventsManager.Instance.playerEvents.ChangeExp();
     }
 

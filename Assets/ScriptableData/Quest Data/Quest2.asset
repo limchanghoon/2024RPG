@@ -46,7 +46,7 @@ MonoBehaviour:
   - step: 1
     questContentType: 0
     targetId: 1
-    goal_count: 1
+    goal_count: 10
     count: 0
   rewardItems:
   - scriptableItemData: {fileID: 11400000, guid: 4e6b68c469e770c468c248c7682e313b,

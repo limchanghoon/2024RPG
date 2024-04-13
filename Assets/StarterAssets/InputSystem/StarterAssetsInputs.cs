@@ -25,6 +25,10 @@ namespace StarterAssets
 		[SerializeField] QuickSlot quickSlot1;
         [SerializeField] QuickSlot quickSlot2;
         [SerializeField] QuickSlot quickSlot3;
+        [SerializeField] QuickSlot quickSlot4;
+        [SerializeField] QuickSlot quickSlot5;
+        [SerializeField] QuickSlot quickSlot6;
+        [SerializeField] QuickSlot quickSlot7;
 
         private void Awake()
         {
@@ -75,6 +79,11 @@ namespace StarterAssets
             GameManager.Instance.inputManager.ToggleEnchantWindow();
         }
 
+        public void OnESC(InputValue value)
+        {
+            GameManager.Instance.inputManager.ToggleESC();
+        }
+
         public void OnAlpha1(InputValue value)
         {
 			if (quickSlot1.command == null) return;
@@ -91,6 +100,30 @@ namespace StarterAssets
         {
             if (quickSlot3.command == null) return;
             quickSlot3.command.Execute();
+        }
+
+        public void OnAlpha4(InputValue value)
+        {
+            if (quickSlot4.command == null) return;
+            quickSlot4.command.Execute();
+        }
+
+        public void OnAlpha5(InputValue value)
+        {
+            if (quickSlot5.command == null) return;
+            quickSlot5.command.Execute();
+        }
+
+        public void OnAlpha6(InputValue value)
+        {
+            if (quickSlot6.command == null) return;
+            quickSlot6.command.Execute();
+        }
+
+        public void OnAlpha7(InputValue value)
+        {
+            if (quickSlot7.command == null) return;
+            quickSlot7.command.Execute();
         }
 
 

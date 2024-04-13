@@ -1,9 +1,8 @@
-using Cinemachine;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
+using static MonsterAI;
 
 public class Boss10001AI : MonoBehaviour, IBoss
 {
@@ -28,6 +27,7 @@ public class Boss10001AI : MonoBehaviour, IBoss
         StartFlyFireBallShoot,
         FlyFireBallShoot
     }
+    [SerializeField] ScriptableMonsterData scriptableMonsterData;
 
     NavMeshAgent agent;
     Animator animator;
@@ -49,6 +49,8 @@ public class Boss10001AI : MonoBehaviour, IBoss
     [SerializeField] Transform mouseTr;
     [SerializeField] GameObject spawnMonster;
     [SerializeField] GameObject[] spawnMonsterEffect;
+
+    [SerializeField] GameObject hpBarObj;
 
     [SerializeField] Vector3 meteorPointMin;
     [SerializeField] Vector3 meteorPointMax;
@@ -87,13 +89,25 @@ public class Boss10001AI : MonoBehaviour, IBoss
     private int _animIDTailAttack;
     private int _animIDFlyFireBallShoot;
 
+    // 메터리얼
+    [SerializeField] InstanceMaterial instanceMaterial;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
         sqrStoppingDistance = agent.stoppingDistance * agent.stoppingDistance;
+    }
+
+    private void OnEnable()
+    {
         GetComponentInChildren<HPController_AI>().onDie += EndBoss;
+    }
+
+    private void OnDisable()
+    {
+        GetComponentInChildren<HPController_AI>().onDie -= EndBoss;
     }
 
     private void Start()
@@ -276,8 +290,7 @@ public class Boss10001AI : MonoBehaviour, IBoss
 
     public void EndBoss()
     {
-        Debug.Log("EndBoss");
-        StartCoroutine(EndBossCoroutine());
+        StartCoroutine(EndbossCoroutine1());
     }
 
     private IEnumerator StartBossCoroutine()
@@ -366,24 +379,38 @@ public class Boss10001AI : MonoBehaviour, IBoss
         // 페이드 인
         yield return GameManager.Instance.fadeManager.Fade(false);
 
+        // 보스 체력바 켜기
+        hpBarObj.SetActive(true);
+
         // 조작 가능
         GameManager.Instance.TurnOnController();
 
         bossState = BossState.StartChase;
-        StartCoroutine(PatternTimer(40f));
+        StartCoroutine(PatternTimer(10f));
     }
 
-
-    private IEnumerator EndBossCoroutine()
+    private IEnumerator EndbossCoroutine1()
     {
         GameManager.Instance.TurnOffController();
         yield return GameManager.Instance.fadeManager.Fade(true);
+        gameObject.SetActive(false);
+        gameObject.SetActive(true);
+        StartCoroutine(EndBossCoroutine2());
+    }
+
+
+    private IEnumerator EndBossCoroutine2()
+    {
         GameManager.Instance.TurnOffAllCanvas();
+
+        // 보스 체력바 끄기
+        hpBarObj.SetActive(false);
 
         destroyAllTrigger.DestroyAllMonster();
         isEnd = true;
         agent.enabled = false;
         transform.position = bossStartPoints[2].position;
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
         //카메라 이동
         GameManager.Instance.dialogCam.LookAt = transform.GetComponentInChildren<BoxCollider>().transform;
@@ -395,7 +422,6 @@ public class Boss10001AI : MonoBehaviour, IBoss
         GameManager.Instance.playerObj.GetComponent<CharacterController>().enabled = true;
 
         StartCoroutine(GameManager.Instance.fadeManager.Fade(false));
-        yield return MyYieldCache.WaitForSeconds(0.5f);
         animator.SetTrigger("Die");
 
         float timer = 0f;
@@ -419,6 +445,20 @@ public class Boss10001AI : MonoBehaviour, IBoss
 
         GameManager.Instance.TurnOnAllCanvas();
         GameManager.Instance.TurnOnController();
+
+        GetComponentInChildren<BoxCollider>().enabled = false;
+        instanceMaterial.material.SetFloat("_Cull", (float)CullMode.Off); // 양면
+        timer = 0f;
+        while( timer < 1f)
+        {
+            yield return null;
+            timer += Time.deltaTime/3;
+            instanceMaterial.material.SetFloat("_CutoffValue", timer);
+        }
+        GameObject _obj = Instantiate(GameManager.Instance.bootyPrefab, transform.position + Vector3.up, transform.rotation);
+        _obj.GetComponent<Booty>().SetItems(scriptableMonsterData);
+        _obj.transform.localScale = Vector3.one * 2f;
+        Destroy(gameObject);
     }
     private IEnumerator PatternTimer(float _time)
     {

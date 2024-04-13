@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillData: {fileID: 11400000, guid: 80f55a28f9af4114f9258a99618c14f1, type: 2}
   timer: 0
+  flamethrower: {fileID: 1757942639694788375, guid: de23ee4d5ebd6c54d8a6ae01f55d4e04,
+    type: 3}

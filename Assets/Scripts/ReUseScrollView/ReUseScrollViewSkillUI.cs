@@ -63,15 +63,23 @@ public class ReUseScrollViewSkillUI : ReUseScrollViewContents<int>
             {
                 _dragSkill.enabled = false;
                 targetImage.color = Color.gray;
+                content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = true;
+                content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = false;
+            }
+            else if(tempSkill.skillLevel == tempSkill.masterLevel)
+            {
+                _dragSkill.enabled = true;
+                targetImage.color = Color.white;
+                content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = false;
+                content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = true;
             }
             else
             {
                 _dragSkill.enabled = true;
                 targetImage.color = Color.white;
+                content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = true;
+                content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = true;
             }
-
-            content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = true;
-            content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = true;
         }
     }
 

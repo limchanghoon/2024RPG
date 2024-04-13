@@ -56,7 +56,7 @@ public class TargetRay : MonoBehaviour
         if(GameManager.Instance.inputManager.canControl())
             UpdeteForInput();
 
-        if (thirdPersonController.stop)
+        if (thirdPersonController.lookTarget)
         {
             _targetRotation = Quaternion.LookRotation((_input - transform.position).normalized).eulerAngles.y;
             float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
@@ -78,6 +78,7 @@ public class TargetRay : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && thirdPersonController.Grounded && !thirdPersonController.stop)
         {
             thirdPersonController.stop = true;
+            thirdPersonController.lookTarget = true;
             // ÁÂ¿ì ·£´ýÇÏ°Ô
             isLeft = Random.Range(0, 2) == 0 ? true : false;
             isLeft = false;
@@ -128,5 +129,6 @@ public class TargetRay : MonoBehaviour
     public void ExitMagicShoot()
     {
         thirdPersonController.stop = false;
+        thirdPersonController.lookTarget = false;
     }
 }

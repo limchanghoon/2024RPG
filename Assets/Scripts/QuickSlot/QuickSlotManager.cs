@@ -24,7 +24,7 @@ public class QuickSlotManager : MonoBehaviour
 
     public (ICommand, string) GetCommand_Address(KeyCode keyCode)
     {
-        var quickSlotData = GameManager.Instance.quickSlotManager.quickSlotDatagroup.m_Dictionary[keyCode];
+        QuickSlotData quickSlotData = GameManager.Instance.quickSlotManager.quickSlotDatagroup.m_Dictionary[keyCode];
         if (quickSlotData.quickSlotType == QuickSlotType.Skill)
         {
             return (GameManager.Instance.skillManager.GetSkilCommandByID(quickSlotData.ID), GameManager.Instance.skillManager.GetSkillDataByID(quickSlotData.ID).GetAddress());

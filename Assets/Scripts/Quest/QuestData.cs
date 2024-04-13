@@ -46,6 +46,12 @@ public class QuestData
 
     public void Set(QuestData input)
     {
+        if (questContents.Length != input.questContents.Length)
+        {
+            questContents = new QuestContent[input.questContents.Length];
+            for(int i = 0;i< questContents.Length; ++i)
+                questContents[i] = new QuestContent();
+        }
         for (int i = 0; i < input.questContents.Length; ++i)
         {
             questContents[i].DeepCopy(input.questContents[i]);
@@ -121,9 +127,9 @@ public class QuestData
         for (int i = 0; i < questContents.Length; ++i)
         {
             if (questContents[i].questContentType != QuestContentType.Collect) continue;
-            if (questContents[i].goal_count < inventoryManager.GetCount(questContents[i].targetId))
+            if (questContents[i].goal_count > inventoryManager.GetCount(questContents[i].targetId))
             {
-                msg = "Collect 자원이 부족합니다!";
+                msg = "Collect 자원이 부족합니다! : " + inventoryManager.GetCount(questContents[i].targetId).ToString()+"개 소지중";
                 return false;
             }
         }

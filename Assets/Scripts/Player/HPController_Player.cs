@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class HPController_Player : MonoBehaviour, IHit
@@ -12,6 +14,10 @@ public class HPController_Player : MonoBehaviour, IHit
     [SerializeField] Image hpBar;
     [SerializeField] Image hpBarBack;
     [SerializeField] TextMeshProUGUI playerHPText;
+    [SerializeField] GameObject hillEffect;
+    [SerializeField] Animator animator;
+    [SerializeField] Transform playerFollowCamera;
+    [SerializeField] GameObject deathCam;
 
     Coroutine coroutine;
 
@@ -44,7 +50,10 @@ public class HPController_Player : MonoBehaviour, IHit
     public void Hill(int mount)
     {
         if (invincibility || currentHP <= 0) return;
+        GameManager.Instance.objectPoolManager.GetObject(ObjectPoolType.DamageText).GetComponent<DamageText>().SetAndActive(mount, transform.position, AttackAttribute.Hill, false);
         currentHP = currentHP + mount > GameManager.Instance.playerInfoManager.GetPlayerMaxHP() ? GameManager.Instance.playerInfoManager.GetPlayerMaxHP() : currentHP + mount;
+        hillEffect.SetActive(false);
+        hillEffect.SetActive(true);
         UpdateHpbar();
     }
 
@@ -61,8 +70,24 @@ public class HPController_Player : MonoBehaviour, IHit
         }
         if (currentHP <= 0)
         {
-            //Debug.Log($"{gameObject.name} : Die");
+            animator.SetTrigger("Die");
+            GameManager.Instance.TurnOffController();
+            GameManager.Instance.inputManager.CloseAll();
+            deathCam.transform.position = playerFollowCamera.position;
+            deathCam.SetActive(true);
+            StartCoroutine(RespawnOnVillage());
         }
+    }
+
+    private IEnumerator RespawnOnVillage()
+    {
+        yield return MyYieldCache.WaitForSeconds(5f);
+        yield return GameManager.Instance.fadeManager.Fade(true);
+
+        GameManager.Instance.TurnOnController();
+        deathCam.SetActive(false);
+        currentHP = GameManager.Instance.playerInfoManager.GetPlayerMaxHP();
+        GameManager.Instance.loadSceneAsyncManager.LoadScene("Village", false);
     }
 
     IEnumerator backHpbarCoroutine()

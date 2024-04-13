@@ -6,6 +6,7 @@ using UnityEngine;
 public class Skill5 : MonoActiveSkill
 {
     [SerializeField] GameObject snowAOE;
+    AreaAttack obj = null;
 
     Vector3 screenCenter;
     ThirdPersonController thirdPersonController;
@@ -26,6 +27,8 @@ public class Skill5 : MonoActiveSkill
         {
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         }
+        obj = Instantiate(snowAOE, new Vector3(-99999, -99999, -99999), Quaternion.identity).GetComponent<AreaAttack>();
+        obj.SetOwner(GameManager.Instance.playerObj.transform);
     }
 
     private void Start()
@@ -48,7 +51,8 @@ public class Skill5 : MonoActiveSkill
                 {
                     animator.SetTrigger(_animIDJMagicShoot);
                     thirdPersonController.stop = true;
-                    Instantiate(snowAOE, hit.point, Quaternion.identity, GameManager.Instance.playerObj.transform);
+                    thirdPersonController.lookTarget = true;
+                    obj.StartAttack(hit.point);
                     targetRay._input = hit.point;
                     ResetCooldown();
                 }

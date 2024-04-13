@@ -21,9 +21,9 @@ MonoBehaviour:
     step: 0
     dialogs:
     - dialog: "\uC548\uB155\uD558\uC138\uC694 {\uB2C9\uB124\uC784}\uB2D8. \uC800\uB294
-        \uB9C8\uC744 \uC8FC\uBBFC1 \uC785\uB2C8\uB2E4."
+        \uC81C\uC784\uC2A4\uB77C\uACE0 \uD569\uB2C8\uB2E4."
       currentTalker: 1
-    - dialog: "\uC548\uB155\uD558\uC138\uC694 \uB9C8\uC744 \uC8FC\uBBFC1\uB2D8."
+    - dialog: "\uC548\uB155\uD558\uC138\uC694 \uC81C\uC784\uC2A4\uB2D8."
       currentTalker: 0
     - dialog: "\uB9C8\uC774\uD06C\uC5D0\uAC8C \uAC14\uB2E4\uC640 \uC8FC\uC138\uC694"
       currentTalker: 1
@@ -31,6 +31,14 @@ MonoBehaviour:
   - npcId: 1
     step: 1
     dialogs:
+    - dialog: "\uB9C8\uC774\uD06C\uB97C \uCC3E\uC544\uBCF4\uC138\uC694!"
+      currentTalker: 1
+  - npcId: 3
+    step: 1
+    dialogs:
+    - dialog: "\uD558   \uD558   \uD558    \uC800\uB294 \uB9C8\uC774\uD06C\uAC00
+        \uC544\uB2D9\uB2C8\uB2E4."
+      currentTalker: 1
     - dialog: "\uBF40\uAE00\uBA38\uB9AC \uB0A8\uC131\uC774 \uB9C8\uC774\uD06C\uC785\uB2C8\uB2E4."
       currentTalker: 1
   AbleToProceed_Dialogs:
@@ -54,14 +62,38 @@ MonoBehaviour:
       currentTalker: 1
   questContents: []
   rewardItems:
+  - scriptableItemData: {fileID: 11400000, guid: 4b7e46b9088cd5e4497f7cd272809314,
+      type: 2}
+    count: 100
   - scriptableItemData: {fileID: 11400000, guid: 2b1254630072616458a9001a9a24574a,
       type: 2}
     count: 100
   - scriptableItemData: {fileID: 11400000, guid: 379f71a81ca420d4996ecb05986f2d11,
       type: 2}
     count: 100
+  - scriptableItemData: {fileID: 11400000, guid: 6537d656555789f4f881ca8df45523bc,
+      type: 2}
+    count: 1
+  - scriptableItemData: {fileID: 11400000, guid: 74a7ce713856ad245912fc5210d9d0b9,
+      type: 2}
+    count: 1
+  - scriptableItemData: {fileID: 11400000, guid: fd9b394a20eeb46489ba8d40e9c472d1,
+      type: 2}
+    count: 1
+  - scriptableItemData: {fileID: 11400000, guid: e78b8190a49489e47ac7b68d3d4a2d14,
+      type: 2}
+    count: 1
+  - scriptableItemData: {fileID: 11400000, guid: 2aee72954a4f6b540b9188d4e112f0ff,
+      type: 2}
+    count: 1
+  - scriptableItemData: {fileID: 11400000, guid: e1876172dd7f05f4ab8f93668541f91c,
+      type: 2}
+    count: 1
+  - scriptableItemData: {fileID: 11400000, guid: 74c42b021dd87fa41b40d703083cd309,
+      type: 2}
+    count: 1
   summary: "\uB9C8\uC774\uD06C\uC5D0\uAC8C \uB9D0\uC744 \uAC78\uACE0 \uC624\uC790!"
   rewardGold:
-    gold: 100
+    gold: 10000
   rewardExp:
     exp: 90

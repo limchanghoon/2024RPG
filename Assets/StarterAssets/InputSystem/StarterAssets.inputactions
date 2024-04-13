@@ -51,6 +51,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ESC",
+                    "type": "Button",
+                    "id": "9aa09ef4-e5cf-4e8b-b7a1-c081e572233a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ToggleQuestWindow",
                     "type": "Button",
                     "id": "c575812a-7cc4-40e4-85cc-227c75154cbd",
@@ -99,6 +108,42 @@
                     "name": "Alpha3",
                     "type": "Button",
                     "id": "2f47c7d7-f93f-4447-a3c3-75638c9adb6b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Alpha4",
+                    "type": "Button",
+                    "id": "cd5e7936-d2a2-49b9-9749-89f126605ca8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Alpha5",
+                    "type": "Button",
+                    "id": "cb8793a1-c629-4445-8c31-eeddda790a97",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Alpha6",
+                    "type": "Button",
+                    "id": "3476328a-81ed-4554-9483-bcd85ec20af9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Alpha7",
+                    "type": "Button",
+                    "id": "47319616-564e-4d9d-b83d-a68979069831",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -356,6 +401,61 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "ToggleEnchantWindow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1acc6c3d-fa77-434a-a656-581ad10674fa",
+                    "path": "<Keyboard>/#(4)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Alpha4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "455b013c-e7f4-4f4f-aab0-04f90e527e91",
+                    "path": "<Keyboard>/#(5)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Alpha5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "16682f39-26d0-4aae-977c-59dbd8377e21",
+                    "path": "<Keyboard>/#(6)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Alpha6",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9e58016-2e72-4c6c-8a5b-9558802a9f5f",
+                    "path": "<Keyboard>/#(7)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Alpha7",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36ff1cbd-55c9-4304-9f3b-d5ae0d2061c1",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "ESC",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

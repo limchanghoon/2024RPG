@@ -14,5 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   monsterName: "\uB098\uC57D\uD55C \uC950"
-  monsterMaxHP: 200
+  monsterMaxHP: 1000
   rewardExp: 10
+  rewardGold: 100
+  scriptableItemData_Count_Probabilities:
+  - scriptableItemData_Count:
+      scriptableItemData: {fileID: 11400000, guid: 4b7e46b9088cd5e4497f7cd272809314,
+        type: 2}
+      count: 1
+    probability: 50
+  - scriptableItemData_Count:
+      scriptableItemData: {fileID: 11400000, guid: 2b1254630072616458a9001a9a24574a,
+        type: 2}
+      count: 3
+    probability: 100
+  - scriptableItemData_Count:
+      scriptableItemData: {fileID: 11400000, guid: 379f71a81ca420d4996ecb05986f2d11,
+        type: 2}
+      count: 2
+    probability: 100

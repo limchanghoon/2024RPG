@@ -1,21 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class AddressableManager : MonoSingleton<AddressableManager>
 {
-    public void LoadSprite(string address_str, Image targetImage)
+    [SerializeField] Sprite bgSprite;
+
+    private void Start()
     {
+        StartCoroutine(InitAddressable());
+    }
+
+    private IEnumerator InitAddressable()
+    {
+        var init = Addressables.InitializeAsync();
+        yield return init;
+    }
+
+    public void LoadSprite(string address_str, Image targetImage)
+    {        
         var op = Addressables.LoadAssetAsync<Sprite>(address_str);
         Sprite _data = op.WaitForCompletion();
         if (op.Result != null)
         {
-            targetImage.sprite = _data;
+            targetImage.sprite= _data;
         }
-        Addressables.Release(op);
+        //Addressables.Release(op);
     }
 
     public string LoadItemDescription(string address_str)
@@ -65,7 +77,7 @@ public class AddressableManager : MonoSingleton<AddressableManager>
         var op = Addressables.LoadAssetsAsync<ScriptableQuestData>("QuestData", null);
         var _data = op.WaitForCompletion();
        
-        Addressables.Release(op);
+        //Addressables.Release(op);
         return _data;
     }
 

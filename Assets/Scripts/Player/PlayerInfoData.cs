@@ -9,7 +9,7 @@ public class PlayerInfoData
 
     public PlayerInfoData()
     {
-        playerName = "z임시 이름z";
+        playerName = "닉네임입니다";
         playerLevel = 1;
         playerExp = new Exp();
         skillPoint = 1;

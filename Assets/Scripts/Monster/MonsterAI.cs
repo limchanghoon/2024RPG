@@ -52,7 +52,16 @@ public class MonsterAI : MonoBehaviour
 
         originSpeed = agent.speed;
         sqrStoppingDistance = agent.stoppingDistance * agent.stoppingDistance;
+    }
+
+    private void OnEnable()
+    {
         GetComponentInChildren<HPController_AI>().onHit += SetTartget;
+    }
+
+    private void OnDisable()
+    {
+        GetComponentInChildren<HPController_AI>().onHit -= SetTartget;
     }
 
     private void Start()

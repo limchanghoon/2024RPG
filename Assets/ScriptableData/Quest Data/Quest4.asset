@@ -13,26 +13,49 @@ MonoBehaviour:
   m_Name: Quest4
   m_EditorClassIdentifier: 
   questID: 4
-  questName: "\uD14C\uC2A4\uD2B8 \uC0AC\uB0E5 \uD018\uC2A4\uD2B8"
+  questName: "\uB4DC\uB798\uACE4 \uC2AC\uB808\uC774\uC5B4"
   requiredLevel: 5
-  prerequisiteQuest: []
-  startable_Dialogs: []
-  inProgress_Dialogs: []
-  AbleToProceed_Dialogs: []
+  prerequisiteQuest:
+  - {fileID: 11400000, guid: 55ef184acceb3fc41bffbd034693ada5, type: 2}
+  startable_Dialogs:
+  - npcId: 3
+    step: 0
+    dialogs:
+    - dialog: "{\uB2C9\uB124\uC784}\uB2D8 \uD070\uC77C\uB0AC\uC2B5\uB2C8\uB2E4!"
+      currentTalker: 1
+    - dialog: "\uBB34\uC2A8 \uC77C\uC774\uC8E0??"
+      currentTalker: 0
+    - dialog: "\uB358\uC804\uC758 \uB4DC\uB798\uACE4\uC774 \uCD9C\uBAB0\uD588\uC5B4\uC694!"
+      currentTalker: 1
+    - dialog: "\uB9C8\uC744\uC5D0 \uC2B5\uACA9\uD558\uAE30 \uC804\uC5D0 {\uB2C9\uB124\uC784}\uB2D8\uC774
+        \uCC98\uCE58\uD574\uC8FC\uC138\uC694!"
+      currentTalker: 1
+  inProgress_Dialogs:
+  - npcId: 3
+    step: 1
+    dialogs:
+    - dialog: "{\uB2C9\uB124\uC784}\uB2D8\uB9CC \uBBFF\uC2B5\uB2C8\uB2E4!"
+      currentTalker: 1
+  AbleToProceed_Dialogs:
+  - npcId: 3
+    step: 1
+    dialogs:
+    - dialog: "\uB4DC\uB798\uACE4\uC744 \uBB34\uCC0C\uB974\uACE0 \uC654\uC2B5\uB2C8\uB2E4."
+      currentTalker: 0
+    - dialog: "\uAC10\uC0AC\uD569\uB2C8\uB2E4! \uAC10\uC0AC\uD569\uB2C8\uB2E4!"
+      currentTalker: 1
+    - dialog: "{\uB2C9\uB124\uC784}\uB2D8\uC740 \uC800\uD76C \uB9C8\uC744\uC758 \uC601\uC6C5\uC774\uC2ED\uB2C8\uB2E4!!"
+      currentTalker: 1
   questContents:
-  - step: 0
+  - step: 1
     questContentType: 0
-    targetId: 1
+    targetId: 10001
     goal_count: 1
     count: 0
-  - step: 0
-    questContentType: 1
-    targetId: 1
-    goal_count: 2
-    count: 0
   rewardItems: []
-  summary: "\uD14C\uC2A4\uD2B8 \uD018\uC2A4\uD2B8 \uC904\uAC70\uB9AC"
+  summary: "\uC2DC\uAD81\uCC3D \uB358\uC804\uC5D0 \uAC00\uC11C \uC2DC\uAD81\uCC3D
+    \uB4DC\uB798\uACE4\uC744 \uC7A1\uC790!"
   rewardGold:
-    gold: 0
+    gold: 10000
   rewardExp:
     exp: 90

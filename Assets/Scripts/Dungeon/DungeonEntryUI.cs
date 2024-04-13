@@ -7,6 +7,12 @@ using UnityEngine.UI;
 
 public class DungeonEntryUI : MonoBehaviour, IToggleUI
 {
+    [System.Serializable]
+    public struct SceneName
+    {
+        public string sceneName;
+        public string koreanName;
+    }
     [SerializeField] Canvas canvas;
     [SerializeField] Image bgImage;
     [SerializeField] RectTransform rectTr;
@@ -18,13 +24,13 @@ public class DungeonEntryUI : MonoBehaviour, IToggleUI
     float bgGray = 0.3f;
 
     int currentIndex = 0;
-    [SerializeField] int[] dungeonSceneNumbers;
+    [SerializeField] SceneName[] dungeonSceneNames;
 
     public void OpenConfirmPanel(int i)
     {
         currentIndex = i;
         confirmPanel.SetActive(true);
-        dungeonText.text = $"{i}번 째 인덱스의 던전 이름";
+        dungeonText.text = $"{dungeonSceneNames[i].koreanName}에 입장하시겠습니까?";
     }
 
     public void CloseConfirmPanel()
@@ -34,20 +40,12 @@ public class DungeonEntryUI : MonoBehaviour, IToggleUI
 
     public void GoToDungeon()
     {
-        MyJsonManager.SaveInventory();
-        MyJsonManager.SavePlayerInfo();
-        MyJsonManager.SaveQuickSlot();
-        MyJsonManager.SaveSkillData();
-        GameManager.Instance.questManager.SaveQuestDatas();
-        //SceneManager.LoadScene(dungeonSceneNumbers[currentIndex]);
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         GameManager.Instance.TurnOnController();
 
-        // 임시로 여기로만 이동
-        GameManager.Instance.loadSceneAsyncManager.LoadScene("SampleScene");
+        GameManager.Instance.loadSceneAsyncManager.LoadScene(dungeonSceneNames[currentIndex].sceneName, true);
     }
 
     public bool IsOpened()

@@ -19,12 +19,15 @@ public class SkillManager : MonoBehaviour
 
     private void Awake()
     {
+        skillTotalStatData = new PlayerStatData();
+
         Array.Sort(scriptableSkillDatas, (num1, num2) => num1.requiredLevel.CompareTo(num2.requiredLevel));
         foreach (var _skil in scriptableSkillDatas)
         {
             SkillData skillData = new SkillData(_skil);
             skillMap.Add(_skil.skillID, skillData);
-            skillCommandMap.Add(_skil.skillID, Instantiate(skillData.skillCommandObj).GetComponent<ICommand>());
+            if (skillData.skillType == SkillType.Active)
+                skillCommandMap.Add(_skil.skillID, Instantiate(skillData.skillCommandObj).GetComponent<ICommand>());
             skillList.Add(_skil.skillID);
         }
 
@@ -37,8 +40,6 @@ public class SkillManager : MonoBehaviour
                 skillMap[_skill.skillID].skillLevel = _skill.skillLevel;
             }
         }
-
-        skillTotalStatData = new PlayerStatData();
     }
 
     private void Start()

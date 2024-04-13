@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class DisableMonster : MonoBehaviour
 {
-    private void Awake()
+    private void OnEnable()
     {
         GetComponent<HPController_AI>().onDie += DisableGameObject;
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<HPController_AI>().onDie -= DisableGameObject;
     }
 
     private void DisableGameObject()

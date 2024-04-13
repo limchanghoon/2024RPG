@@ -46,3 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillData: {fileID: 11400000, guid: 5955647e878f6c9488f764a7cb0edcb8, type: 2}
   timer: 0
+  thunderPrefab: {fileID: 808729188681895195, guid: af0b72a93f3c4e74ebbd54df226ad981,
+    type: 3}
+  chargePrefab: {fileID: 3103590552771028245, guid: e2568135bd146954382ac2898b75dc9f,
+    type: 3}

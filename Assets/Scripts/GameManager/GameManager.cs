@@ -24,6 +24,7 @@ public class GameManager : MonoSingleton<GameManager>
     public FadeManager fadeManager;
     public DialogUI dialogUI;
     public GameObject playerObj;
+    public GameObject miniMap;
 
     public CinemachineVirtualCamera dialogCam;
     public CinemachineTargetGroup dialogTargetGroup;
@@ -36,6 +37,11 @@ public class GameManager : MonoSingleton<GameManager>
 
     public LoadSceneAsyncManager loadSceneAsyncManager;
     public GameObject bootyPrefab;
+
+    public ESCMenu escMenu;
+
+
+
     public void TurnOnController()
     {
         playerObj.GetComponent<TargetRay>().enabled = true;

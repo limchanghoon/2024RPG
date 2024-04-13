@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class LoadSceneAsyncManager : MonoBehaviour
 {
-    [SerializeField]
-    private Image progessBar;
+    [SerializeField] private GameObject loadingImage;
+    [SerializeField] private Image progessBar;
     string loadSceneName;
 
     private void Awake()
@@ -15,21 +15,41 @@ public class LoadSceneAsyncManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName, bool fadeOut)
     {
         GameManager.Instance.TurnOffController();
         loadSceneName = sceneName;
         progessBar.fillAmount = 0f;
-        StartCoroutine(LoadSceneCoroutine());
+        StartCoroutine(LoadSceneCoroutine(fadeOut));
     }
 
-    private IEnumerator LoadSceneCoroutine()
+    private IEnumerator LoadSceneCoroutine(bool fadeOut)
     {
-        if (SceneManager.GetActiveScene().name != "MainMenu")
+        loadingImage.SetActive(true);
+        progessBar.transform.parent.gameObject.SetActive(true);
+        if (SceneManager.GetActiveScene().name != "MainMenu" && fadeOut)
             yield return GameManager.Instance.fadeManager.Fade(true);
         GameManager.Instance.playerObj.SetActive(false);
         progessBar.transform.parent.gameObject.SetActive(true);
-        SceneManager.LoadScene("EmptyScene");
+
+        StartCoroutine(LoadEnotySceneCoroutine());
+    }
+
+    private IEnumerator LoadEnotySceneCoroutine()
+    {
+        AsyncOperation op = SceneManager.LoadSceneAsync("EmptyScene");
+        op.allowSceneActivation = false;
+
+        while (!op.isDone)
+        {
+            yield return null;
+            progessBar.fillAmount = Mathf.Min(op.progress / 9f, 0.1f);
+            if (op.progress >= 0.9f)
+            {
+                op.allowSceneActivation = true;
+                yield break;
+            }
+        }
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -47,8 +67,9 @@ public class LoadSceneAsyncManager : MonoBehaviour
         {
             yield return null;
         }
-        yield return GameManager.Instance.fadeManager.Fade(false);
+        loadingImage.SetActive(false);
         progessBar.transform.parent.gameObject.SetActive(false);
+        yield return GameManager.Instance.fadeManager.Fade(false);
         GameManager.Instance.TurnOnController();
     }
 
@@ -61,10 +82,15 @@ public class LoadSceneAsyncManager : MonoBehaviour
         while (!op.isDone)
         {
             yield return null;
-            timer += Time.unscaledDeltaTime;
+            timer += Time.deltaTime;
             if (op.progress < 0.9f)
             {
-                progessBar.fillAmount = Mathf.Min(op.progress, timer);
+                progessBar.fillAmount = Mathf.Max(0.1f, Mathf.Min(op.progress, timer));
+            }
+            else
+            {
+                op.allowSceneActivation = true;
+                break;
             }
         }
         timer = 0f;
@@ -74,8 +100,6 @@ public class LoadSceneAsyncManager : MonoBehaviour
             timer += Time.unscaledDeltaTime;
             progessBar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
         }
-        progessBar.fillAmount = 1f;
-        op.allowSceneActivation = true;
         yield break;
     }
 }

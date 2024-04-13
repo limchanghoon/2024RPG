@@ -84,6 +84,13 @@ public class RayForHelp : MonoBehaviour
         }
     }
 
+    public void ResetHelp()
+    {
+        if (_help != null)
+            _help.CloseHelp();
+        _help = null;
+    }
+
     public void TurnOff()
     {
         if (_help != null)

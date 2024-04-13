@@ -16,7 +16,7 @@ MonoBehaviour:
   questName: "\uAD11\uBB3C \uC218\uC9D11"
   requiredLevel: 1
   prerequisiteQuest:
-  - {fileID: 11400000, guid: b1eab07ca8fec9c4dbf3828a271af103, type: 2}
+  - {fileID: 11400000, guid: 10d8f534476f090468fe3e2b83333745, type: 2}
   startable_Dialogs:
   - npcId: 2
     step: 0
@@ -48,6 +48,6 @@ MonoBehaviour:
   summary: "\uB9C8\uC774\uD06C\uAC00 \uAD11\uBB3C\uC744 \uC694\uAD6C\uD588\uB2E4.
     \uADC0\uCC2E\uC740 \uC0AC\uB78C\uC774\uB2E4.."
   rewardGold:
-    gold: 0
+    gold: 10000
   rewardExp:
-    exp: 90
+    exp: 300

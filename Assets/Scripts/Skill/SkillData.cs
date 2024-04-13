@@ -38,6 +38,11 @@ public class SkillData : IGetAddress
         return true;
     }
 
+    public int GetDamageValue(int skillDamageIdx)
+    {
+        return scriptableSkillData.values[skillDamageIdx].value[skillLevel - 1];
+    }
+
     public ScriptableSkillData GetScriptableSkillData()
     {
         return scriptableSkillData;

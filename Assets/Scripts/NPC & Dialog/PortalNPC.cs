@@ -11,7 +11,7 @@ public class PortalNPC : MonoBehaviour, HelpForRay
 
     public void Interact1()
     {
-        GameManager.Instance.loadSceneAsyncManager.LoadScene("Village");
+        GameManager.Instance.loadSceneAsyncManager.LoadScene("Village", true);
     }
 
     public void Interact2()

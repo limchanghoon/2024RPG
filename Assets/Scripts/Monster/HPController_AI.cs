@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +13,7 @@ public class HPController_AI : MonoBehaviour, IHit
     [SerializeField] bool dropBooty;
     [SerializeField] Image hpBar;
     [SerializeField] Image hpBarBack;
+    [SerializeField] TextMeshProUGUI monsterHPText;
 
     float backHPTimer = 0f;
 
@@ -39,7 +40,14 @@ public class HPController_AI : MonoBehaviour, IHit
     private void Start()
     {
         currentHP = scriptableMonsterData.monsterMaxHP;
+        UpdateHpbar();
+    }
+
+    private void UpdateHpbar()
+    {
         hpBar.fillAmount = (float)currentHP / scriptableMonsterData.monsterMaxHP;
+        if (monsterHPText != null)
+            monsterHPText.text = $"{currentHP} / {scriptableMonsterData.monsterMaxHP}";
     }
 
     public void Hit(int dmg, AttackAttribute attackAttribute, Transform ownerTr, bool isCri)
@@ -48,9 +56,9 @@ public class HPController_AI : MonoBehaviour, IHit
         NotifyHit(ownerTr);
         GameManager.Instance.objectPoolManager.GetObject(ObjectPoolType.DamageText).GetComponent<DamageText>().SetAndActive(dmg, transform.position, attackAttribute, isCri);
         currentHP = currentHP < dmg ? 0 : currentHP - dmg;
-        hpBar.fillAmount = (float)currentHP / scriptableMonsterData.monsterMaxHP;
+        UpdateHpbar();
 
-        if(coroutine ==  null)
+        if (coroutine ==  null)
         {
             coroutine = StartCoroutine(backHpbarCoroutine());
         }
@@ -65,7 +73,7 @@ public class HPController_AI : MonoBehaviour, IHit
             Die();
 
             if (dropBooty)
-                Instantiate(GameManager.Instance.bootyPrefab, transform.position + Vector3.up, Quaternion.identity);
+                Instantiate(GameManager.Instance.bootyPrefab, transform.position + Vector3.up, transform.rotation).GetComponent<Booty>().SetItems(scriptableMonsterData);
         }
     }
 

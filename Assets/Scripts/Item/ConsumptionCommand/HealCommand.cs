@@ -11,6 +11,7 @@ public class HealCommand : MonoBehaviour, ICommand
 
     private void Awake()
     {
+        timer = cooldown;
         DontDestroyOnLoad(this);
     }
 

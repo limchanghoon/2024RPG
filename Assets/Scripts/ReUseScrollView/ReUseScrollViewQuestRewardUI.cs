@@ -12,8 +12,7 @@ public class ReUseScrollViewQuestRewardUI : ReUseScrollViewContents<IGetAddress>
 
     protected override void UpdateContent(int childIndex, int dataIndex)
     {
-        var temp = datas[dataIndex] as ScriptableItemData_Count;
-        if(temp != null)
+        if (datas[dataIndex] is ScriptableItemData_Count temp)
         {
             content.GetChild(childIndex).GetComponentInChildren<GetScriptableItemInfo>().SetItem(temp.scriptableItemData);
         }
@@ -21,6 +20,7 @@ public class ReUseScrollViewQuestRewardUI : ReUseScrollViewContents<IGetAddress>
         {
             content.GetChild(childIndex).GetComponentInChildren<GetScriptableItemInfo>().SetItem(null);
         }
+
         AddressableManager.Instance.LoadSprite(datas[dataIndex].GetAddress(), content.GetChild(childIndex).GetComponentInChildren<Image>());
         content.GetChild(childIndex).GetComponentInChildren<TextMeshProUGUI>().text = datas[dataIndex].ToString();
     }

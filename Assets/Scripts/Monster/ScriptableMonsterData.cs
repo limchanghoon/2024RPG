@@ -8,4 +8,7 @@ public class ScriptableMonsterData : ScriptableObject
 
     public int monsterMaxHP;
     public int rewardExp;
+    public int rewardGold;
+
+    public ScriptableItemData_Count_Probability[] scriptableItemData_Count_Probabilities;
 }

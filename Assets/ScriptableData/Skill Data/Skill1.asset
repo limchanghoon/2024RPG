@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Skill1
   m_EditorClassIdentifier: 
   skillID: 1
-  skillName: "\uC775\uC2A4\uD50C\uB85C\uC804!"
+  skillName: "\uD654\uC5FC\uBC29\uC0AC"
   skillType: 1
   requiredLevel: 3
   masterLevel: 10
   cooldown: 5
   values:
-  - value: 66000000680000006a0000006c0000006e0000007000000072000000740000007600000078000000
+  - value: ca000000cc000000ce000000d0000000d2000000d4000000d6000000d8000000da000000dc000000
     skillValueType: 0
-  skillDescription: "\uC751\uCD95\uB41C \uD64D\uC5FC\uC758 \uD798\uC744 \uD3ED\uBC1C\uC2DC\uCF1C
+  skillDescription: "\uC751\uCD95\uB41C \uD64D\uC5FC\uC758 \uD798\uC744 \uBC29\uCD9C\uD574
     {\uC218\uCE58}%\uC758 \uB370\uBBF8\uC9C0\uB97C \uC785\uD788\uB294 \uB9C8\uBC95\uC774\uB2E4."
   skillCommandObj: {fileID: 3956842747744651386, guid: 67c66c0ecad6f4848b12e2e4500c5359,
     type: 3}

@@ -39,6 +39,7 @@ public class InputManager : MonoBehaviour
         GameManager.Instance.questManager.questUI.Close();
         GameManager.Instance.skillManager.skillUI.Close();
         GameManager.Instance.enchantManager.enchantUI.Close();
+        GameManager.Instance.escMenu.Close();
 
         depth = 0;
         UpdateCursor();
@@ -88,6 +89,19 @@ public class InputManager : MonoBehaviour
     public void ToggleEnchantWindow()
     {
         if (GameManager.Instance.enchantManager.enchantUI.Toggle())
+        {
+            depth++;
+        }
+        else
+        {
+            depth--;
+        }
+        UpdateCursor();
+    }
+
+    public void ToggleESC()
+    {
+        if (GameManager.Instance.escMenu.Toggle())
         {
             depth++;
         }

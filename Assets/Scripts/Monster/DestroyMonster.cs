@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class DestroyMonster : MonoBehaviour
 {
-    private void Awake()
+    private void OnEnable()
     {
         GetComponent<HPController_AI>().onDie += DestroyGameObject;
     }
 
+    private void OnDisable()
+    {
+        GetComponent<HPController_AI>().onDie -= DestroyGameObject;
+    }
+
     public void DestroyGameObject()
     {
-        Debug.Log("DestroyGameObject");
         Destroy(gameObject);
     }
 }

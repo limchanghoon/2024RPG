@@ -9,6 +9,7 @@ public abstract class MonoActiveSkill : MonoBehaviour, ICommand
 
     protected virtual void Awake()
     {
+        timer = skillData.cooldown;
         DontDestroyOnLoad(this);
     }
 

@@ -9,6 +9,7 @@ public class GetScriptableItemInfo : MonoBehaviour, IGetInfo, IGetAddress
         this.item = item;
     }
 
+
     public string GetInfo()
     {
         if (item == null) return string.Empty;

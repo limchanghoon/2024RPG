@@ -23,5 +23,4 @@ MonoBehaviour:
     skillValueType: 1
   skillDescription: "\uC804\uD22C \uC5F0\uC2B5\uC744 \uD1B5\uD574 \uACF5\uACA9\uB825
     {\uC218\uCE58}\uC744 \uC5BB\uB294\uB2E4."
-  skillCommandObj: {fileID: 1803155637481852900, guid: 4a7566115adfdce46ab8f0bf57c4e720,
-    type: 3}
+  skillCommandObj: {fileID: 0}

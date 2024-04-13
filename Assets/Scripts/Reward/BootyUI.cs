@@ -12,6 +12,11 @@ public class BootyUI : MonoBehaviour
 
     public void SetUI(Booty newBooty)
     {
+        if (newBooty == null)
+        {
+            m_booty = null;
+            return;
+        }
         if(m_booty == newBooty)
             return;
         m_booty = newBooty;
@@ -25,7 +30,7 @@ public class BootyUI : MonoBehaviour
             bootyItemPanel.transform.GetChild(idx).gameObject.SetActive(true);
             ++idx;
         }
-        for (int i = m_booty.curIndex; idx < bootyItemPanel.transform.childCount && i < m_booty.itemDatas.Length; ++idx, ++i)
+        for (int i = m_booty.curIndex; idx < bootyItemPanel.transform.childCount && i < m_booty.itemDatas.Count; ++idx, ++i)
         {
             AddressableManager.Instance.LoadSprite(m_booty.itemDatas[i].GetAddress(), bootyItemPanel.transform.GetChild(idx).GetChild(0).GetComponent<Image>());
             bootyItemPanel.transform.GetChild(idx).GetChild(1).GetComponent<TextMeshProUGUI>().text
@@ -45,10 +50,10 @@ public class BootyUI : MonoBehaviour
         bootyUICanvas.enabled = _active;
     }
 
-    public void RemoveTopBooty()
+    public bool RemoveTopBooty()
     {
         int lastIndex = m_booty.curIndex + bootyItemPanel.transform.childCount - 1;
-        if (lastIndex < m_booty.itemDatas.Length)
+        if (lastIndex < m_booty.itemDatas.Count)
         {
             AddressableManager.Instance.LoadSprite(m_booty.itemDatas[lastIndex].GetAddress(), bootyItemPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>());
             bootyItemPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text 
@@ -58,11 +63,11 @@ public class BootyUI : MonoBehaviour
             bootyItemPanel.transform.GetChild(0).gameObject.SetActive(false);
         bootyItemPanel.transform.GetChild(0).SetAsLastSibling();
 
-        if (m_booty.curIndex >= m_booty.itemDatas.Length)
+        if (m_booty.curIndex >= m_booty.itemDatas.Count)
         {
-            Destroy(m_booty.gameObject);
-            m_booty = null;
-            bootyUICanvas.enabled = false;
+            GameManager.Instance.rayForHelp.ResetHelp();
+            return true;
         }
+        return false;
     }
 }
