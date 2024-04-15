@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class EnchantSlot : ItemSlot
 {
@@ -9,6 +11,14 @@ public class EnchantSlot : ItemSlot
     [SerializeField] EnchantManager enchantManager;
     [SerializeField] GameObject img_bg;
     [SerializeField] GetItemInfo getItemInfo;
+
+    AsyncOperationHandle<Sprite> op;
+
+    private void OnDestroy()
+    {
+        if (op.IsValid())
+            Addressables.Release(op);
+    }
 
     public override ItemData GetItem()
     {
@@ -32,11 +42,12 @@ public class EnchantSlot : ItemSlot
         if (currentItem == null)
         {
             img.gameObject.SetActive(false);
+            AddressableManager.Instance.LoadSprite("BG", img, ref op);
             img_bg.SetActive(true);
         }
         else
         {
-            AddressableManager.Instance.LoadSprite(currentItem.id.ToString(), img);
+            AddressableManager.Instance.LoadSprite(currentItem.id.ToString(), img, ref op);
             img_bg.SetActive(false);
             img.gameObject.SetActive(true);
         }

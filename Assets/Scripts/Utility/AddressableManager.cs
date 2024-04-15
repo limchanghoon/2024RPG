@@ -2,15 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 public class AddressableManager : MonoSingleton<AddressableManager>
 {
+
     [SerializeField] Sprite bgSprite;
+    AsyncOperationHandle<IList<ScriptableQuestData>> questHandle;
 
     private void Start()
     {
         StartCoroutine(InitAddressable());
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (questHandle.IsValid())
+            Addressables.Release(questHandle);
     }
 
     private IEnumerator InitAddressable()
@@ -19,15 +29,26 @@ public class AddressableManager : MonoSingleton<AddressableManager>
         yield return init;
     }
 
-    public void LoadSprite(string address_str, Image targetImage)
-    {        
+
+    public void LoadSprite(string address_str, Image targetImage, ref AsyncOperationHandle<Sprite> oldOp)
+    {
+        if (oldOp.IsValid())
+            Addressables.Release(oldOp);
+        if(address_str == "BG")
+        {
+            targetImage.sprite = bgSprite;
+            return;
+        }
+
         var op = Addressables.LoadAssetAsync<Sprite>(address_str);
         Sprite _data = op.WaitForCompletion();
         if (op.Result != null)
         {
-            targetImage.sprite= _data;
+
+            targetImage.sprite = _data;
+            oldOp = op;
+
         }
-        //Addressables.Release(op);
     }
 
     public string LoadItemDescription(string address_str)
@@ -76,8 +97,7 @@ public class AddressableManager : MonoSingleton<AddressableManager>
     {
         var op = Addressables.LoadAssetsAsync<ScriptableQuestData>("QuestData", null);
         var _data = op.WaitForCompletion();
-       
-        //Addressables.Release(op);
+
         return _data;
     }
 

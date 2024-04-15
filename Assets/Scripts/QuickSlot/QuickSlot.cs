@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 public class QuickSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
@@ -10,6 +12,14 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     [SerializeField] Image target;
     [SerializeField] Image cooldown;
     [SerializeField] Sprite background;
+
+    AsyncOperationHandle<Sprite> op;
+
+    private void OnDestroy()
+    {
+        if (op.IsValid())
+            Addressables.Release(op);
+    }
 
     private void Start()
     {
@@ -46,7 +56,7 @@ public class QuickSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     {
         if (_command == null || _address == null) return;
         command = _command;
-        AddressableManager.Instance.LoadSprite(_address, target);
+        AddressableManager.Instance.LoadSprite(_address, target, ref op);
         cooldown.sprite = target.sprite;
         GameManager.Instance.quickSlotManager.SetQuickSlot(keyCode, command.GetQuickSlotType(), command.GetID());
     }

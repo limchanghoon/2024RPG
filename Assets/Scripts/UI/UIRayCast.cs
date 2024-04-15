@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 public class UIRayCast : MonoBehaviour
@@ -15,6 +17,14 @@ public class UIRayCast : MonoBehaviour
     IGetInfo getItemInfo;
 
     Vector2 ratio;
+
+    AsyncOperationHandle<Sprite> op;
+
+    private void OnDestroy()
+    {
+        if (op.IsValid())
+            Addressables.Release(op);
+    }
 
     private void Awake()
     {
@@ -55,7 +65,7 @@ public class UIRayCast : MonoBehaviour
                     {
                         return;
                     }
-                    AddressableManager.Instance.LoadSprite(_getAddress.GetAddress(), itemImage);
+                    AddressableManager.Instance.LoadSprite(_getAddress.GetAddress(), itemImage, ref op);
                     itemInfoText.text = getItemInfo.GetInfo();
                     MoveInfoRect(pointer.position);
                 }

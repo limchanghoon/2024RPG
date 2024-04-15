@@ -43,8 +43,8 @@ public class ReUseScrollViewSkillUI : ReUseScrollViewContents<int>
         DragSkill _dragSkill = dragSkills[dataIndex % itemSize];
         _dragSkill.OnEndDrag(null);
         _dragSkill.SetSkill(tempSkill);
-        Image targetImage = content.GetChild(childIndex).GetComponent<GetTargetImage>().GetImage();
-        AddressableManager.Instance.LoadSprite(tempSkill.GetAddress(), targetImage);
+        GetTargetImage getTargetImage = content.GetChild(childIndex).GetComponent<GetTargetImage>();
+        AddressableManager.Instance.LoadSprite(tempSkill.GetAddress(), getTargetImage.GetImage(), ref getTargetImage.op);
 
         content.GetChild(childIndex).GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Lv {tempSkill.requiredLevel} : {tempSkill.skillName}";
 
@@ -53,7 +53,7 @@ public class ReUseScrollViewSkillUI : ReUseScrollViewContents<int>
         if(tempSkill.requiredLevel > GameManager.Instance.playerInfoManager.playerInfoData.playerLevel)
         {
             _dragSkill.enabled = false;
-            targetImage.color = Color.gray;
+            getTargetImage.GetImage().color = Color.gray;
             content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = false;
             content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = false;
         }
@@ -62,21 +62,21 @@ public class ReUseScrollViewSkillUI : ReUseScrollViewContents<int>
             if (tempSkill.skillLevel <= 0)
             {
                 _dragSkill.enabled = false;
-                targetImage.color = Color.gray;
+                getTargetImage.GetImage().color = Color.gray;
                 content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = true;
                 content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = false;
             }
             else if(tempSkill.skillLevel == tempSkill.masterLevel)
             {
                 _dragSkill.enabled = true;
-                targetImage.color = Color.white;
+                getTargetImage.GetImage().color = Color.white;
                 content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = false;
                 content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = true;
             }
             else
             {
                 _dragSkill.enabled = true;
-                targetImage.color = Color.white;
+                getTargetImage.GetImage().color = Color.white;
                 content.GetChild(childIndex).GetChild(3).GetComponent<Button>().interactable = true;
                 content.GetChild(childIndex).GetChild(4).GetComponent<Button>().interactable = true;
             }

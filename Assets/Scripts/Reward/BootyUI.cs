@@ -25,14 +25,16 @@ public class BootyUI : MonoBehaviour
         int idx = 0;
         if(m_booty.gold.gold > 0)
         {
-            AddressableManager.Instance.LoadSprite(m_booty.gold.GetAddress(), bootyItemPanel.transform.GetChild(idx).GetChild(0).GetComponent<Image>());
+            GetTargetImage getTargetImage = bootyItemPanel.transform.GetChild(idx).GetComponent<GetTargetImage>();
+            AddressableManager.Instance.LoadSprite(m_booty.gold.GetAddress(), getTargetImage.GetImage(), ref getTargetImage.op);
             bootyItemPanel.transform.GetChild(idx).GetChild(1).GetComponent<TextMeshProUGUI>().text = m_booty.gold.ToString();
             bootyItemPanel.transform.GetChild(idx).gameObject.SetActive(true);
             ++idx;
         }
         for (int i = m_booty.curIndex; idx < bootyItemPanel.transform.childCount && i < m_booty.itemDatas.Count; ++idx, ++i)
         {
-            AddressableManager.Instance.LoadSprite(m_booty.itemDatas[i].GetAddress(), bootyItemPanel.transform.GetChild(idx).GetChild(0).GetComponent<Image>());
+            GetTargetImage getTargetImage = bootyItemPanel.transform.GetChild(idx).GetComponent<GetTargetImage>();
+            AddressableManager.Instance.LoadSprite(m_booty.itemDatas[i].GetAddress(), getTargetImage.GetImage(), ref getTargetImage.op);
             bootyItemPanel.transform.GetChild(idx).GetChild(1).GetComponent<TextMeshProUGUI>().text
                 = $"{m_booty.itemDatas[i].scriptableItemData.GetName()} : {m_booty.itemDatas[i].count}°³";
             bootyItemPanel.transform.GetChild(idx).gameObject.SetActive(true);
@@ -55,7 +57,8 @@ public class BootyUI : MonoBehaviour
         int lastIndex = m_booty.curIndex + bootyItemPanel.transform.childCount - 1;
         if (lastIndex < m_booty.itemDatas.Count)
         {
-            AddressableManager.Instance.LoadSprite(m_booty.itemDatas[lastIndex].GetAddress(), bootyItemPanel.transform.GetChild(0).GetChild(0).GetComponent<Image>());
+            GetTargetImage getTargetImage = bootyItemPanel.transform.GetChild(0).GetComponent<GetTargetImage>();
+            AddressableManager.Instance.LoadSprite(m_booty.itemDatas[lastIndex].GetAddress(), getTargetImage.GetImage(), ref getTargetImage.op);
             bootyItemPanel.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text 
                 = $"{m_booty.itemDatas[lastIndex].scriptableItemData.GetName()} : {m_booty.itemDatas[lastIndex].count}°³";
         }

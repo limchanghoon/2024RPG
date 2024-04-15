@@ -1,32 +1,65 @@
 using UnityEditor;
 using UnityEngine.AddressableAssets;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 [CustomEditor(typeof(ScriptableItemData), true)]
 public class ScriptableItemDataEditor : Editor
 {
     ScriptableItemData data;
+    int id;
+    Texture2D _sprite;
+    AsyncOperationHandle<Texture2D> op;
 
     private void OnEnable()
     {
         data = target as ScriptableItemData;
+        id = 0;
+        _sprite = null;
+    }
+
+    private void OnDisable()
+    {
+        if (op.IsValid())
+            Addressables.Release(op);
     }
 
     public override void OnInspectorGUI()
     {
-        var op = Addressables.LoadAssetAsync<Texture2D>(data.id.ToString());
-        Texture2D _sprite = op.WaitForCompletion();
-        if (_sprite != null)
+        if (id != data.id)
         {
-            GUILayout.Box(_sprite, GUILayout.Width(_sprite.width), GUILayout.Height(_sprite.height));
-            GUILayout.TextArea(op.Result.name);
+            if (op.IsValid())
+                Addressables.Release(op);
+            op = Addressables.LoadAssetAsync<Texture2D>(data.id.ToString());
+            _sprite = op.WaitForCompletion();
+            if (_sprite != null)
+            {
+                GUILayout.Box(_sprite, GUILayout.Width(_sprite.width), GUILayout.Height(_sprite.height));
+                GUILayout.TextArea(op.Result.name);
+            }
+            else
+            {
+                GUILayout.Box("", GUILayout.Width(128), GUILayout.Height(128));
+                GUILayout.TextArea("해당 ID의 아이템이 없습니다!");
+                _sprite = null;
+            }
+            id = data.id;
         }
         else
         {
-            GUILayout.Box("",GUILayout.Width(128), GUILayout.Height(128));
-            GUILayout.TextArea("해당 ID의 아이템이 없습니다!");
+            if (_sprite != null)
+            {
+                GUILayout.Box(_sprite, GUILayout.Width(_sprite.width), GUILayout.Height(_sprite.height));
+                GUILayout.TextArea(_sprite.name);
+                id = data.id;
+            }
+            else
+            {
+                GUILayout.Box("", GUILayout.Width(128), GUILayout.Height(128));
+                GUILayout.TextArea("해당 ID의 아이템이 없습니다!");
+            }
         }
-        Addressables.Release(op);
+
         base.OnInspectorGUI();
         GUILayout.Space(10);
         GUILayout.Label("Item Description", EditorStyles.boldLabel);

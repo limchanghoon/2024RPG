@@ -19,7 +19,7 @@ public abstract class ReUseScrollViewContents<T> : MonoBehaviour
 
     protected RectTransform[] childs;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         curIndex = 1;
         childs = new RectTransform[content.childCount];

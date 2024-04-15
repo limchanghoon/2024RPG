@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 public abstract class ItemSlot : MonoBehaviour, IDropHandler
@@ -9,6 +11,14 @@ public abstract class ItemSlot : MonoBehaviour, IDropHandler
     [SerializeField] protected int slotIndex;
     public ItemType itemType;
     public Image img;
+
+    AsyncOperationHandle<Sprite> op;
+
+    private void OnDestroy()
+    {
+        if (op.IsValid())
+            Addressables.Release(op);
+    }
 
     public void SetSlotIndex()
     {
@@ -41,11 +51,12 @@ public abstract class ItemSlot : MonoBehaviour, IDropHandler
         if (curItem.Empty())
         {
             img.gameObject.SetActive(false);
+            AddressableManager.Instance.LoadSprite("BG", img, ref op);
             img.GetComponent<DragInventoryItem>().OnEndDrag(null);
         }
         else
         {
-            AddressableManager.Instance.LoadSprite(curItem.id.ToString(), img);
+            AddressableManager.Instance.LoadSprite(curItem.id.ToString(), img, ref op);
             img.gameObject.SetActive(true);
         }
     }
