@@ -95,9 +95,8 @@ public class AddressableManager : MonoSingleton<AddressableManager>
 
     public IList<ScriptableQuestData> LoadAllQuestData()
     {
-        var op = Addressables.LoadAssetsAsync<ScriptableQuestData>("QuestData", null);
-        var _data = op.WaitForCompletion();
-
+        questHandle = Addressables.LoadAssetsAsync<ScriptableQuestData>("QuestData", null);
+        var _data = questHandle.WaitForCompletion();
         return _data;
     }
 
