@@ -158,8 +158,8 @@ public class AddressableManager : MonoSingleton<AddressableManager>
     public override void OnDestroy()
     {
         base.OnDestroy();
-
-        Addressables.Release(questHandle);
+        if (questHandle.IsValid())
+            Addressables.Release(questHandle);
     }
 
     private IEnumerator InitAddressable()
@@ -234,9 +234,10 @@ public class AddressableManager : MonoSingleton<AddressableManager>
 
     public IList<ScriptableQuestData> LoadAllQuestData()
     {
-        var op = Addressables.LoadAssetsAsync<ScriptableQuestData>("QuestData", null);
-        var _data = op.WaitForCompletion();
-
+        if (questHandle.IsValid())
+            Addressables.Release(questHandle);
+        questHandle = Addressables.LoadAssetsAsync<ScriptableQuestData>("QuestData", null);
+        var _data = questHandle.WaitForCompletion();
         return _data;
     }
 
